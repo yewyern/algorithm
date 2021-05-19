@@ -1,32 +1,47 @@
 package concurrent;
 
 /**
- * @author zhou.xu
- * @date 2020/2/21 19:02
+ * @author xuzhou
+ * @date 2021/4/25 10:59
  */
 public class Disorder {
 
-    private static int a = 0, b = 0, x = 0, y = 0;
+    private static int x = 0, y = 0;
+    private static int a = 0, b = 0;
 
     public static void main(String[] args) throws InterruptedException {
-        int count = 0;
-        while (true) {
-            Thread thread1 = new Thread(() -> {
+        int i = 0;
+        for (; ; ) {
+            i++;
+            x = 0;
+            y = 0;
+            a = 0;
+            b = 0;
+            Thread one = new Thread(() -> {
+                shortWait(100);
                 a = 1;
-                y = b;
+                x = b;
             });
-            Thread thread2 = new Thread(() -> {
+            Thread two = new Thread(() -> {
                 b = 1;
-                x = a;
+                y = a;
             });
-            thread1.start();
-            thread2.start();
-            thread1.join();
-            thread2.join();
+            one.start();
+            two.start();
+            one.join();
+            two.join();
             if (x == 0 && y == 0) {
-                System.err.println("count = " + count);
+                System.err.println("第 " + i + "次 (" + x + ", " + y + ")");
                 break;
             }
         }
+    }
+
+    public static void shortWait(long interval) {
+        long start = System.nanoTime();
+        long end;
+        do {
+            end = System.nanoTime();
+        } while (start + interval >= end);
     }
 }
