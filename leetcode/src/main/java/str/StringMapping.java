@@ -1,4 +1,4 @@
-package sub;
+package str;
 
 /**
  * 假设 1-A,2-B,3-C
@@ -11,7 +11,7 @@ package sub;
 public class StringMapping {
 
     public static void main(String[] args) {
-        test("111", 3);
+//        test("111", 3);
         test("123", 3);
         test("127", 2);
         test("1279", 2);
@@ -45,7 +45,7 @@ public class StringMapping {
         }
         if (s[index] == '2') {
             return process(s, index + 1)
-                + (index + 1 < s.length && s[index + 1] < 7 ? process(s, index + 2) : 0);
+                + (index + 1 < s.length && s[index + 1] < '7' ? process(s, index + 2) : 0);
         }
         return process(s, index + 1);
     }

@@ -10,7 +10,11 @@ import java.util.TreeSet;
 public class HappyNumber {
 
     public static void main(String[] args) {
-        System.out.println(isHappyNumber(19));
+        for (int i = 0; i < 100; i++) {
+            System.out.println(i + 1);
+            System.out.println(isHappyNumber(i + 1));
+            System.out.println("--------------------");
+        }
     }
 
     /**

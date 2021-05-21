@@ -1,4 +1,4 @@
-package sub;
+package str;
 
 import java.util.Arrays;
 import utils.GenerateRandomString;

@@ -21,9 +21,6 @@ public class ListNode {
 
     @Override
     public String toString() {
-        if (next != null) {
-            return val + " -> " + next;
-        }
         return "" + val;
     }
 }
