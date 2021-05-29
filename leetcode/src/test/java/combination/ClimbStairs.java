@@ -61,11 +61,15 @@ public class ClimbStairs {
 
     @Test
     public void test() {
-        for (int i = 0; i < 100; i++) {
-            long l = System.currentTimeMillis();
+        for (int i = 0; i < 1000; i++) {
+            long l = System.nanoTime();
             int i1 = climbStairs(i);
-            long l1 = System.currentTimeMillis();
-            System.out.println("climbStairs.climbStairs(" + i + ") = " + i1 + "");
+            long l1 = System.nanoTime();
+            System.out.println("climbStairs.climbStairs(" + i + ") = " + i1 + ", spent: " + (l1 - l));
+            int i2 = climbStairs2(i);
+            long l2 = System.nanoTime();
+            System.out.println("climbStairs.climbStairs2(" + i + ") = " + i2 + ", spent: " + (l2 - l1));
+            System.out.println("----------------------------");
         }
     }
 }

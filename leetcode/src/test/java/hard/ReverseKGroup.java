@@ -1,8 +1,8 @@
 package hard;
 
 import org.junit.Test;
-import utils.ArrayUtils;
 import utils.ListNode;
+import utils.ListUtils;
 
 /**
  * <p>给你一个链表，每 k 个节点一组进行翻转，请你返回翻转后的链表。
@@ -59,9 +59,9 @@ public class ReverseKGroup {
 
     @Test
     public void test() {
-        ListNode node = ArrayUtils.toListNodes(1, 2, 3, 4, 5);
+        ListNode node = ListUtils.toListNodes(1, 2, 3, 4, 5);
         test(node, 2);
-        node = ArrayUtils.toListNodes(1, 2, 3, 4, 5);
+        node = ListUtils.toListNodes(1, 2, 3, 4, 5);
         test(node, 3);
     }
 

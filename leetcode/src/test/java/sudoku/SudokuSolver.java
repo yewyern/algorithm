@@ -23,7 +23,7 @@ public class SudokuSolver implements Runnable {
     private final Stack<int[]> stack = new Stack<>();
     private boolean forward = true;
     private SudokuBean[][] ground;
-    private long sleepInterval = 1000;
+    private final long sleepInterval = 100;
 
     @Override
     public void run() {

@@ -3,8 +3,8 @@ package hard;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import org.junit.Test;
-import utils.ArrayUtils;
 import utils.ListNode;
+import utils.ListUtils;
 
 /**
  * <p>给你一个链表数组，每个链表都已经按升序排列。
@@ -181,7 +181,7 @@ public class MergeKLists {
         ListNode[] nodes = new ListNode[length];
         for (int i = 0; i < length; i++) {
             int[] num = nums[i];
-            ListNode node = ArrayUtils.toListNodes(num);
+            ListNode node = ListUtils.toListNodes(num);
             nodes[i] = node;
         }
         ListNode listNode = mergeKLists(nodes);

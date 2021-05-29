@@ -2,8 +2,8 @@ package normal;
 
 import java.util.Arrays;
 import org.junit.Test;
-import utils.ArrayUtils;
 import utils.ListNode;
+import utils.ListUtils;
 import utils.TreeNode;
 import utils.TreeUtils;
 
@@ -67,7 +67,7 @@ public class SortedListToBSTTest {
     }
 
     public void test(int... nums) {
-        ListNode listNode = ArrayUtils.toListNodes(nums);
+        ListNode listNode = ListUtils.toListNodes(nums);
         TreeNode treeNode = sortedListToBST(listNode);
         System.out.println("treeNode = " + treeNode);
         int[] treeNodes = TreeUtils.toListWideFirst(treeNode);

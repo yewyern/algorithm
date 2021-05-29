@@ -36,8 +36,10 @@ public class IsPowerOfTwo {
 
     @Test
     public void test() {
-        for (int i = 0; i < 16; i++) {
-            System.out.println("i = " + (i + 1) + " : " + isPowerOfTwo2(i + 1));
+        for (int i = 0; i < 100000; i++) {
+            if (isPowerOfTwo(i) != isPowerOfTwo2(i)) {
+                System.out.println("i = " + (i) + " : " + isPowerOfTwo2(i));
+            }
         }
     }
 }
