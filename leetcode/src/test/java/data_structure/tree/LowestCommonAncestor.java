@@ -41,4 +41,23 @@ public class LowestCommonAncestor {
         }
         return ancestor;
     }
+
+    public int lowestCommonAncestor(TreeNode root, int o1, int o2) {
+        return process(root, o1, o2).val;
+    }
+
+    private TreeNode process(TreeNode root, int o1, int o2) {
+        if (root == null) {
+            return null;
+        }
+        if (root.val == o1 || root.val == o2) {
+            return root;
+        }
+        TreeNode left = process(root.left, o1, o2);
+        TreeNode right = process(root.right, o1, o2);
+        if (left != null && right != null) {
+            return root;
+        }
+        return left != null ? left : right;
+    }
 }

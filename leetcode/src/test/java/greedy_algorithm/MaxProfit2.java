@@ -1,4 +1,4 @@
-package array;
+package greedy_algorithm;
 
 import org.junit.Test;
 import utils.ArrayUtils;

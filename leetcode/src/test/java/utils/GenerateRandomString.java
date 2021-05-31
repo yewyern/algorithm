@@ -9,8 +9,9 @@ import java.util.Random;
 public class GenerateRandomString {
 
     private static final Random random = new Random(System.currentTimeMillis());
-    private static final int MAX_STRING_LEN = 1000;
-    private static final char[] CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+    public static final int MAX_STRING_LEN = 1000;
+    public static final char[] CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        .toCharArray();
 
     public static void main(String[] args) {
         int testCase = 100000;
@@ -29,6 +30,11 @@ public class GenerateRandomString {
             generateRandomString3(i);
         }
         System.out.println("generateRandomString2 = " + (System.nanoTime() - start) / testCase);
+    }
+
+    public static String generateRandomLenString(int maxLen) {
+        int len = random.nextInt(maxLen);
+        return generateRandomString(len);
     }
 
     public static String generateRandomString() {
