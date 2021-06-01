@@ -20,17 +20,20 @@ public class MergeTwoLinkedLists {
     //
     //输入：1->2->4, 1->3->4
     //输出：1->1->2->3->4->4
-    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    public static ListNode mergeTwoLists(ListNode ln1, ListNode ln2) {
+        ListNode l1 = ln1, l2 = ln2;
         ListNode prevNode = new ListNode(-1);
         ListNode pre = prevNode;
         while (l1 != null && l2 != null) {
+            ListNode temp;
             if (l1.val > l2.val) {
-                pre.next = l2;
+                temp = new ListNode(l2.val);
                 l2 = l2.next;
             } else {
-                pre.next = l1;
+                temp = new ListNode(l1.val);
                 l1 = l1.next;
             }
+            pre.next = temp;
             pre = pre.next;
         }
         pre.next = l1 == null ? l2 : l1;
@@ -53,8 +56,8 @@ public class MergeTwoLinkedLists {
         // 3、转成链表 O(n)
         ListNode head = new ListNode(-1);
         ListNode curr = head;
-        for (int i = 0; i < list.size(); i++) {
-            ListNode temp = new ListNode(list.get(i));
+        for (Integer val : list) {
+            ListNode temp = new ListNode(val);
             curr.next = temp;
             curr = temp;
         }
@@ -63,8 +66,7 @@ public class MergeTwoLinkedLists {
 
     @Test
     public void test() {
-        // TODO 对数器没过
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 10000; i++) {
             ListNode l1 = ListUtils.newRandomLengthSortedList(RandomUtils.nextInt(100), 100);
             ListNode l2 = ListUtils.newRandomLengthSortedList(RandomUtils.nextInt(100), 100);
             ListNode r1 = mergeTwoLists(l1, l2);
