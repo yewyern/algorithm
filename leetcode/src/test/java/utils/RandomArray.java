@@ -38,6 +38,17 @@ public class RandomArray {
         return generate(random.nextInt(maxLen), 0, max);
     }
 
+    public static int[] generateRandomLengthArray(int minLen, int maxLen, int minVal,
+        int maxVal) {
+        int len;
+        if (minLen == maxLen) {
+            len = minLen;
+        } else {
+            len = random.nextInt(maxLen - minLen) + minLen;
+        }
+        return generate(len, minVal, maxVal);
+    }
+
     public static int[] generate(int len, int max) {
         return generate(len, 0, max);
     }
