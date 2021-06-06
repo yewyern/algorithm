@@ -49,7 +49,7 @@ public class CheckSubArraySum {
         }
         // map<前缀和对k取模，索引>
         Map<Integer, Integer> map = new HashMap<>();
-        map.put(0, -1);
+        map.put(0, -1); // important
         int remainder = 0;
         for (int i = 0; i < m; i++) {
             remainder = (remainder + nums[i]) % k;
