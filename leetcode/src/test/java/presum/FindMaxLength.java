@@ -54,7 +54,7 @@ public class FindMaxLength {
     }
 
     public int findMaxLengthComparison(int[] nums) {
-        // 暴力方法，所有的子数组，看满不满足，不满足，
+        // 暴力方法，O(n^2)
         int N = nums.length;
         int sum = 0;
         int len = 0;
@@ -62,6 +62,12 @@ public class FindMaxLength {
         for (int i = 0; i < N; i++) {
             arr[i] = nums[i] == 0 ? -1 : 1;
             sum += arr[i];
+        }
+        if (sum == 0) {
+            return N;
+        }
+        if (sum == N || sum == -N) {
+            return 0;
         }
         for (int i = 0; i < N; i++) {
             int temp = sum;
@@ -155,17 +161,26 @@ public class FindMaxLength {
     @Test
     public void testByComparison() {
         int test = 10000;
-        int maxLen = 100;
+        int maxLen = 10000;
         for (int i = 0; i < test; i++) {
             int[] nums = RandomArray.generateRandomLengthNoEmptyArray(maxLen, 2);
-            int maxLength = findMaxLength(nums);
-            int maxLengthComparison = findMaxLengthComparison(nums);
-            if (maxLength != maxLengthComparison) {
-                System.out.println("nums = " + Arrays.toString(nums));
-                System.out.println("maxLength = " + maxLength);
-                System.out.println("maxLengthComparison = " + maxLengthComparison);
-                System.out.println("----------------------------------------");
-            }
+            testComparison(nums);
+        }
+        int[] nums = new int[maxLen];
+        Arrays.fill(nums, 1);
+        testComparison(nums);
+        Arrays.fill(nums, 0);
+        testComparison(nums);
+    }
+
+    private void testComparison(int[] nums) {
+        int maxLength = findMaxLength(nums);
+        int maxLengthComparison = findMaxLengthComparison(nums);
+        if (maxLength != maxLengthComparison) {
+            System.out.println("nums = " + Arrays.toString(nums));
+            System.out.println("maxLength = " + maxLength);
+            System.out.println("maxLengthComparison = " + maxLengthComparison);
+            System.out.println("----------------------------------------");
         }
     }
 

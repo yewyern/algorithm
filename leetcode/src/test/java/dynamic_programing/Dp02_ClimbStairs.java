@@ -1,4 +1,4 @@
-package combination;
+package dynamic_programing;
 
 import org.junit.Test;
 
@@ -26,10 +26,10 @@ import org.junit.Test;
  * <p>3.  2 阶 + 1 阶
  * <p>
  */
-public class ClimbStairs {
+public class Dp02_ClimbStairs {
 
     /**
-     * 循环算法
+     * 动态规划
      *
      * @param n
      * @return
@@ -38,12 +38,12 @@ public class ClimbStairs {
         if (n <= 1) {
             return 1;
         }
-        int a = 1, a0 = 1;
+        int cur = 1, pre = 1;
         for (int i = 1; i < n; i++) {
-            a = a + a0;
-            a0 = a - a0;
+            cur = cur + pre;
+            pre = cur - pre;
         }
-        return a;
+        return cur;
     }
 
     /**

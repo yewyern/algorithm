@@ -1,4 +1,4 @@
-package data_structure.array;
+package presum;
 
 import java.util.Arrays;
 import java.util.HashMap;
