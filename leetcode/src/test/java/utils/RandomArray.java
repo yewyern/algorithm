@@ -49,6 +49,10 @@ public class RandomArray {
         return generate(len, minVal, maxVal);
     }
 
+    public static int[] generateRandomLengthNoEmptyArray(int maxLen, int max) {
+        return generate(maxLen == 1 ? 1 : random.nextInt(maxLen - 1) + 1, 0, max);
+    }
+
     public static int[] generate(int len, int max) {
         return generate(len, 0, max);
     }
@@ -117,6 +121,14 @@ public class RandomArray {
         String[] res = new String[random.nextInt(maxLen)];
         for (int i = 0; i < res.length; i++) {
             res[i] = GenerateRandomString.generateRandomLenString(maxStringLen);
+        }
+        return res;
+    }
+
+    public static String[] generateRandomStringArrayNoEmptyString(int maxLen, int maxStringLen) {
+        String[] res = new String[random.nextInt(maxLen)];
+        for (int i = 0; i < res.length; i++) {
+            res[i] = GenerateRandomString.generateRandomLenStringNoEmpty(maxStringLen);
         }
         return res;
     }

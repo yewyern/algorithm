@@ -68,10 +68,7 @@ public class ListUtils {
             l1 = l1.next;
             l2 = l2.next;
         }
-        if (l1 == null && l2 == null) {
-            return true;
-        }
-        return false;
+        return l1 == null && l2 == null;
     }
 
 }

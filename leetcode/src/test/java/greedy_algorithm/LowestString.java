@@ -72,7 +72,7 @@ public class LowestString {
     @Test
     public void test() {
         for (int i = 0; i < 10000; i++) {
-            String[] array = RandomArray.generateRandomStringArray(10, 10);
+            String[] array = RandomArray.generateRandomStringArrayNoEmptyString(10, 10);
             String s = lowestString(array);
             String s1 = lowestStringComparison(array);
             if (!s.equals(s1)) {
@@ -90,7 +90,7 @@ public class LowestString {
         System.arraycopy(arr, 0, arr2, 0, arr.length);
         String s = lowestString(arr);
         System.out.println("arr = " + Arrays.toString(arr));
-        String s1 = lowestStringComparison(arr);
+        String s1 = lowestStringComparison(arr2);
         if (!s.equals(s1)) {
             System.out.println("s  = " + s);
             System.out.println("s1 = " + s1);

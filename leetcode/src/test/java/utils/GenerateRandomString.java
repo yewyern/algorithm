@@ -37,6 +37,14 @@ public class GenerateRandomString {
         return generateRandomString(len);
     }
 
+    public static String generateRandomLenStringNoEmpty(int maxLen) {
+        if (maxLen < 1) {
+            throw new IllegalArgumentException("最大长度不能小于1");
+        }
+        int len = maxLen == 1 ? 1 : random.nextInt(maxLen - 1) + 1;
+        return generateRandomString(len);
+    }
+
     public static String generateRandomString() {
         int len = random.nextInt(MAX_STRING_LEN);
         return generateRandomString(len);
