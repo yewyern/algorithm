@@ -1,4 +1,4 @@
-package string;
+package str;
 
 import java.util.Arrays;
 import org.junit.Test;
