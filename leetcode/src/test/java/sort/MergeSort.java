@@ -20,10 +20,22 @@ public class MergeSort {
         if (arr == null || arr.length < 2) {
             return;
         }
-        int N = arr.length;
+        mergeSortLoop(arr, 0, arr.length);
+    }
+
+    /**
+     * 循环方案
+     *
+     * @param arr
+     */
+    public static void mergeSortLoop(int[] arr, int from, int to) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        int N = to;
         int step = 1;
         while (step < N) {
-            int L = 0;
+            int L = from;
             int M = step - 1;
             while (M < N) {
                 int R = Math.min(N - 1, M + step);
@@ -62,7 +74,7 @@ public class MergeSort {
         merge(arr, L, M, R);
     }
 
-    public void merge(int[] arr, int L, int M, int R) {
+    public static void merge(int[] arr, int L, int M, int R) {
         // [L...R]
         int p1 = L;
         int p2 = M + 1;
@@ -106,7 +118,7 @@ public class MergeSort {
         System.out.println("a = " + Arrays.toString(a));
     }
 
-    @Test
+    //    @Test
     public void test3() {
         // 数据量太大，无法测试 java.lang.OutOfMemoryError: Requested array size exceeds VM limit
         int[] a = RandomArray.generate(Integer.MAX_VALUE, Integer.MAX_VALUE);

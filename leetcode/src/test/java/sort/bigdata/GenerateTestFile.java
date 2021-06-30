@@ -31,10 +31,10 @@ public class GenerateTestFile {
             for (int i = 0; i < MAX; i++) {
                 int n = RandomUtils.nextInt(MAX);
                 // 直接写出整形，占用7.8g，耗费128s
-                bw.write(n);
-                bw.write('\n');
-                // 写出字符串，占用20g
-                // bw.write(n + "\n");
+//                bw.write(n);
+//                bw.write('\n');
+                // 写出字符串，占用20.9g，耗费154s
+                bw.write(n + "\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
