@@ -59,8 +59,11 @@ public class SudokuSolver implements Runnable {
         this.stop = stop;
     }
 
-    public void setPause(boolean pause) {
-        this.pause = pause;
+    public synchronized void setPause(Thread t) {
+        this.pause = !pause;
+        if (!pause) {
+            LockSupport.unpark(t);
+        }
     }
 
     public void addSpace(int x, int y, int digit, int type, int mask) {
