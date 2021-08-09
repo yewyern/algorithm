@@ -40,6 +40,11 @@ public class CanEatFavoriteCandies {
 
         for (int i = 0; i < queries.length; i++) {
             // TODO
+            int type = queries[i][0];
+            long day = queries[i][1];
+            long cap = queries[i][2];
+            ans[i] = preSum[type] + candiesCount[type] > day
+                && preSum[type] < (day + 1) * cap;
         }
 
         return ans;
