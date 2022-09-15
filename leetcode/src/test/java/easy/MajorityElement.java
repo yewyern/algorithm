@@ -97,7 +97,7 @@ public class MajorityElement {
         int[] res = new int[len];
         int k = RandomUtils.nextInt(max);
         Arrays.fill(res, k);
-        if (len / 2 <= 0) {
+        if (len / 2 == 0) {
             return res;
         }
         int nonKCount = RandomUtils.nextInt(len / 4, len / 2);

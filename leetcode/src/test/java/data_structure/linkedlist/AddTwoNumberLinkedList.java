@@ -57,7 +57,7 @@ public class AddTwoNumberLinkedList {
         ListNode tail = null;
         char[] cs = sum.toString().toCharArray();
         for (char c : cs) {
-            ListNode head = new ListNode((int) (c - '0'));
+            ListNode head = new ListNode(c - '0');
             head.next = tail;
             tail = head;
         }
@@ -90,7 +90,7 @@ public class AddTwoNumberLinkedList {
 
     private void trimEndZero(int[] nums) {
         for (int i = 0; i < nums.length; i++) {
-            
+
         }
     }
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Queue;
 import utils.TreeNode;
 import utils.TreeUtils;
@@ -68,7 +69,7 @@ public class LevelOrderBottom {
             int size = queue.size();
             for (int i = 0; i < size; i++) {
                 TreeNode p = queue.poll();
-                temp.add(p.val);
+                temp.add(Objects.requireNonNull(p).val);
                 if (p.left != null) {
                     queue.add(p.left);
                 }

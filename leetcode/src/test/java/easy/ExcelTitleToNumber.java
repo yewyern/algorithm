@@ -27,7 +27,7 @@ import org.junit.Test;
  * @author : zhou.xu
  * @date : 2020/6/4 15:53
  */
-class ExcelTitleToNumber {
+public class ExcelTitleToNumber {
 
     public int titleToNumber(String s) {
         char[] cs2 = s.toCharArray();

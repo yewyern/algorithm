@@ -14,7 +14,7 @@ public class MaxWater {
         }
         long res = 0;
         int l = 0, c = 1, r = 2;
-        while (l < arr.length && r < arr.length && l < r) {
+        while (r < arr.length) {
 
         }
         return res;

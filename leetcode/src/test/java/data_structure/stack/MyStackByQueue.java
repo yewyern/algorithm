@@ -1,6 +1,7 @@
 package data_structure.stack;
 
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Queue;
 
 /**
@@ -22,7 +23,7 @@ import java.util.Queue;
  */
 public class MyStackByQueue {
 
-    private Queue<Integer> queue;
+    private final Queue<Integer> queue;
 
     /**
      * Initialize your data structure here.
@@ -46,14 +47,14 @@ public class MyStackByQueue {
      * Removes the element on top of the stack and returns that element.
      */
     public int pop() {
-        return queue.poll();
+        return Objects.requireNonNull(queue.poll());
     }
 
     /**
      * Get the top element.
      */
     public int top() {
-        return queue.peek();
+        return Objects.requireNonNull(queue.peek());
     }
 
     /**

@@ -2,7 +2,7 @@ package easy;
 
 import org.junit.Test;
 
-class CountAndSay {
+public class CountAndSay {
 
     //「外观数列」是一个整数序列，从数字 1 开始，序列中的每一项都是对前一项的描述。前五项如下：
     //

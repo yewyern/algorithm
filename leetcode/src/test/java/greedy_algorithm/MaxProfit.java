@@ -41,10 +41,7 @@ public class MaxProfit {
                 maxProfit = Math.max(maxProfit, sum);
             }
         }
-        if (maxProfit < 0) {
-            return 0;
-        }
-        return maxProfit;
+        return Math.max(maxProfit, 0);
     }
 
     /**

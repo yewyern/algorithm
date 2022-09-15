@@ -13,7 +13,7 @@ public class Adder {
     private static long count1 = 0;
     private static AtomicLong count2 = new AtomicLong(0);
     private static LongAdder count3 = new LongAdder();
-    private static Object lock = new Object();
+    private static final Object lock = new Object();
     private static final Long TARGET = 1000000L;
     private static final int THREAD_NUM = 1000;
 
