@@ -11,6 +11,7 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UnsupportedLookAndFeelException;
 import utils.Console;
 
 /**
@@ -82,7 +83,7 @@ public class SudokuFrame extends JFrame {
         solver.setPause(solverThread);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedLookAndFeelException {
         SudokuFrame sudoku = new SudokuFrame();
         sudoku.init();
         sudoku.start("..9748...", "7........", ".2.1.9...", "..7...24.", ".64.1.59.", ".98...3..",

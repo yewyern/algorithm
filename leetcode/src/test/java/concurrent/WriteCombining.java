@@ -1,6 +1,8 @@
 package concurrent;
 
 /**
+ * 合并写
+ *
  * @author xuzhou
  * @date 2021/4/25 9:46
  */
