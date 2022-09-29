@@ -6,7 +6,7 @@ package str;
  * 从左到右匹配模式
  *
  * @author xuzhou
- * @date 2021/3/26 14:59
+ * @since 2021/3/26 14:59
  */
 public class StringMapping {
 

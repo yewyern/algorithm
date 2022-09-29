@@ -6,7 +6,7 @@ import utils.ListUtils;
 
 /**
  * @author zhou.xu
- * @date 2020/10/9 14:08
+ * @since 2020/10/9 14:08
  */
 public class ReverseList {
 

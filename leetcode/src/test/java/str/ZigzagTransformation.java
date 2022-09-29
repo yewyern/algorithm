@@ -31,7 +31,7 @@ import org.junit.Test;
  * <p>T     S     G
  *
  * @author zhou.xu
- * @date 2020/8/4 17:35
+ * @since 2020/8/4 17:35
  */
 public class ZigzagTransformation {
 

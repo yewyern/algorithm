@@ -24,7 +24,7 @@ import org.junit.Test;
  * <p>[[5,0], [7,0], [5,2], [6,1], [4,4], [7,1]]
  *
  * @author zhou.xu
- * @date 2020/11/16 17:20
+ * @since 2020/11/16 17:20
  */
 public class ReconstructQueue {
 

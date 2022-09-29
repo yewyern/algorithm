@@ -38,7 +38,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * 如 [4,2,1] 表示 4 号哲学家拿起了右边的叉子。
  *
  * @author : zhou.xu
- * @date : 2020/12/2 11:23
+ * @since : 2020/12/2 11:23
  */
 public class DiningPhilosophers {
 

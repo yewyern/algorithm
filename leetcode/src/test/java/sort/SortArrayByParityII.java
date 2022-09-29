@@ -16,7 +16,7 @@ import java.util.Arrays;
  * <p>解释：[4,7,2,5]，[2,5,4,7]，[2,7,4,5] 也会被接受。
  *
  * @author zhou.xu
- * @date 2020/11/12 16:40
+ * @since 2020/11/12 16:40
  */
 public class SortArrayByParityII {
 

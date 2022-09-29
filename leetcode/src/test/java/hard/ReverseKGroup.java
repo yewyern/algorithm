@@ -22,7 +22,7 @@ import utils.ListUtils;
  * 你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
  *
  * @author zhou.xu
- * @date 2020/10/23 10:43
+ * @since 2020/10/23 10:43
  */
 public class ReverseKGroup {
 

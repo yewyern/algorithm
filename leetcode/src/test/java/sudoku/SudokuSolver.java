@@ -7,7 +7,7 @@ import java.util.concurrent.locks.LockSupport;
 
 /**
  * @author zhou.xu
- * @date 2020/9/27 17:32
+ * @since 2020/9/27 17:32
  */
 public class SudokuSolver implements Runnable {
 

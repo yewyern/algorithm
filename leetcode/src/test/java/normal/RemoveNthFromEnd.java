@@ -19,7 +19,7 @@ import utils.ListNode;
  * <p>你能尝试使用一趟扫描实现吗？
  *
  * @author zhou.xu
- * @date 2020/10/14 10:18
+ * @since 2020/10/14 10:18
  */
 public class RemoveNthFromEnd {
 

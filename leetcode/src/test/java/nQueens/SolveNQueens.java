@@ -9,7 +9,7 @@ import org.junit.Test;
 
 /**
  * @author zhou.xu
- * @date 2020/11/12 17:33
+ * @since 2020/11/12 17:33
  */
 public class SolveNQueens {
 

@@ -6,7 +6,7 @@ import utils.ArrayUtils;
  * 冒泡排序
  *
  * @author xuzhou
- * @date 2021/5/6 15:30
+ * @since 2021/5/6 15:30
  */
 public class BubbleSort {
 

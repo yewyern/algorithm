@@ -22,7 +22,7 @@ import org.junit.Test;
  * <p>
  *
  * @author zhou.xu
- * @date 2020/10/9 9:59
+ * @since 2020/10/9 9:59
  */
 public class IsPowerOfTwo {
 

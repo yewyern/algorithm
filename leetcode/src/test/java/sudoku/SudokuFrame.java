@@ -16,7 +16,7 @@ import utils.Console;
 
 /**
  * @author zhou.xu
- * @date 2020/9/27 14:11
+ * @since 2020/9/27 14:11
  */
 public class SudokuFrame extends JFrame {
 

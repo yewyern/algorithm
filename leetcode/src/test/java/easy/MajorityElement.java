@@ -26,7 +26,7 @@ import utils.RandomUtils;
  * <p>输出: 2
  *
  * @author : zhou.xu
- * @date : 2020/6/3 17:01
+ * @since : 2020/6/3 17:01
  */
 public class MajorityElement {
 

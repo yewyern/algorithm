@@ -7,7 +7,7 @@ import java.util.List;
  * 字符串的子序列
  * abc: [abc,ab,ac,a,bc,b,c]
  * @author xuzhou
- * @date 2021/3/23 15:23
+ * @since 2021/3/23 15:23
  */
 public class StringSubsequence {
 

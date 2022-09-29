@@ -7,7 +7,7 @@ import org.junit.Test;
 
 /**
  * @author zhou.xu
- * @date 2020/9/25 10:03
+ * @since 2020/9/25 10:03
  */
 public class Singleton {
 

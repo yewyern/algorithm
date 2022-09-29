@@ -29,7 +29,7 @@ import utils.RandomArray;
  * nums[i] 不是 0 就是 1
  *
  * @author xuzhou
- * @date 2021/6/3 9:45
+ * @since 2021/6/3 9:45
  */
 public class FindMaxLength {
 

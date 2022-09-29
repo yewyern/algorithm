@@ -21,7 +21,7 @@ import utils.ListUtils;
  * <p>你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？
  *
  * @author zhou.xu
- * @date 2020/10/9 13:48
+ * @since 2020/10/9 13:48
  */
 public class IsPalindromeList {
 

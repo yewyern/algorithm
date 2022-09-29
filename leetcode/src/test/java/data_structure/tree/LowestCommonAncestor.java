@@ -24,7 +24,7 @@ import utils.TreeNode;
  * <p>p、q 为不同节点且均存在于给定的二叉搜索树中。
  *
  * @author zhou.xu
- * @date 2020/10/9 15:52
+ * @since 2020/10/9 15:52
  */
 public class LowestCommonAncestor {
 

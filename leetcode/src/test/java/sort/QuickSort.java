@@ -6,7 +6,7 @@ import utils.RandomUtils;
 
 /**
  * @author xuzhou
- * @date 2021/5/6 17:20
+ * @since 2021/5/6 17:20
  */
 public class QuickSort {
 

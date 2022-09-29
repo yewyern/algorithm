@@ -9,7 +9,7 @@ import javax.swing.border.LineBorder;
 
 /**
  * @author zhou.xu
- * @date 2020/9/27 14:18
+ * @since 2020/9/27 14:18
  */
 public class SudokuBean extends JPanel {
 

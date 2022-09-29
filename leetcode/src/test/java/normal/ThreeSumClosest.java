@@ -13,7 +13,7 @@ import java.util.Arrays;
  * <p>
  *
  * @author zhou.xu
- * @date 2020/10/12 16:08
+ * @since 2020/10/12 16:08
  */
 public class ThreeSumClosest {
 

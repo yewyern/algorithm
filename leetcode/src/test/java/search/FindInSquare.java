@@ -8,7 +8,7 @@ import utils.RandomUtils;
  * 平方
  *
  * @author xuzhou
- * @date 2021/5/6 13:37
+ * @since 2021/5/6 13:37
  */
 public class FindInSquare {
 

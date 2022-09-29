@@ -32,7 +32,7 @@ import org.junit.Test;
  * <p>输出：2.00000
  *
  * @author zhou.xu
- * @date 2020/10/9 16:18
+ * @since 2020/10/9 16:18
  */
 public class FindMedianSortedArrays {
 

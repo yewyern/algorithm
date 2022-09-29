@@ -18,7 +18,7 @@ import utils.ListUtils;
  * <p>
  *
  * @author zhou.xu
- * @date 2020/9/27 9:11
+ * @since 2020/9/27 9:11
  */
 public class SwapPairsTest {
 

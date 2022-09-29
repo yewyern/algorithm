@@ -5,7 +5,7 @@ import java.util.TreeSet;
 
 /**
  * @author zhou.xu
- * @date 2020/3/6 17:48
+ * @since 2020/3/6 17:48
  */
 public class HappyNumber {
 

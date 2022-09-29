@@ -25,7 +25,7 @@ import org.junit.Test;
  * <p>     请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
  *
  * @author zhou.xu
- * @date 2020/8/5 10:14
+ * @since 2020/8/5 10:14
  */
 public class LongestSubstringLength {
 

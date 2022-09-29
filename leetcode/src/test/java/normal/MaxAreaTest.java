@@ -15,7 +15,7 @@ import org.junit.Test;
  * 输入：[1,8,6,2,5,4,8,3,7] 输出：49
  *
  * @author zhou.xu
- * @date 2020/8/17 10:44
+ * @since 2020/8/17 10:44
  */
 public class MaxAreaTest extends TestCase {
 

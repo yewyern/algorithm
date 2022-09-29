@@ -19,7 +19,7 @@ import java.util.Queue;
  * <p>
  *
  * @author zhou.xu
- * @date 2020/10/9 9:31
+ * @since 2020/10/9 9:31
  */
 public class MyStackByQueue {
 

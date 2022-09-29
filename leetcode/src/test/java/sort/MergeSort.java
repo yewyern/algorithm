@@ -7,7 +7,7 @@ import utils.RandomArray;
 
 /**
  * @author xuzhou
- * @date 2021/6/24 15:39
+ * @since 2021/6/24 15:39
  */
 public class MergeSort {
 

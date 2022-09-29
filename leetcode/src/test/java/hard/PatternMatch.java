@@ -16,7 +16,7 @@ import org.junit.Test;
  * p 可能为空，且只包含从 a-z 的小写字母，以及字符 . 和 *。
  *
  * @author zhou.xu
- * @date 2020/10/10 9:02
+ * @since 2020/10/10 9:02
  */
 public class PatternMatch {
 

@@ -5,7 +5,7 @@ import java.util.Random;
 
 /**
  * @author zhou.xu
- * @date 2020/2/24 19:20
+ * @since 2020/2/24 19:20
  */
 public class ArrayUtils {
 

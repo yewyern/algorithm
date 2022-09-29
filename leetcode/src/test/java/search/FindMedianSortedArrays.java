@@ -9,7 +9,7 @@ import utils.RandomArray;
  * 如果是[1,2],[3,4]，总个数是偶数，返回2.5
  *
  * @author xuzhou
- * @date 2021/4/27 15:58
+ * @since 2021/4/27 15:58
  */
 public class FindMedianSortedArrays {
 

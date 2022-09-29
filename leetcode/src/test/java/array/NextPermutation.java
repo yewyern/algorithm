@@ -30,7 +30,7 @@ import org.junit.Test;
  * 输出：[1]
  *
  * @author zhou.xu
- * @date 2020/12/3 10:46
+ * @since 2020/12/3 10:46
  */
 public class NextPermutation {
 

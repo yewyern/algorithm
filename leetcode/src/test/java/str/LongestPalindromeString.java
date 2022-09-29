@@ -17,7 +17,7 @@ import org.junit.Test;
  * <p>输出: "bb"
  *
  * @author zhou.xu
- * @date 2020/8/5 11:02
+ * @since 2020/8/5 11:02
  */
 public class LongestPalindromeString {
 

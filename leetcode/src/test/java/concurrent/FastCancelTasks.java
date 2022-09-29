@@ -7,7 +7,7 @@ import org.junit.Test;
  * 有一个总任务A，分解为子任务A1 A2 A3 ...，任何一个子任务失败后要快速取消所有任务，请写程序模拟。
  *
  * @author zhou.xu
- * @date 2020/11/16 11:10
+ * @since 2020/11/16 11:10
  */
 public class FastCancelTasks {
 

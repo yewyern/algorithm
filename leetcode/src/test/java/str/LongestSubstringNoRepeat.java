@@ -7,7 +7,7 @@ import utils.GenerateRandomString;
  * 最长的无重复字符的连续子串
  *
  * @author xuzhou
- * @date 2021/4/27 15:00
+ * @since 2021/4/27 15:00
  */
 public class LongestSubstringNoRepeat {
 

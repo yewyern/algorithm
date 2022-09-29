@@ -31,7 +31,7 @@ import org.junit.Test;
  * 输出：false
  *
  * @author zhou.xu
- * @date 2020/12/2 15:23
+ * @since 2020/12/2 15:23
  */
 public class HasAlternatingBits {
 

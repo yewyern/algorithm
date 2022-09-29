@@ -9,7 +9,7 @@ import org.junit.Test;
 
 /**
  * @author zhou.xu
- * @date 2020/9/23 16:20
+ * @since 2020/9/23 16:20
  */
 public class SolveSudokuTest2 {
 

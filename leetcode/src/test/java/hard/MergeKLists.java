@@ -34,7 +34,7 @@ import utils.ListUtils;
  * <p>
  *
  * @author zhou.xu
- * @date 2020/10/22 17:59
+ * @since 2020/10/22 17:59
  */
 public class MergeKLists {
 

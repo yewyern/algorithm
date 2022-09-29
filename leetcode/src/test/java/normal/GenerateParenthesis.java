@@ -13,7 +13,7 @@ import org.junit.Test;
  * <p>
  *
  * @author zhou.xu
- * @date 2020/10/22 15:03
+ * @since 2020/10/22 15:03
  */
 public class GenerateParenthesis {
 

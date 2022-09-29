@@ -25,7 +25,7 @@ import org.junit.Test;
  * <p> 输出: 28
  *
  * @author : zhou.xu
- * @date : 2020/6/4 15:53
+ * @since : 2020/6/4 15:53
  */
 public class ExcelTitleToNumber {
 

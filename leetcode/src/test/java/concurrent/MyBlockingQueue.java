@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 /**
  * @author zhou.xu
- * @date 2020/2/28 22:47
+ * @since 2020/2/28 22:47
  */
 public class MyBlockingQueue<T> {
 

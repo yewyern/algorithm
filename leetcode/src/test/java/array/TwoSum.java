@@ -18,7 +18,7 @@ import org.junit.Test;
  * 输出：[10,30] 或者 [30,10]
  *
  * @author zhou.xu
- * @date 2020/12/1 16:50
+ * @since 2020/12/1 16:50
  */
 public class TwoSum {
 

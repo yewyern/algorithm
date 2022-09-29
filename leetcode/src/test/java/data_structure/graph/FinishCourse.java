@@ -32,7 +32,7 @@ import org.junit.Test;
  * <p>
  *
  * @author zhou.xu
- * @date 2020/8/4 13:44
+ * @since 2020/8/4 13:44
  */
 public class FinishCourse {
 

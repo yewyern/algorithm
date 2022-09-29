@@ -41,7 +41,7 @@ import org.junit.Test;
  * 链接：<a>https://leetcode-cn.com/problems/target-sum</a>
  *
  * @author xuzhou
- * @date 2021/6/7 13:46
+ * @since 2021/6/7 13:46
  */
 public class FindTargetSumWays {
 

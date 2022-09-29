@@ -16,7 +16,7 @@ package easy;
  * <p>
  *
  * @author zhou.xu
- * @date 2020/5/8 14:09
+ * @since 2020/5/8 14:09
  */
 public class IsPalindromeString {
 

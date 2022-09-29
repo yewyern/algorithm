@@ -12,7 +12,7 @@ import org.junit.Test;
  * <p> 5  6  7   8   9
  *
  * @author zhou.xu
- * @date 2020/10/12 17:03
+ * @since 2020/10/12 17:03
  */
 public class PrintTriangle {
 

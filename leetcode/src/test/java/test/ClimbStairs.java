@@ -11,7 +11,7 @@ import org.junit.Test;
  * <p>输入：[1,3,2,3,1]，输出：66
  *
  * @author zhou.xu
- * @date 2020/10/12 16:21
+ * @since 2020/10/12 16:21
  */
 public class ClimbStairs {
 

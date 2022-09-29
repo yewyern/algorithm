@@ -4,7 +4,7 @@ package concurrent;
  * 合并写
  *
  * @author xuzhou
- * @date 2021/4/25 9:46
+ * @since 2021/4/25 9:46
  */
 public class WriteCombining {
 

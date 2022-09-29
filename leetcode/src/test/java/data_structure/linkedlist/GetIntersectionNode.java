@@ -6,7 +6,7 @@ import utils.ListNode;
  * 编写一个程序，找到两个单链表相交的起始节点。
  *
  * @author : zhou.xu
- * @date : 2020/5/28 9:19
+ * @since : 2020/5/28 9:19
  */
 public class GetIntersectionNode {
 

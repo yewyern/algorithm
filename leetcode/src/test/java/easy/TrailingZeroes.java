@@ -16,7 +16,7 @@ package easy;
  * <p>说明: 你算法的时间复杂度应为 O(log n) 。
  *
  * @author : zhou.xu
- * @date : 2020/6/4 16:20
+ * @since : 2020/6/4 16:20
  */
 public class TrailingZeroes {
 

@@ -40,7 +40,7 @@ import org.junit.Test;
  * [9, 8, 9]
  *
  * @author : zhou.xu
- * @date : 2020/12/2 10:06
+ * @since : 2020/12/2 10:06
  */
 public class MaxNumber {
 
