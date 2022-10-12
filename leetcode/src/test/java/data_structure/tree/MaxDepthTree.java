@@ -2,7 +2,7 @@ package data_structure.tree;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import javafx.util.Pair;
+import utils.Pair;
 import utils.TreeNode;
 import utils.TreeUtils;
 

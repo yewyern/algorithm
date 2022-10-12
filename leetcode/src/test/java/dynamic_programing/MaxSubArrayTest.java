@@ -38,9 +38,9 @@ import utils.RandomArray;
  * -10^5 <= nums[i] <= 10^5
  *
  * 来源：力扣（LeetCode）
- * 链接：https://leetcode-cn.com/problems/maximum-subarray
+ * 链接：<a href="https://leetcode-cn.com/problems/maximum-subarray">...</a>
  */
-public class MaxSubArray {
+public class MaxSubArrayTest {
 
     public int maxSubArray(int[] nums) {
         // 贪心算法，如果之前的和值是大于0就要，不是就不要
