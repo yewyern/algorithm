@@ -53,45 +53,54 @@ public class PossibleBiPartitionTest {
         for (int i = 0; i < dislikes.length; i++) {
             set.add(i);
         }
+        Set<Integer> a = new HashSet<>(n);
+        Set<Integer> b = new HashSet<>(n);
         do {
+            boolean newPartition = false;
             Set<Integer> temp = new HashSet<>(dislikes.length);
-            BitMap a = new BitMap(n);
-            BitMap b = new BitMap(n);
-            for (int i = 0; i < dislikes.length; i++) {
+            for (int i : set) {
                 int[] dislike = dislikes[i];
                 int p = dislike[0], q = dislike[1];
                 if (a.isEmpty() && b.isEmpty()) {
                     a.add(p);
                     b.add(q);
+                    newPartition = true;
                     continue;
                 }
-                if (!a.exists(p) && !b.exists(p) && !a.exists(q) && !b.exists(q)) {
+                if (!a.contains(p) && !b.contains(p) && !a.contains(q) && !b.contains(q)) {
                     temp.add(i);
                     continue;
                 }
-                if (a.exists(p) && a.exists(q)
-                    || (b.exists(p) && b.exists(q))) {
+                if (a.contains(p) && a.contains(q)
+                    || (b.contains(p) && b.contains(q))) {
                     return false;
                 }
-                if (a.exists(p)) {
+                if (a.contains(p)) {
                     b.add(q);
-                } else if (a.exists(q)) {
+                } else if (a.contains(q)) {
                     b.add(p);
-                } else if (b.exists(p)) {
+                } else if (b.contains(p)) {
                     a.add(q);
-                } else if (b.exists(q)) {
+                } else if (b.contains(q)) {
                     a.add(p);
                 }
+                newPartition = true;
             }
             set = temp;
+            if (!newPartition) {
+                a.clear();
+                b.clear();
+            }
         } while (!set.isEmpty());
         return true;
     }
 
     @Test
     public void test() throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, InstantiationException {
-        TestUtils.test(getClass(), "possibleBiPartition", true, 4, new int[][]{{1, 2}, {1, 3}, {2, 4}});
-        TestUtils.test(getClass(), "possibleBiPartition", false, 3, new int[][]{{1, 2}, {1, 3}, {2, 3}});
-        TestUtils.test(getClass(), "possibleBiPartition", false, 5, new int[][]{{1, 2}, {2, 3}, {3, 4}, {4, 5}, {1, 5}});
+//        TestUtils.test(getClass(), "possibleBiPartition", true, 4, new int[][]{{1, 2}, {1, 3}, {2, 4}});
+//        TestUtils.test(getClass(), "possibleBiPartition", false, 3, new int[][]{{1, 2}, {1, 3}, {2, 3}});
+//        TestUtils.test(getClass(), "possibleBiPartition", false, 5, new int[][]{{1, 2}, {2, 3}, {3, 4}, {4, 5}, {1, 5}});
+        TestUtils.test(getClass(), "possibleBiPartition", false, 5, new int[][]{{1, 2}, {3, 4}, {4, 5}, {3, 5}});
+        TestUtils.test(getClass(), "possibleBiPartition", false, 4, new int[][]{{1, 2}, {3, 4}, {1, 3}, {1, 4}});
     }
 }
