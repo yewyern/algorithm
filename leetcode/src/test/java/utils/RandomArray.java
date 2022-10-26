@@ -117,6 +117,31 @@ public class RandomArray {
         return nums;
     }
 
+    /**
+     * 生成任意长度的，相邻不相等的数组
+     *
+     * @param len 生成的结果集的大小，len不能超出(max - min)
+     * @param min
+     * @param max
+     * @return
+     */
+    public static int[] generateAdjacentNonEqualArray(int len, int min, int max) {
+        if (len > max - min || max <= min) {
+            throw new IllegalArgumentException();
+        }
+        int[] nums = new int[len];
+        int bound = max - min;
+        for (int i = 0; i < len; i++) {
+            nums[i] = random.nextInt(bound) + min;
+            if (i > 0) {
+                while (nums[i] == nums[i - 1]) {
+                    nums[i] = random.nextInt(bound) + min;
+                }
+            }
+        }
+        return nums;
+    }
+
     public static String[] generateRandomStringArray(int maxLen, int maxStringLen) {
         String[] res = new String[random.nextInt(maxLen)];
         for (int i = 0; i < res.length; i++) {
@@ -132,4 +157,5 @@ public class RandomArray {
         }
         return res;
     }
+
 }

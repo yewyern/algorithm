@@ -1,9 +1,7 @@
 package set;
 
-import datastruct.BitMap;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Set;
 import org.junit.Test;
 import utils.TestUtils;
