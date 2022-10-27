@@ -5,6 +5,7 @@ import java.util.Set;
 import utils.ListNode;
 
 /**
+ * <a href="https://leetcode.cn/problems/linked-list-cycle/">141. 环形链表</a>
  * <p>给定一个链表，判断链表中是否有环。
  * <p>为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。
  * <p>
@@ -26,7 +27,7 @@ import utils.ListNode;
  * <p>进阶：
  * <p>你能用 O(1)（即，常量）内存解决此问题吗？
  */
-public class HasCycle {
+public class LinkedListCycleTest {
 
     public boolean hasCycleWithSet(ListNode head) {
         Set<ListNode> nodesSeen = new HashSet<>();
@@ -58,7 +59,7 @@ public class HasCycle {
     }
 
     public static void main(String[] args) {
-        HasCycle a = new HasCycle();
+        LinkedListCycleTest a = new LinkedListCycleTest();
         ListNode head = generate(1, 3, 2, 0, -4);
         System.out.println("head = " + head);
         System.out.println("hasCycle = " + a.hasCycle(head));
