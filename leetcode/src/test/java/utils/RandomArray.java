@@ -38,6 +38,14 @@ public class RandomArray {
         return generate(random.nextInt(maxLen), 0, max);
     }
 
+    /**
+     * 生成随机长度的随机整形数组
+     * @param minLen 数组最小长度，包含
+     * @param maxLen 数组最大长度，不包含
+     * @param minVal 数组中最小值，包含
+     * @param maxVal 数组中最大值，不包含
+     * @return int[] a, minLen <= a.len < maxLen), minVal <= a[i] < maxVal
+     */
     public static int[] generateRandomLengthArray(int minLen, int maxLen, int minVal,
         int maxVal) {
         int len;
