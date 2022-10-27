@@ -38,12 +38,12 @@ import org.junit.Test;
  * -1000 <= target <= 100
  *
  * 来源：力扣（LeetCode）
- * 链接：<a>https://leetcode-cn.com/problems/target-sum</a>
+ * <a href="https://leetcode-cn.com/problems/target-sum">494. 目标和</a>
  *
  * @author xuzhou
  * @since 2021/6/7 13:46
  */
-public class FindTargetSumWays {
+public class FindTargetSumWaysTest {
 
     public int findTargetSumWays(int[] nums, int target) {
         // 深度优先遍历
@@ -56,8 +56,7 @@ public class FindTargetSumWays {
         if (level == nums.length) {
             return presum == target ? 1 : 0;
         }
-        return findTargetSumWays(nums, target, level + 1, presum + nums[level])
-            + findTargetSumWays(nums, target, level + 1, presum - nums[level]);
+        return findTargetSumWays(nums, target, level + 1, presum + nums[level]) + findTargetSumWays(nums, target, level + 1, presum - nums[level]);
     }
 
     public int findTargetSumWaysDp(int[] nums, int target) {
