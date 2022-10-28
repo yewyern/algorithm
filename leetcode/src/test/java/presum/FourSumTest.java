@@ -3,11 +3,12 @@ package presum;
 import com.google.common.base.Stopwatch;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.junit.Test;
@@ -98,6 +99,14 @@ public class FourSumTest {
         lists.add(list);
     }
 
+    public void distinctAddAll(List<List<Integer>> lists, List<List<Integer>> otherLists) {
+        if (otherLists != null) {
+            for (List<Integer> otherList : otherLists) {
+                distinctAdd(lists, otherList);
+            }
+        }
+    }
+
     public boolean equals(List<Integer> a, List<Integer> b) {
         if (a.size() != b.size()) {
             return false;
@@ -111,6 +120,7 @@ public class FourSumTest {
     }
 
     public List<List<Integer>> fourSum(int[] nums, int target) {
+        // 前缀和，仍需优化
         List<List<Integer>> res = new ArrayList<>();
         int N = nums.length;
         if (N < 4) {
@@ -122,9 +132,10 @@ public class FourSumTest {
             }
             return res;
         }
-        Map<Integer, List<List<Integer>>> last = new HashMap<>();
+        Arrays.sort(nums);
+        Map<Integer, List<List<Integer>>> last = new TreeMap<>();
         for (int num : nums) {
-            Map<Integer, List<List<Integer>>> curr = new HashMap<>(last);
+            Map<Integer, List<List<Integer>>> curr = new TreeMap<>(last);
             for (Entry<Integer, List<List<Integer>>> entry : last.entrySet()) {
                 Integer preSum = entry.getKey();
                 List<List<Integer>> value = entry.getValue();
@@ -133,18 +144,23 @@ public class FourSumTest {
                 List<List<Integer>> otherLists = listMap.get(false);
                 preSum = preSum + num;
                 if (preSum == target) {
-                    addNumToLists(threeNumLists, num);
-                    if (threeNumLists != null) {
-                        res.addAll(threeNumLists);
-                    }
+                    List<List<Integer>> lists = addNumToLists(threeNumLists, num);
+                    distinctAddAll(res, lists);
                 }
-                addNumToLists(otherLists, num);
-                putMap(curr, preSum, otherLists);
+                List<List<Integer>> lists = addNumToLists(otherLists, num);
+                putMap(curr, preSum, lists);
             }
-//            putMap(curr, num, newList(newList(num)));
-            System.out.println("curr = " + curr);
+            putMap(curr, num, newLists(num));
             last = curr;
         }
+        return res;
+    }
+
+    private List<List<Integer>> newLists(int num) {
+        ArrayList<List<Integer>> res = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(num);
+        res.add(list);
         return res;
     }
 
@@ -153,7 +169,9 @@ public class FourSumTest {
             return;
         }
         if (map.containsKey(key)) {
-            map.get(key).addAll(value);
+            for (List<Integer> list : value) {
+                distinctAdd(map.get(key), list);
+            }
         } else {
             map.put(key, value);
         }
@@ -167,13 +185,14 @@ public class FourSumTest {
         for (List<Integer> list : lists) {
             List<Integer> temp = new ArrayList<>(list);
             temp.add(num);
+            temp.sort(Comparator.reverseOrder());
             result.add(temp);
         }
         return result;
     }
 
     private void fourSumTest(int target, int... nums) {
-        List<List<Integer>> lists = fourSumComparison(nums, target);
+        List<List<Integer>> lists = fourSum(nums, target);
         System.out.println("lists = " + lists);
     }
 
@@ -185,8 +204,7 @@ public class FourSumTest {
         for (int i = 0; i < 1000; i++) {
             int[] nums = RandomArray.generateRandomLengthArray(1, 110, -109, 110);
             int target = RandomUtils.nextInt(-109, 110);
-            List<List<Integer>> lists = fourSumComparison(nums, target);
-
+            List<List<Integer>> lists = fourSum(nums, target);
         }
         long elapsed = stopwatch.elapsed(TimeUnit.MILLISECONDS);
         System.out.println("elapsed = " + elapsed);
