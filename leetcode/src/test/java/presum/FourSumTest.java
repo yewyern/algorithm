@@ -39,8 +39,8 @@ import utils.RandomUtils;
  * 提示：
  * <p>
  * 1 <= nums.length <= 200
- * -109 <= nums[i] <= 109
- * -109 <= target <= 109
+ * -10^9 <= nums[i] <= 10^9
+ * -10^9 <= target <= 10^9
  *
  * @author zhou.xu
  * @since 2022/10/27 22:48
@@ -53,18 +53,22 @@ public class FourSumTest {
         if (N < 4) {
             return res;
         }
+        Arrays.sort(nums);
+        long[] nums2 = new long[N];
+        for (int i = 0; i < N; i++) {
+            nums2[i] = nums[i];
+        }
         if (N == 4) {
-            if (nums[0] + nums[1] + nums[2] + nums[3] == target) {
+            if (nums2[0] + nums2[1] + nums2[2] + nums2[3] == target) {
                 res.add(Arrays.asList(nums[0], nums[1], nums[2], nums[3]));
             }
             return res;
         }
-        Arrays.sort(nums);
         for (int i = 0; i < N - 3; ) {
             for (int j = i + 1; j < N - 2; ) {
                 for (int k = j + 1; k < N - 1; ) {
                     for (int l = k + 1; l < N; l++) {
-                        int sum = nums[i] + nums[j] + nums[k] + nums[l];
+                        long sum = nums2[i] + nums2[j] + nums2[k] + nums2[l];
                         if (sum == target) {
                             distinctAdd(res, Arrays.asList(nums[i], nums[j], nums[k], nums[l]));
                             break;
@@ -99,14 +103,6 @@ public class FourSumTest {
         lists.add(list);
     }
 
-    public void distinctAddAll(List<List<Integer>> lists, List<List<Integer>> otherLists) {
-        if (otherLists != null) {
-            for (List<Integer> otherList : otherLists) {
-                distinctAdd(lists, otherList);
-            }
-        }
-    }
-
     public boolean equals(List<Integer> a, List<Integer> b) {
         if (a.size() != b.size()) {
             return false;
@@ -117,6 +113,14 @@ public class FourSumTest {
             }
         }
         return true;
+    }
+
+    public void distinctAddAll(List<List<Integer>> lists, List<List<Integer>> otherLists) {
+        if (otherLists != null) {
+            for (List<Integer> otherList : otherLists) {
+                distinctAdd(lists, otherList);
+            }
+        }
     }
 
     public List<List<Integer>> fourSum(int[] nums, int target) {
@@ -192,7 +196,7 @@ public class FourSumTest {
     }
 
     private void fourSumTest(int target, int... nums) {
-        List<List<Integer>> lists = fourSum(nums, target);
+        List<List<Integer>> lists = fourSumComparison(nums, target);
         System.out.println("lists = " + lists);
     }
 
@@ -200,11 +204,12 @@ public class FourSumTest {
     public void test() {
         fourSumTest(0, 1, 0, -1, 0, -2, 2);
         fourSumTest(8, 2, 2, 2, 2, 2);
+        fourSumTest(-294967296, 1000000000,1000000000,1000000000,1000000000);
         Stopwatch stopwatch = Stopwatch.createStarted();
         for (int i = 0; i < 1000; i++) {
             int[] nums = RandomArray.generateRandomLengthArray(1, 110, -109, 110);
             int target = RandomUtils.nextInt(-109, 110);
-            List<List<Integer>> lists = fourSum(nums, target);
+            List<List<Integer>> lists = fourSumComparison(nums, target);
         }
         long elapsed = stopwatch.elapsed(TimeUnit.MILLISECONDS);
         System.out.println("elapsed = " + elapsed);
