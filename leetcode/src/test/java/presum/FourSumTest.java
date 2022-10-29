@@ -124,38 +124,67 @@ public class FourSumTest {
     }
 
     public List<List<Integer>> fourSum(int[] nums, int target) {
-        // 前缀和，仍需优化
+        // 排序+双指针
         List<List<Integer>> res = new ArrayList<>();
         int N = nums.length;
         if (N < 4) {
             return res;
         }
         if (N == 4) {
-            if (nums[0] + nums[1] + nums[2] + nums[3] == target) {
+            if ((long)nums[0] + nums[1] + nums[2] + nums[3] == target) {
                 res.add(Arrays.asList(nums[0], nums[1], nums[2], nums[3]));
             }
             return res;
         }
         Arrays.sort(nums);
-        Map<Integer, List<List<Integer>>> last = new TreeMap<>();
-        for (int num : nums) {
-            Map<Integer, List<List<Integer>>> curr = new TreeMap<>(last);
-            for (Entry<Integer, List<List<Integer>>> entry : last.entrySet()) {
-                Integer preSum = entry.getKey();
-                List<List<Integer>> value = entry.getValue();
-                Map<Boolean, List<List<Integer>>> listMap = value.stream().collect(Collectors.groupingBy(l -> l.size() == 3));
-                List<List<Integer>> threeNumLists = listMap.get(true);
-                List<List<Integer>> otherLists = listMap.get(false);
-                preSum = preSum + num;
-                if (preSum == target) {
-                    List<List<Integer>> lists = addNumToLists(threeNumLists, num);
-                    distinctAddAll(res, lists);
-                }
-                List<List<Integer>> lists = addNumToLists(otherLists, num);
-                putMap(curr, preSum, lists);
+        for (int i = 0; i < N - 3; i++) {
+            // 跳过重复值
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
             }
-            putMap(curr, num, newLists(num));
-            last = curr;
+            // 最大值都小于target，直接跳过
+            if ((long)nums[i] + nums[N - 3] + nums[N - 2] + nums[N - 1] < target) {
+                continue;
+            }
+            // 最小值都大于target，直接跳出循环，后续都不可能了
+            if ((long)nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3] > target) {
+                break;
+            }
+            for (int j = i + 1; j < N - 2; j++) {
+                // 跳过重复值
+                if (j > i + 1 && nums[j] == nums[j - 1]) {
+                    continue;
+                }
+                // 最大值都小于target，直接跳过
+                if ((long)nums[i] + nums[j] + nums[N - 2] + nums[N - 1] < target) {
+                    continue;
+                }
+                // 最小值都大于target，直接跳出循环，后续都不可能了
+                if ((long)nums[i] + nums[j] + nums[j + 1] + nums[j + 2] > target) {
+                    break;
+                }
+                int l = j + 1, r = N - 1;
+                long sum = (long) target - nums[i] - nums[j];
+                while (l < r) {
+                    if (nums[l] + nums[r] < sum) {
+                        l++;
+                    } else if (nums[l] + nums[r] > sum) {
+                        r--;
+                    } else {
+                        res.add(Arrays.asList(nums[i], nums[j], nums[l], nums[r]));
+                        // 跳过重复值
+                        l++;
+                        while (l < r && nums[l] == nums[l - 1]) {
+                            l++;
+                        }
+                        // 跳过重复值
+                        r--;
+                        while (l < r && nums[r] == nums[r + 1]) {
+                            r--;
+                        }
+                    }
+                }
+            }
         }
         return res;
     }
@@ -196,7 +225,7 @@ public class FourSumTest {
     }
 
     private void fourSumTest(int target, int... nums) {
-        List<List<Integer>> lists = fourSumComparison(nums, target);
+        List<List<Integer>> lists = fourSum(nums, target);
         System.out.println("lists = " + lists);
     }
 
@@ -204,12 +233,12 @@ public class FourSumTest {
     public void test() {
         fourSumTest(0, 1, 0, -1, 0, -2, 2);
         fourSumTest(8, 2, 2, 2, 2, 2);
-        fourSumTest(-294967296, 1000000000,1000000000,1000000000,1000000000);
+        fourSumTest(-294967296, 1000000000, 1000000000, 1000000000, 1000000000);
         Stopwatch stopwatch = Stopwatch.createStarted();
         for (int i = 0; i < 1000; i++) {
             int[] nums = RandomArray.generateRandomLengthArray(1, 110, -109, 110);
             int target = RandomUtils.nextInt(-109, 110);
-            List<List<Integer>> lists = fourSumComparison(nums, target);
+            List<List<Integer>> lists = fourSum(nums, target);
         }
         long elapsed = stopwatch.elapsed(TimeUnit.MILLISECONDS);
         System.out.println("elapsed = " + elapsed);
