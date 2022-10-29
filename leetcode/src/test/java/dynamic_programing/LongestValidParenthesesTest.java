@@ -3,32 +3,33 @@ package dynamic_programing;
 import org.junit.Test;
 
 /**
+ * <a href="https://leetcode.cn/problems/longest-valid-parentheses/">32. 最长有效括号</a>
  * Given a string containing just the characters '(' and ')', find the length of the longest valid (well-formed) parentheses substring.
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
  * Example 1:
- *
+ * <p>
  * Input: s = "(()"
  * Output: 2
  * Explanation: The longest valid parentheses substring is "()".
  * Example 2:
- *
+ * <p>
  * Input: s = ")()())"
  * Output: 4
  * Explanation: The longest valid parentheses substring is "()()".
  * Example 3:
- *
+ * <p>
  * Input: s = ""
  * Output: 0
- *
- *
+ * <p>
+ * <p>
  * Constraints:
- *
+ * <p>
  * 0 <= s.length <= 3 * 104
  * s[i] is '(', or ')'.
  */
-public class LongestValidParentheses {
+public class LongestValidParenthesesTest {
 
     public int longestValidParentheses(String s) {
         if (s == null || s.length() == 0) {
