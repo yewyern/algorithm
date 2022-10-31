@@ -60,7 +60,7 @@ public class MinimumOperationsToReduceXToZeroTest {
             return -1;
         }
         if (sum == x) {
-            return 0;
+            return N;
         }
         int target = sum - x;
         // 求和=target的最大子序列
@@ -133,11 +133,17 @@ public class MinimumOperationsToReduceXToZeroTest {
         System.out.println("minOperations = " + minOperations);
     }
 
+    private void minOperationsComparisonTest(int x, int... nums) {
+        int minOperations = minOperationsComparison(nums, x);
+        System.out.println("minOperationsComparison = " + minOperations);
+    }
+
     @Test
     public void test() {
         minOperationsTest(5, 1, 1, 4, 2, 3);
         minOperationsTest(4, 5, 6, 7, 8, 9);
-        minOperationsTest(10, 3, 2, 20, 1, 1, 3);
+        minOperationsTest(134365, 8828,9581,49,9818,9974,9869,9991,10000,10000,10000,9999,9993,9904,8819,1231,6309);
+        minOperationsComparisonTest(134365, 8828,9581,49,9818,9974,9869,9991,10000,10000,10000,9999,9993,9904,8819,1231,6309);
 
         Stopwatch stopwatch = Stopwatch.createStarted();
         for (int i = 0; i < 1000; i++) {
