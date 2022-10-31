@@ -1,6 +1,8 @@
 package str;
 
+import com.google.common.base.Stopwatch;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 
 /**
@@ -26,7 +28,7 @@ import org.junit.Test;
  * <p>
  * <p>
  * 提示：
- * 1 <= n <= 105
+ * 1 <= n <= 10^5
  *
  * @author xuzhou
  * @since 2022/10/31 19:06
@@ -55,11 +57,48 @@ public class MagicalStringTest {
         return total;
     }
 
+    public boolean check(int n) {
+        // 0 1 2 3 4 5
+        // 1 2 2 1 1 2 1 2 2
+        // 0 1 1 2 2 3 4
+        int total = 1;
+        int[] s = new int[n + 1];
+        s[0] = 1;
+        s[1] = 2;
+        int cur = 2;
+        for (int i = 1, j = 1; i < n && j < n; i++) {
+            for (int k = 0; k < s[i] && j < n; k++) {
+                s[j++] = cur;
+                if (cur == 1) {
+                    total++;
+                }
+            }
+            cur = cur ^ 3;
+        }
+        cur = 1;
+        for (int i = 0, j = 0; i < n; i++) {
+            for (int k = 0; k < s[i] && j < n; k++) {
+                if (s[j++] != cur) {
+                    System.out.println("s = " + Arrays.toString(s));
+                    return false;
+                }
+            }
+            cur = cur ^ 3;
+        }
+        return true;
+    }
+
     @Test
     public void magicalStringTest() {
         System.out.println(magicalString(6));
         System.out.println(magicalString(1));
         System.out.println(magicalString(4));
         System.out.println(magicalString(7));
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        for (int i = 1; i < 100000; i++) {
+            check(i);
+        }
+        long elapsed = stopwatch.elapsed(TimeUnit.MILLISECONDS);
+        System.out.println("elapsed = " + elapsed);
     }
 }
