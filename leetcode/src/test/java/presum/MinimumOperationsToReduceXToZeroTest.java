@@ -1,8 +1,13 @@
 package presum;
 
+import com.google.common.base.Stopwatch;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import org.junit.Test;
+import utils.RandomArray;
+import utils.RandomUtils;
 
 /**
  * <a href="https://leetcode.cn/problems/minimum-operations-to-reduce-x-to-zero">1658. 将 x 减到 0 的最小操作数</a>
@@ -54,16 +59,43 @@ public class MinimumOperationsToReduceXToZeroTest {
         if (sum < x) {
             return -1;
         }
+        if (sum == x) {
+            return 0;
+        }
         int target = sum - x;
         // 求和=target的最大子序列
-        return -1;
+        // 滑动窗口法,
+        // 时间复杂度：O(n)，双指针最多都走一遍，2n
+        // 空间复杂度：O(1)
+        int l = 0;
+        int r = 0;
+        int len = 0;
+        sum = nums[0];
+        while (true) {
+//            System.out.println("l = " + l + ", r = " + r + ", sum = " + sum + ", len = " + len);
+            if (sum > target) {
+                if (l == nums.length - 1) {
+                    break;
+                }
+                sum -= nums[l++];
+            } else {
+                if (sum == target) {
+                    len = Math.max(len, r - l + 1);
+                }
+                if (r == nums.length - 1) {
+                    break;
+                }
+                sum += nums[++r];
+            }
+        }
+        return len == 0 ? -1 : N - len;
     }
 
     public int minOperationsComparison(int[] nums, int x) {
         int N = nums.length;
         int min = N + 1;
         // 左边前缀和
-        Map<Integer, Integer> map = new HashMap<>(N);
+        Map<Integer, Integer> map = new HashMap<>(N * 2);
         int sum = 0;
         for (int i = 0; i < N; i++) {
             sum += nums[i];
@@ -97,7 +129,7 @@ public class MinimumOperationsToReduceXToZeroTest {
     }
 
     private void minOperationsTest(int x, int... nums) {
-        int minOperations = minOperationsComparison(nums, x);
+        int minOperations = minOperations(nums, x);
         System.out.println("minOperations = " + minOperations);
     }
 
@@ -106,5 +138,22 @@ public class MinimumOperationsToReduceXToZeroTest {
         minOperationsTest(5, 1, 1, 4, 2, 3);
         minOperationsTest(4, 5, 6, 7, 8, 9);
         minOperationsTest(10, 3, 2, 20, 1, 1, 3);
+
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        for (int i = 0; i < 1000; i++) {
+            // 1 <= nums.length <= 10^5
+            // 1 <= nums[i] <= 10^4
+            // 1 <= x <= 10^9
+            int[] nums = RandomArray.generateRandomLengthArray(1, 100001, 1, 10001);
+            int x = RandomUtils.nextInt(1, 1000000001);
+            int minOperations = minOperations(nums, x);
+            int minOperationsComparison = minOperationsComparison(nums, x);
+            if (minOperations != minOperationsComparison) {
+                System.out.println(
+                    "nums = " + Arrays.toString(nums) + ", x = " + x + ", minOperations = " + minOperations + ", minOperationsComparison = " + minOperationsComparison);
+            }
+        }
+        long elapsed = stopwatch.elapsed(TimeUnit.MILLISECONDS);
+        System.out.println(elapsed);
     }
 }
