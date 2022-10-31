@@ -64,36 +64,31 @@ public class MinimumOperationsToReduceXToZeroTest {
         int min = N + 1;
         // 左边前缀和
         Map<Integer, Integer> map = new HashMap<>(N);
-        int[] leftPreSums = new int[N];
+        int sum = 0;
         for (int i = 0; i < N; i++) {
-            if (i == 0) {
-                leftPreSums[i] = nums[i];
-            } else {
-                leftPreSums[i] = nums[i] + leftPreSums[i - 1];
-            }
-            if (leftPreSums[i] == x) {
+            sum += nums[i];
+            if (sum == x) {
                 min = i + 1;
-            } else if (leftPreSums[i] > x) {
+            } else if (sum > x) {
                 break;
             }
-            map.put(leftPreSums[i], i);
+            map.put(sum, i);
+        }
+        if (sum < x) {
+            return -1;
         }
         // 右边前缀和
-        int[] rightPreSums = new int[N];
+        sum = 0;
         for (int i = N - 1; i >= 0; i--) {
-            if (i == N - 1) {
-                rightPreSums[i] = nums[i];
-            } else {
-                rightPreSums[i] = nums[i] + rightPreSums[i + 1];
-            }
-            if (rightPreSums[i] == x) {
+            sum += nums[i];
+            if (sum == x) {
                 min = Math.min(min, N - i);
                 continue;
             }
-            if (rightPreSums[i] > x) {
+            if (sum > x) {
                 break;
             }
-            int diff = x - rightPreSums[i];
+            int diff = x - sum;
             if (map.containsKey(diff)) {
                 min = Math.min(min, map.get(diff) + 1 + N - i);
             }
