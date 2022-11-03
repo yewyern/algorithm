@@ -84,10 +84,7 @@ public class TreeUtils {
         if (p == null && q == null) {
             return true;
         }
-        if (p != null && q != null && p.val == q.val) {
-            return true;
-        }
-        return false;
+        return p != null && q != null && p.val == q.val;
     }
 
     public static void main(String[] args) {
