@@ -43,60 +43,19 @@ public class ReachANumberTest {
 
     public int reachNumber(int target) {
         target = Math.abs(target);
-        if (target == 1) {
-            return 1;
+        int k = 0;
+        // 找到刚好大于target的全加序列
+        while (target > 0) {
+            k++;
+            target -= k;
         }
-        if (target == 2) {
-            return 3;
-        }
-        // 1 + 2 + ... n = n(n + 1) / 2 : 1, 3, 6, 10, 15, 21
-        // 1 = 1
-        // 2 = 1 -2 3
-        // 3 = 1 2
-        // 4 = 1 2 -3 4
-        // 5 = 1 2 3 4 -5
-        // 6 = 1 2 3
-        // 7 = 1 2 3 -4 5
-        // 8 = -1 2 3 4
-        // 9 = 1 -2 3 4 5
-        // 10 = 1 2 3 4
-        // 11 = 1 -2 3 4 5
-        // 12 = 1 -2 3 4 5 -6 7
-        // 13 = -1 2 3 4 5
-        long n = 2;
-        long sum = n * (n + 1) >> 1;
-        while (sum < target) {
-            n = n << 1;
-            sum = n * (n + 1) >> 1;
-        }
-        if (sum == target) {
-            return (int) n;
-        }
-        long l = n >> 1, r = n;
-        while (l < r) {
-            long mid = (l + r) >> 1;
-            sum = mid * (mid + 1) >> 1;
-            if (sum == target) {
-                return (int) mid;
-            }
-            if (sum > target) {
-                r = mid;
-            } else {
-                l = mid + 1;
-            }
-        }
-        n = l;
-        while (true) {
-            sum = n * (n + 1) >> 1;
-            long diff = sum - target;
-            if (diff == n) {
-                return (int) n;
-            }
-            if ((diff & 1) == 0) {
-                return (int) n;
-            }
-            n++;
-        }
+        // target = -target;
+        // 此时的target<= k
+        // 如果target是偶数，只要翻转target/2的符号，即可满足
+        // 如果target是奇数
+        // 1、k是偶数，k + 1是奇数，target + k + 1为偶数，可翻转(target + k + 1)/2
+        // 2、k是奇数，k + 1是偶数，target + k + 1为奇数，target + k + 1 + k + 2为偶数，可翻转(target + k + 1 + k + 2)/2
+        return target % 2 == 0 ? k : k + 1 + k % 2;
     }
 
     public int reachNumberComparison(int target) {
