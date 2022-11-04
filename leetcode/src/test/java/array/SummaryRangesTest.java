@@ -67,9 +67,14 @@ public class SummaryRangesTest {
 
     public void addResult(List<String> res, int start, int end) {
         if (start == end) {
-            res.add(start + "");
+            res.add(Integer.toString(start));
         } else {
-            res.add(start + "->" + end);
+            // builder比+快
+            StringBuilder builder = new StringBuilder();
+            builder.append(start);
+            builder.append("->");
+            builder.append(end);
+            res.add(builder.toString());
         }
     }
 
