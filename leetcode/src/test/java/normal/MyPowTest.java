@@ -3,6 +3,7 @@ package normal;
 import org.junit.Test;
 
 /**
+ * <a href="https://leetcode.cn/problems/powx-n/">50. Pow(x, n)</a>
  * <p>实现 pow(x, n) ，即计算 x 的 n 次幂函数。
  * <p>
  * <p>示例 1:
@@ -23,23 +24,28 @@ import org.junit.Test;
  * @author zhou.xu
  * @since 2020/11/12 19:11
  */
-public class MyPow {
+public class MyPowTest {
 
     public double myPow(double x, int n) {
-        if (x == 0) {
-            return 0;
+        return Pow(x, n);
+    }
+
+    public double Pow(double x, long n) {
+        if (n == 0) {
+            return 1;
+        }
+        if (n == 1) {
+            return x;
         }
         if (n < 0) {
-            x = 1 / x;
-            n = -n;
+            return 1 / Pow(x, -n);
         }
-        if (x == 2) {
-            return 1 << n;
+        double d = Pow(x, n / 2);
+        if (n % 2 == 1) {
+            return d * d * x;
+        } else {
+            return d * d;
         }
-        int m = 1;
-        int ans = 0;
-
-        return 0;
     }
 
     public void test(double x, int n) {
@@ -56,5 +62,10 @@ public class MyPow {
     public void test() {
         test(2, -2);
         test(2, 2);
+        test(2.1, 3);
+        test(2, 10);
+        test(3, Integer.MIN_VALUE);
+        test(2, -2147483648);
+        test(2, -64);
     }
 }
