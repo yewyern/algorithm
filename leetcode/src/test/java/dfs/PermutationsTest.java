@@ -1,4 +1,4 @@
-package normal;
+package dfs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +8,7 @@ import java.util.Set;
 import org.junit.Test;
 
 /**
+ * <a href="https://leetcode.cn/problems/permutations/">46. 全排列</a>
  * <p>给定一个 没有重复 数字的序列，返回其所有可能的全排列。
  * <p>
  * <p>示例:
@@ -26,7 +27,7 @@ import org.junit.Test;
  * @author zhou.xu
  * @since 2020/8/17 15:00
  */
-public class FullArray {
+public class PermutationsTest {
 
     public List<List<Integer>> permute(int[] nums) {
         if (nums == null || nums.length == 0) {
