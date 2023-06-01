@@ -31,7 +31,7 @@ public class SolveNQueens {
             }
         }
         ans = new ArrayList<>();
-        places = (1 << n) - 1;
+        places = (1L << n) - 1;
         dfs(n, 0);
         return ans;
     }
@@ -40,9 +40,9 @@ public class SolveNQueens {
         // 001000
         // 001000
         for (int i = 0; i < n; i++) {
-            if (((1 << i) & places) > 0) {
+            if (((1L << i) & places) > 0) {
                 // 当前位置没放过
-                places ^= 1 << i;
+                places ^= 1L << i;
                 board[row][i] = 'Q';
                 if (row == n - 1) {
                     ans.add(Arrays.stream(board).map(String::valueOf).collect(Collectors.toList()));
@@ -51,7 +51,7 @@ public class SolveNQueens {
                 }
                 // 状态回溯
                 board[row][i] = '.';
-                places ^= 1 << i;
+                places ^= 1L << i;
             }
         }
     }
