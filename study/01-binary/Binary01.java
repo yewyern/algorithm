@@ -22,6 +22,13 @@ public class Binary01 {
         System.out.println("---------------------");
         printBits(b);
         printBits(~b);
+        System.out.println("---------------------");
+        int c = -4;
+        printBits(c);
+        for (int i = 0; i < 10; i++) {
+            printBits(c >> i);
+            printBits(c >>> i);
+        }
     }
 
     private static void printBits(int num) {
@@ -29,6 +36,6 @@ public class Binary01 {
         char[] cs = new char[32];
         Arrays.fill(cs, '0');
         System.arraycopy(binaryString.toCharArray(), 0, cs, 32 - binaryString.length(), binaryString.length());
-        System.out.println(String.valueOf(cs));
+        System.out.println(String.valueOf(cs) + " = " + num);
     }
 }
