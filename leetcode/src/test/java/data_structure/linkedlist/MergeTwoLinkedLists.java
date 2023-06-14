@@ -1,14 +1,24 @@
 package data_structure.linkedlist;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Test;
 import utils.ListNode;
 import utils.ListUtils;
 import utils.RandomUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * 合并两个有序链表
+ * <a href="https://leetcode.cn/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/?envType=study-plan-v2&envId=coding-interviews">合并两个有序链表</a>
+ * 输入两个递增排序的链表，合并这两个链表并使新链表中的节点仍然是递增排序的。
+ * <p>
+ * 示例1：
+ * <p>
+ * 输入：1->2->4, 1->3->4
+ * 输出：1->1->2->3->4->4
+ * 限制：
+ * <p>
+ * 0 <= 链表长度 <= 1000
  *
  * @author xzer
  */
@@ -20,24 +30,21 @@ public class MergeTwoLinkedLists {
     //
     //输入：1->2->4, 1->3->4
     //输出：1->1->2->3->4->4
-    public static ListNode mergeTwoLists(ListNode ln1, ListNode ln2) {
-        ListNode l1 = ln1, l2 = ln2;
-        ListNode prevNode = new ListNode(-1);
-        ListNode pre = prevNode;
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode root = new ListNode(Integer.MIN_VALUE);
+        ListNode pre = root;
         while (l1 != null && l2 != null) {
-            ListNode temp;
-            if (l1.val > l2.val) {
-                temp = new ListNode(l2.val);
-                l2 = l2.next;
-            } else {
-                temp = new ListNode(l1.val);
+            if (l1.val <= l2.val) {
+                pre.next = l1;
                 l1 = l1.next;
+            } else {
+                pre.next = l2;
+                l2 = l2.next;
             }
-            pre.next = temp;
             pre = pre.next;
         }
-        pre.next = l1 == null ? l2 : l1;
-        return prevNode.next;
+        pre.next = l1 != null ? l1 : l2;
+        return root.next;
     }
 
     public static ListNode mergeTwoListsComparison(ListNode l1, ListNode l2) {
