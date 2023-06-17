@@ -1,9 +1,9 @@
 package data_structure.queue;
 
-
-import java.util.Comparator;
+import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.TreeSet;
+import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 /**
  * <a href="https://leetcode.cn/problems/dui-lie-de-zui-da-zhi-lcof/?envType=study-plan-v2&envId=coding-interviews">剑指 Offer 59 - II. 队列的最大值</a>
@@ -31,37 +31,61 @@ import java.util.TreeSet;
  * 1 <= value <= 10^5
  *
  * @author zhou.xu
- * @since 2023/6/15 21:52
+ * @since 2023/6/17 12:00
  */
 public class MaxQueue {
 
-    private final LinkedList<Integer> list;
-    private final TreeSet<Integer> set;
+    // 保存值和索引的队列
+    private final LinkedList<int[]> valQueue;
+    // 保存最大值和对应索引的队列，此队列保持单调递减
+    // 通过index判断，保证与valQueue同时入队和出队
+    private final LinkedList<int[]> maxQueue;
+    private int index;
 
     public MaxQueue() {
-        list = new LinkedList<>();
-        set = new TreeSet<>(Comparator.reverseOrder());
+        valQueue = new LinkedList<>();
+        maxQueue = new LinkedList<>();
     }
 
     public int max_value() {
-        if (set.isEmpty()) {
+        if (maxQueue.isEmpty()) {
             return -1;
         }
-        return set.first();
+        return maxQueue.getFirst()[0];
     }
 
     public void push_back(int value) {
-        list.add(value);
-        set.add(value);
+        int[] val = {value, index};
+        index++;
+        valQueue.addLast(val);
+        while (!maxQueue.isEmpty() && maxQueue.peekLast()[0] <= value) {
+            maxQueue.pollLast();
+        }
+        maxQueue.addLast(val);
     }
 
     public int pop_front() {
-        if (list.isEmpty()) {
+        if (valQueue.isEmpty()) {
             return -1;
         }
-        Integer num = list.pollFirst();
-        set.remove(num);
-        return num;
+        int[] val = valQueue.pollFirst();
+        int[] maxQueueFirst = maxQueue.peekFirst();
+        if (maxQueueFirst != null && maxQueueFirst[1] == val[1]) {
+            maxQueue.pollFirst();
+        }
+        return val[0];
     }
 
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", MaxQueue.class.getSimpleName() + "[", "]")
+                .add("valQueue=" + toString(valQueue))
+                .add("maxQueue=" + toString(maxQueue))
+                .add("index=" + index)
+                .toString();
+    }
+
+    private String toString(LinkedList<int[]> list) {
+        return list.stream().map(Arrays::toString).collect(Collectors.toList()).toString();
+    }
 }

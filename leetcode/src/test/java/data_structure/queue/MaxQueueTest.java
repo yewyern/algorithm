@@ -14,12 +14,16 @@ public class MaxQueueTest {
         maxQueue.push_back(2);
         maxQueue.push_back(-1);
         maxQueue.push_back(1);
+        System.out.println("maxQueue = " + maxQueue);
         System.out.println(maxQueue.max_value());
         System.out.println(maxQueue.pop_front());
+        System.out.println("maxQueue = " + maxQueue);
         System.out.println(maxQueue.max_value());
         System.out.println(maxQueue.pop_front());
+        System.out.println("maxQueue = " + maxQueue);
         System.out.println(maxQueue.max_value());
         System.out.println(maxQueue.pop_front());
+        System.out.println("maxQueue = " + maxQueue);
     }
 
 }
