@@ -10,7 +10,7 @@ public class MaxQueueTest {
 
     @Test
     public void test() {
-        MaxQueue maxQueue = new MaxQueue();
+        MaxQueue2 maxQueue = new MaxQueue2();
         maxQueue.push_back(2);
         maxQueue.push_back(-1);
         maxQueue.push_back(1);
