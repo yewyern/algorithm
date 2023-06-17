@@ -23,7 +23,7 @@ public class Binary02 {
      * -a
      */
     public static int neg(int a) {
-        return ~a + 1;
+        return add(~a, 1);
     }
 
     /**

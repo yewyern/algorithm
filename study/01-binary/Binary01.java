@@ -29,6 +29,10 @@ public class Binary01 {
             printBits(c >> i);
             printBits(c >>> i);
         }
+        System.out.println("---------------------");
+        printBits(Integer.MAX_VALUE);
+        printBits(Integer.MIN_VALUE);
+        printBits(Integer.MAX_VALUE >> 5);
     }
 
     private static void printBits(int num) {
