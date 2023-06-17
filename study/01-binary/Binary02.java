@@ -77,7 +77,7 @@ public class Binary02 {
      * <p>_______</p>
      * <p>      0</p>
      */
-    public static int divide(int a, int b) {
+    public static int div(int a, int b) {
         // 负数处理有bug，先全部转换成正数
         int x = isNeg(a) ? neg(a) : a;
         int y = isNeg(b) ? neg(b) : b;
@@ -91,6 +91,28 @@ public class Binary02 {
         }
         // 如果符号不同，返回负数
         return isNeg(a) ^ isNeg(b) ? neg(ans) : ans;
+    }
+
+    public static int divide(int dividend, int divisor) {
+        if (divisor == 0) {
+            throw new IllegalArgumentException("divisor can not be zero");
+        }
+        if (divisor == 1) {
+            return dividend;
+        }
+        if (dividend == Integer.MIN_VALUE && divisor == Integer.MIN_VALUE) {
+            return 1;
+        } else if (divisor == Integer.MIN_VALUE) {
+            return 0;
+        } else if (dividend == Integer.MIN_VALUE) {
+            if (divisor == neg(1)) {
+                return Integer.MAX_VALUE;
+            }
+            // a / b = (a + 1) / b + (a - ((a + 1) / b) * b) / b
+            int ans = div(add(dividend, 1), divisor);
+            return add(ans, div(minus(dividend, multiply(ans, divisor)), divisor));
+        }
+        return div(dividend, divisor);
     }
 
     public static void main(String[] args) {
