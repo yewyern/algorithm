@@ -1,6 +1,5 @@
 package sort;
 
-import utils.ArrayUtils;
 import utils.RandomArray;
 
 import java.util.Arrays;
@@ -16,8 +15,10 @@ public class SelectionSort {
     public static void main(String[] args) {
         for (int i = 0; i < 100000; i++) {
             int[] nums = RandomArray.generateRandomLengthNoEmptyArray(50, 100);
+            int[] copied = Arrays.copyOf(nums, nums.length);
+            Arrays.sort(copied);
             selectionSort(nums);
-            if (!ArrayUtils.checkSort(nums)) {
+            if (!Arrays.equals(nums, copied)) {
                 System.out.println("nums = " + Arrays.toString(nums));
                 break;
             }
