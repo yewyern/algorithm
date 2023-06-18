@@ -1,3 +1,5 @@
+package class01binary;
+
 import java.util.Arrays;
 
 /**

@@ -1,3 +1,5 @@
+package class01binary;
+
 /**
  * 位运算实现加减乘除
  *
