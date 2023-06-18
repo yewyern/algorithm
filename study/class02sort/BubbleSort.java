@@ -1,6 +1,8 @@
-package sort;
+package class02sort;
 
-import utils.ArrayUtils;
+import utils.RandomUtils;
+
+import java.util.Arrays;
 
 /**
  * 冒泡排序
@@ -14,26 +16,41 @@ public class BubbleSort {
         int test = 10000;
         long start = System.nanoTime();
         for (int i = 0; i < test; i++) {
-            int[] array = ArrayUtils.newRandomArray(40, 100);
+            int[] array = RandomUtils.generateRandomLengthNoEmptyArray(40, 100);
+            int[] copied = Arrays.copyOf(array, array.length);
             bubbleSort(array);
-            boolean b = ArrayUtils.checkSort(array);
-            if (!b) {
+            Arrays.sort(copied);
+            if (!Arrays.equals(array, copied)) {
+                System.out.println("copied = " + Arrays.toString(copied));
+                System.out.println("array = " + Arrays.toString(array));
                 return;
             }
         }
         System.out.println("bubbleSort  = " + (System.nanoTime() - start));
         start = System.nanoTime();
         for (int i = 0; i < test; i++) {
-            int[] array = ArrayUtils.newRandomArray(40, 100);
+            int[] array = RandomUtils.generateRandomLengthNoEmptyArray(40, 100);
+            int[] copied = Arrays.copyOf(array, array.length);
             bubbleSort2(array);
-            ArrayUtils.checkSort(array);
+            Arrays.sort(copied);
+            if (!Arrays.equals(array, copied)) {
+                System.out.println("copied = " + Arrays.toString(copied));
+                System.out.println("array = " + Arrays.toString(array));
+                return;
+            }
         }
         System.out.println("bubbleSort2 = " + (System.nanoTime() - start));
         start = System.nanoTime();
         for (int i = 0; i < test; i++) {
-            int[] array = ArrayUtils.newRandomArray(40, 100);
+            int[] array = RandomUtils.generateRandomLengthNoEmptyArray(40, 100);
+            int[] copied = Arrays.copyOf(array, array.length);
             bubbleSort3(array);
-            ArrayUtils.checkSort(array);
+            Arrays.sort(copied);
+            if (!Arrays.equals(array, copied)) {
+                System.out.println("copied = " + Arrays.toString(copied));
+                System.out.println("array = " + Arrays.toString(array));
+                return;
+            }
         }
         System.out.println("bubbleSort3 = " + (System.nanoTime() - start));
     }

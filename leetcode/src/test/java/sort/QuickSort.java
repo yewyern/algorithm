@@ -1,8 +1,9 @@
 package sort;
 
-import java.util.Arrays;
 import utils.ArrayUtils;
 import utils.RandomUtils;
+
+import java.util.Arrays;
 
 /**
  * @author xuzhou
@@ -54,13 +55,19 @@ public class QuickSort {
         int less = l - 1;
         while (l < r) {
             if (nums[l] < flag) {
-                BubbleSort.swap(nums, ++less, l++);
+                swap(nums, ++less, l++);
             } else if (nums[l] > flag) {
-                BubbleSort.swap(nums, --r, l);
+                swap(nums, --r, l);
             } else {
                 l++;
             }
         }
         return new int[]{less + 1, r};
+    }
+
+    public static void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }

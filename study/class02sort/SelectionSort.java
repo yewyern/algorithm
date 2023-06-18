@@ -1,6 +1,6 @@
-package sort;
+package class02sort;
 
-import utils.RandomArray;
+import utils.RandomUtils;
 
 import java.util.Arrays;
 
@@ -14,7 +14,7 @@ public class SelectionSort {
 
     public static void main(String[] args) {
         for (int i = 0; i < 100000; i++) {
-            int[] nums = RandomArray.generateRandomLengthNoEmptyArray(50, 100);
+            int[] nums = RandomUtils.generateRandomLengthNoEmptyArray(50, 100);
             int[] copied = Arrays.copyOf(nums, nums.length);
             Arrays.sort(copied);
             selectionSort(nums);
