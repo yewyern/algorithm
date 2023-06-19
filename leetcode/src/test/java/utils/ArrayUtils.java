@@ -73,4 +73,15 @@ public class ArrayUtils {
         }
         return true;
     }
+
+    public static int sum(int[] nums) {
+        if (nums == null) {
+            return 0;
+        }
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        return sum;
+    }
 }
