@@ -13,27 +13,6 @@ public class RandomArray {
 
     private static final Random random = new Random(System.currentTimeMillis());
 
-    public static void main(String[] args) {
-        for (int i = 0; i < 100; i++) {
-            int[] nums = generate(i, 100);
-            System.out.println("nums = " + Arrays.toString(nums));
-            int[] nums2 = generateSortedArray(i, 100);
-            System.out.println("nums = " + Arrays.toString(nums2));
-        }
-        int testCase = 10000;
-        long start = System.nanoTime();
-        for (int i = 0; i < testCase; i++) {
-            generate(i, 100);
-        }
-        System.out.println("generate  = " + (System.nanoTime() - start) / testCase);
-        start = System.nanoTime();
-        for (int i = 0; i < testCase; i++) {
-            generateSortedArray(i, 100);
-        }
-        System.out.println("generateSortedArray = " + (System.nanoTime() - start) / testCase);
-
-    }
-
     public static int[] generateRandomLengthArray(int maxLen, int max) {
         return generate(random.nextInt(maxLen), 0, max);
     }
@@ -164,6 +143,27 @@ public class RandomArray {
             res[i] = GenerateRandomString.generateRandomLenStringNoEmpty(maxStringLen);
         }
         return res;
+    }
+
+    public static int[] generateRotatedSortedArray(int minLen, int maxLen, int minVal,
+                                                        int maxVal) {
+        int[] nums = generateRandomLengthSortedArray(minLen, maxLen, minVal, maxVal);
+        return randomRotateArray(nums);
+    }
+
+    public static int[] randomRotateArray(int[] nums) {
+        if (nums == null || nums.length < 2) {
+            return nums;
+        }
+        int N = nums.length;
+        int k = random.nextInt(N);
+        if (k == 0) {
+            return Arrays.copyOf(nums, N);
+        }
+        int[] ans = new int[N];
+        System.arraycopy(nums, k, ans, 0, N - k);
+        System.arraycopy(nums, 0, ans, N - k, k);
+        return ans;
     }
 
 }

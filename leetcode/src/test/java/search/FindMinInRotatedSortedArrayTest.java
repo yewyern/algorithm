@@ -1,5 +1,11 @@
 package search;
 
+import org.junit.Test;
+import utils.RandomArray;
+import utils.RandomUtils;
+
+import java.util.Arrays;
+
 /**
  * <a href="https://leetcode.cn/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/?envType=study-plan-v2&envId=coding-interviews">剑指 Offer 11. 旋转数组的最小数字</a>
  * 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。
@@ -34,11 +40,73 @@ package search;
 public class FindMinInRotatedSortedArrayTest {
 
     public int findMin(int[] nums) {
+        // 二分法查找旋转点
+        int l = 0, r = nums.length - 1;
+        while (l < r) {
+            if (r == l + 1) {
+                return Math.min(nums[l], nums[r]);
+            }
+            if (nums[l] < nums[r]) {
+                // 整体有序
+                return nums[l];
+            }
+            int m = l + ((r - l) >> 1);
+            if (nums[l] < nums[m]) {
+                // 这边是升序的，旋转点在另外一边
+                l = m + 1;
+            } else if (nums[l] > nums[m]) {
+                // 这边存在降序的，旋转点就这这边
+                // 注意: m可能是旋转点，需要包含m
+                r = m;
+            } else {
+                // 首尾相等，存在2种可能
+                // [2,2,2,2,2,3,2,2,2]
+                // 1、如果[l,m]都是相等的，则旋转点不在这边
+                // 2、如果[l,m]存在不相等的起始点i，则旋转点是在[i,m]范围内
+                // 如果第一个不相等的数小于该数，即旋转点是i，可以直接返回
+                // 如果第一个不相等的数大于该数，即旋转点是i右边，即[i+1,m]
+                boolean isAllEqual = true;
+                for (int i = l + 1; i < m; i++) {
+                    if (nums[i] < nums[l]) {
+                        return nums[i];
+                    }
+                    if (nums[i] > nums[l]) {
+                        isAllEqual = false;
+                        l = i + 1;
+                        r = m;
+                        break;
+                    }
+                }
+                if (isAllEqual) {
+                    l = m + 1;
+                }
+            }
+        }
+        return nums[r];
+    }
+
+    public int findMinComparison(int[] nums) {
         // 暴力方法
         int min = Integer.MAX_VALUE;
         for (int x : nums) {
             min = Math.min(x, min);
         }
         return min;
+    }
+
+    @Test
+    public void test() {
+        for (int i = 0; i < 100000; i++) {
+            int[] nums = RandomArray.generateRotatedSortedArray(1, 5001, -5000, 5001);
+            int min = findMin(nums);
+            int minComparison = findMinComparison(nums);
+            if (min != minComparison) {
+                System.out.println("nums = " + Arrays.toString(nums));
+                System.out.println("min = " + min);
+                System.out.println("minComparison = " + minComparison);
+                findMin(nums);
+                break;
+            }
+        }
     }
 }
