@@ -1,9 +1,6 @@
 package utils;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
 
 /**
  * @author xuzhou
@@ -11,14 +8,14 @@ import java.util.Set;
  */
 public class RandomArray {
 
-    private static final Random random = new Random(System.currentTimeMillis());
 
     public static int[] generateRandomLengthArray(int maxLen, int max) {
-        return generate(random.nextInt(maxLen), 0, max);
+        return generate(RandomUtils.nextInt(maxLen), 0, max);
     }
 
     /**
      * 生成随机长度的随机整形数组
+     *
      * @param minLen 数组最小长度，包含
      * @param maxLen 数组最大长度，不包含
      * @param minVal 数组中最小值，包含
@@ -26,18 +23,18 @@ public class RandomArray {
      * @return int[] a, minLen <= a.len < maxLen), minVal <= a[i] < maxVal
      */
     public static int[] generateRandomLengthArray(int minLen, int maxLen, int minVal,
-        int maxVal) {
+                                                  int maxVal) {
         int len;
         if (minLen == maxLen) {
             len = minLen;
         } else {
-            len = random.nextInt(maxLen - minLen) + minLen;
+            len = RandomUtils.nextInt(maxLen - minLen) + minLen;
         }
         return generate(len, minVal, maxVal);
     }
 
     public static int[] generateRandomLengthNoEmptyArray(int maxLen, int max) {
-        return generate(maxLen == 1 ? 1 : random.nextInt(maxLen - 1) + 1, 0, max);
+        return generate(maxLen == 1 ? 1 : RandomUtils.nextInt(maxLen - 1) + 1, 0, max);
     }
 
     public static int[] generate(int len, int max) {
@@ -46,9 +43,8 @@ public class RandomArray {
 
     public static int[] generate(int len, int min, int max) {
         int[] nums = new int[len];
-        int bound = max - min;
         for (int i = 0; i < nums.length; i++) {
-            nums[i] = random.nextInt(bound) + min;
+            nums[i] = RandomUtils.nextInt(min, max) + min;
         }
         return nums;
     }
@@ -58,8 +54,8 @@ public class RandomArray {
     }
 
     public static int[] generateRandomLengthSortedArray(int minLen, int maxLen, int minVal,
-        int maxVal) {
-        int len = maxLen == minLen ? 0 : random.nextInt(maxLen - minLen) + minLen;
+                                                        int maxVal) {
+        int len = maxLen <= minLen ? 0 : RandomUtils.nextInt(maxLen - minLen) + minLen;
         return generateSortedArray(len, minVal, maxVal);
     }
 
@@ -68,37 +64,16 @@ public class RandomArray {
     }
 
     public static int[] generateSortedArray(int len, int min, int max) {
-        int[] nums = new int[len];
-        int bound = max - min;
-        for (int i = 0; i < nums.length; i++) {
-            nums[i] = random.nextInt(bound) + min;
-        }
+        int[] nums = generate(len, min, max);
         Arrays.sort(nums);
         return nums;
     }
 
     public static int[] generateNoRepeatSortedArray(int len, int min, int max) {
         int[] nums = new int[len];
-        if (max - min < 1024) {
-            boolean[] set = new boolean[max - min];
-            int bound = max - min;
-            for (int i = 0; i < nums.length; i++) {
-                nums[i] = random.nextInt(bound) + min;
-                while (set[nums[i] - min]) {
-                    nums[i] = random.nextInt(bound) + min;
-                }
-                set[nums[i] - min] = true;
-            }
-        } else {
-            Set<Integer> set = new HashSet<>();
-            int bound = max - min;
-            for (int i = 0; i < nums.length; i++) {
-                nums[i] = random.nextInt(bound) + min;
-                while (set.contains(nums[i] - min)) {
-                    nums[i] = random.nextInt(bound) + min;
-                }
-                set.add(nums[i] - min);
-            }
+        NoRepeatNumberGenerator generator = new NoRepeatNumberGenerator(min, max);
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = generator.nextInt() + min;
         }
         Arrays.sort(nums);
         return nums;
@@ -119,10 +94,10 @@ public class RandomArray {
         int[] nums = new int[len];
         int bound = max - min;
         for (int i = 0; i < len; i++) {
-            nums[i] = random.nextInt(bound) + min;
+            nums[i] = RandomUtils.nextInt(bound) + min;
             if (i > 0) {
                 while (nums[i] == nums[i - 1]) {
-                    nums[i] = random.nextInt(bound) + min;
+                    nums[i] = RandomUtils.nextInt(bound) + min;
                 }
             }
         }
@@ -130,7 +105,7 @@ public class RandomArray {
     }
 
     public static String[] generateRandomStringArray(int maxLen, int maxStringLen) {
-        String[] res = new String[random.nextInt(maxLen)];
+        String[] res = new String[RandomUtils.nextInt(maxLen)];
         for (int i = 0; i < res.length; i++) {
             res[i] = GenerateRandomString.generateRandomLenString(maxStringLen);
         }
@@ -138,7 +113,7 @@ public class RandomArray {
     }
 
     public static String[] generateRandomStringArrayNoEmptyString(int maxLen, int maxStringLen) {
-        String[] res = new String[random.nextInt(maxLen)];
+        String[] res = new String[RandomUtils.nextInt(maxLen)];
         for (int i = 0; i < res.length; i++) {
             res[i] = GenerateRandomString.generateRandomLenStringNoEmpty(maxStringLen);
         }
@@ -146,7 +121,7 @@ public class RandomArray {
     }
 
     public static int[] generateRotatedSortedArray(int minLen, int maxLen, int minVal,
-                                                        int maxVal) {
+                                                   int maxVal) {
         int[] nums = generateRandomLengthSortedArray(minLen, maxLen, minVal, maxVal);
         return randomRotateArray(nums);
     }
@@ -156,7 +131,7 @@ public class RandomArray {
             return nums;
         }
         int N = nums.length;
-        int k = random.nextInt(N);
+        int k = RandomUtils.nextInt(N);
         if (k == 0) {
             return Arrays.copyOf(nums, N);
         }

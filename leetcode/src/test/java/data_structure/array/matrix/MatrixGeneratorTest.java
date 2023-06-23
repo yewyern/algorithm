@@ -37,7 +37,7 @@ public class MatrixGeneratorTest {
 
     @Test
     public void test() {
-        int rows = 100, cols = 100, min = -100000, max = 100000, tests = 100000;
+        int rows = 50, cols = 50, min = Integer.MIN_VALUE, max = Integer.MAX_VALUE, tests = 100000;
         System.out.println("开始测试生成方法1");
         long start = System.currentTimeMillis();
         for (int i = 0; i < tests; i++) {
