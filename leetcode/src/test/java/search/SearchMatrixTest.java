@@ -1,10 +1,12 @@
 package search;
 
+import data_structure.array.matrix.MatrixGenerator;
 import org.junit.Test;
-import utils.RandomArray;
 import utils.RandomUtils;
 
 import java.util.Arrays;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <a href="https://leetcode.cn/problems/search-a-2d-matrix-ii/">240. 搜索二维矩阵 II</a>
@@ -56,10 +58,10 @@ public class SearchMatrixTest {
                 return true;
             } else if (matrix[ym][xm] < target) {
                 return searchMatrix(matrix, target, xm + 1, y1, x2, ym)
-                    || searchMatrix(matrix, target, x1, ym + 1, x2, y2);
+                        || searchMatrix(matrix, target, x1, ym + 1, x2, y2);
             } else {
                 return searchMatrix(matrix, target, x1, y1, x2, ym - 1)
-                    || searchMatrix(matrix, target, x1, ym, xm - 1, y2);
+                        || searchMatrix(matrix, target, x1, ym, xm - 1, y2);
             }
         }
         if (x1 == x2) {
@@ -71,22 +73,15 @@ public class SearchMatrixTest {
         return false;
     }
 
-    public boolean binarySearch(int[][] matrix, int target, int col, int l, int r) {
-        while (l <= r) {
-            if (matrix[l][col] == target || matrix[r][col] == target) {
-                return true;
-            }
-            if (matrix[l][col] > target || matrix[r][col] < target) {
-                return false;
-            }
-            int m = l + ((r - l) >> 1);
+    public boolean binarySearch(int[][] matrix, int target, int col, int low, int high) {
+        while (low <= high) {
+            int m = low + ((high - low) >> 1);
             if (matrix[m][col] == target) {
                 return true;
-            }
-            if (matrix[m][col] < target) {
-                l = m + 1;
+            } else if (matrix[m][col] < target) {
+                low = m + 1;
             } else {
-                r = m - 1;
+                high = m - 1;
             }
         }
         return false;
@@ -105,17 +100,10 @@ public class SearchMatrixTest {
     public boolean binarySearch(int[] nums, int target) {
         int l = 0, r = nums.length - 1;
         while (l <= r) {
-            if (nums[l] == target || nums[r] == target) {
-                return true;
-            }
-            if (nums[l] > target || nums[r] < target) {
-                return false;
-            }
             int m = l + ((r - l) >> 1);
             if (nums[m] == target) {
                 return true;
-            }
-            if (nums[m] < target) {
+            } else if (nums[m] < target) {
                 l = m + 1;
             } else {
                 r = m - 1;
@@ -140,9 +128,17 @@ public class SearchMatrixTest {
     public void test() {
         int min = -100, max = 100, tests = 100000;
         for (int i = 0; i < tests; i++) {
-            int[][] matrix = generateNoRepeatSortedMatrix(RandomUtils.nextInt(1, 10), RandomUtils.nextInt(1, 10), min, max);
+            int[][] matrix = MatrixGenerator.generateNoRepeatSortedMatrix(RandomUtils.nextInt(1, 10), RandomUtils.nextInt(1, 10), min, max);
             int target = RandomUtils.nextInt(min, max);
-            boolean searched = searchMatrix(matrix, target);
+            CompletableFuture<Boolean> future = CompletableFuture.supplyAsync(() -> searchMatrix(matrix, target));
+            Boolean searched;
+            try {
+                searched = future.get(3, TimeUnit.SECONDS);
+            } catch (Exception e) {
+                searchMatrix(matrix, target);
+                System.out.println("target = " + target);
+                break;
+            }
             boolean searched2 = searchMatrixComparison(matrix, target);
             if (searched != searched2) {
                 printMatrix(matrix);
@@ -161,30 +157,5 @@ public class SearchMatrixTest {
             }
             System.out.println();
         }
-    }
-
-    public static int[][] generateNoRepeatSortedMatrix(int w, int h, int min, int max) {
-        int N = w * h;
-        int[][] matrix = new int[h][w];
-        int[] nums = RandomArray.generateNoRepeatSortedArray(N, min, max);
-        int[] filled = new int[h];// 记录已经填过数字的个数
-        int count = 0; // 已填过的数字个数
-        int needFillRow = 0; // 需要填充的起始行
-        while (count < N) {
-            for (int i = needFillRow; i < h; i++) {
-                // 每一行随机填充，下一行能填充的个数<=上一行已填充的个数
-                int filledWidth = filled[i] == w - 1 ? w : RandomUtils.nextInt(filled[i], i == 0 ? w + 1 : filled[i - 1] + 1);
-                if (filledWidth == filled[i]) {
-                    break;
-                }
-                System.arraycopy(nums, count, matrix[i], filled[i], filledWidth - filled[i]);
-                count += filledWidth - filled[i];
-                filled[i] = filledWidth;
-                if (filled[i] == w) {
-                    needFillRow = i + 1;
-                }
-            }
-        }
-        return matrix;
     }
 }
