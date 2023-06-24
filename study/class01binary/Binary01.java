@@ -1,6 +1,6 @@
 package class01binary;
 
-import java.util.Arrays;
+import static utils.BinaryUtils.printBits;
 
 /**
  * 基础位运算
@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class Binary01 {
 
     public static void main(String[] args) {
-        int a = 69, b = 37;
+        int a = 35, b = 44;
         printBits(a);
         printBits(b);
         System.out.println("---------------------");
@@ -37,11 +37,4 @@ public class Binary01 {
         printBits(Integer.MAX_VALUE >> 5);
     }
 
-    private static void printBits(int num) {
-        String binaryString = Integer.toBinaryString(num);
-        char[] cs = new char[32];
-        Arrays.fill(cs, '0');
-        System.arraycopy(binaryString.toCharArray(), 0, cs, 32 - binaryString.length(), binaryString.length());
-        System.out.println(String.valueOf(cs) + " = " + num);
-    }
 }

@@ -21,7 +21,8 @@ public class RandomUtils {
         if (max == min) {
             return min;
         }
-        return random.nextInt(max - min) + min;
+        long bound = (long) max - min;
+        return (int) (random.nextLong(bound) + min);
     }
 
     public static boolean nextBool() {
@@ -29,7 +30,7 @@ public class RandomUtils {
     }
 
     public static int[] generateRandomLengthNoEmptyArray(int maxLen, int max) {
-        return generate(maxLen == 1 ? 1 : random.nextInt(maxLen - 1) + 1, 0, max);
+        return generate(maxLen == 1 ? 1 : nextInt(maxLen - 1) + 1, 0, max);
     }
 
     public static int[] generate(int len, int max) {
@@ -40,7 +41,7 @@ public class RandomUtils {
         int[] nums = new int[len];
         int bound = max - min;
         for (int i = 0; i < nums.length; i++) {
-            nums[i] = random.nextInt(bound) + min;
+            nums[i] = nextInt(min, max) + min;
         }
         return nums;
     }
