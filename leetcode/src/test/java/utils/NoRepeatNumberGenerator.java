@@ -41,7 +41,7 @@ public class NoRepeatNumberGenerator {
 
     private void record(int num) {
         if (arraySet != null) {
-            arraySet[num] = true;
+            arraySet[num - min] = true;
         } else {
             hashSet.add(num);
         }
