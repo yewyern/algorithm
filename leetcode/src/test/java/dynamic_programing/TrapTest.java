@@ -31,6 +31,31 @@ import java.util.LinkedList;
 public class TrapTest {
 
     public int trap(int[] height) {
+        // 双指针法
+        int l = 0, r = height.length - 1;
+        int leftMax = height[0], rightMax = height[r];
+        int ans = 0;
+        while (l < r) {
+            if (height[l] < height[r]) {
+                if (height[l] < leftMax) {
+                    ans += leftMax - height[l];
+                } else {
+                    leftMax = height[l];
+                }
+                l++;
+            } else {
+                if (height[r] < rightMax) {
+                    ans += rightMax - height[r];
+                } else {
+                    rightMax = height[r];
+                }
+                r--;
+            }
+        }
+        return ans;
+    }
+
+    public int trap2(int[] height) {
         // 单调队列
         int ans = 0;
         int N = height.length;
