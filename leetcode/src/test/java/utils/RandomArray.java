@@ -44,7 +44,7 @@ public class RandomArray {
     public static int[] generate(int len, int min, int max) {
         int[] nums = new int[len];
         for (int i = 0; i < nums.length; i++) {
-            nums[i] = RandomUtils.nextInt(min, max) + min;
+            nums[i] = RandomUtils.nextInt(min, max);
         }
         return nums;
     }
