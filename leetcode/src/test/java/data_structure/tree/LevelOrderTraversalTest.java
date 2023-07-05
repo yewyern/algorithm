@@ -15,17 +15,17 @@ import java.util.List;
  * 示例 1：
  * 给定二叉树: [3,9,20,null,null,15,7],
  * <p>
- *     3
- *    / \
- *   9  20
- *     /  \
- *    15   7
+ * 3
+ * / \
+ * 9  20
+ * /  \
+ * 15   7
  * 返回其层次遍历结果：
  * <p>
  * [
- *   [3],
- *   [9,20],
- *   [15,7]
+ * [3],
+ * [9,20],
+ * [15,7]
  * ]
  * <p>
  * 示例 2：
@@ -69,26 +69,7 @@ public class LevelOrderTraversalTest {
 
     public List<List<Integer>> levelOrderComparison(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
-        if (root == null) {
-            return res;
-        }
-        List<TreeNode> nodes = new ArrayList<>();
-        nodes.add(root);
-        while (nodes.size() > 0) {
-            List<Integer> values = new ArrayList<>();
-            List<TreeNode> children = new ArrayList<>();
-            for (TreeNode node : nodes) {
-                values.add(node.val);
-                if (node.left != null) {
-                    children.add(node.left);
-                }
-                if (node.right != null) {
-                    children.add(node.right);
-                }
-            }
-            res.add(values);
-            nodes = children;
-        }
+        process(root, res, 0);
         return res;
     }
 
@@ -96,7 +77,10 @@ public class LevelOrderTraversalTest {
         if (root == null) {
             return;
         }
-        List<Integer> l = res.size() > level ? res.get(level) : new ArrayList<>();
+        if (res.size() <= level) {
+            res.add(new ArrayList<>());
+        }
+        List<Integer> l = res.get(level);
         l.add(root.val);
         process(root.left, res, level + 1);
         process(root.right, res, level + 1);
