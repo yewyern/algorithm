@@ -91,8 +91,4 @@ public class TreeUtils {
         TreeNode treeNode3 = TreeUtils.toTreeNodeWideFirst(9, -42, -42, null, 76, 76, null, null, 13, null, 13);
         System.out.println("treeNode3 = " + treeNode3);
     }
-
-    public static <T> void copy(T[] copyFrom, int begin, int end, T[] copyTo, int firstIndex, int lastIndex) {
-        
-    }
 }

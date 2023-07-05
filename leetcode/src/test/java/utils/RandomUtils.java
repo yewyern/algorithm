@@ -14,7 +14,7 @@ public class RandomUtils {
         if (max == 0) {
             return 0;
         }
-        return random.nextInt(max);
+        return (int) (Math.random() * max);
     }
 
     public static int nextInt(int min, int max) {
@@ -22,8 +22,7 @@ public class RandomUtils {
             return min;
         }
         long bound = (long) max - min;
-        long l = random.nextLong(bound);
-        return (int) l + min;
+        return (int) (Math.random() * bound + min);
     }
 
     public static boolean nextBool() {
