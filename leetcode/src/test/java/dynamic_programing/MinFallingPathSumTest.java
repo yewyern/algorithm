@@ -2,6 +2,8 @@ package dynamic_programing;
 
 import org.junit.Test;
 
+import java.util.LinkedList;
+
 /**
  * <a href="https://leetcode.cn/problems/minimum-falling-path-sum/description/">931. 下降路径最小和</a>
  * 给你一个 n x n 的 方形 整数数组 matrix ，请你找出并返回通过 matrix 的下降路径 的 最小和 。
@@ -39,14 +41,46 @@ public class MinFallingPathSumTest {
 
     @Test
     public void test() {
-        minFallingPathSum(new int[][]{
+        int sum = minFallingPathSum(new int[][]{
                 {2, 1, 3},
                 {6, 5, 4},
                 {7, 8, 9},
         });
+        System.out.println("sum = " + sum);
     }
 
     public int minFallingPathSum(int[][] matrix) {
+        int n = matrix.length;
+        if (n == 1) {
+            return matrix[0][0];
+        }
+        // 用滑动窗口，窗口长度为3
+        LinkedList<Integer> queue = new LinkedList<>();
+        int[] last = matrix[0];
+        int min = 0;
+        for (int i = 1; i < n; i++) {
+            queue.add(0);
+            min = matrix[i][0] + last[0];
+            for (int j = 0; j < n; j++) {
+                while (j < n - 1 && !queue.isEmpty() && last[queue.peekLast()] > last[j + 1]) {
+                    queue.pollLast();
+                }
+                if (j < n - 1) {
+                    queue.add(j + 1);
+                }
+                matrix[i][j] += last[queue.peekFirst()];
+                min = Math.min(min, matrix[i][j]);
+                if (queue.peekFirst() == j - 1) {
+                    queue.pollFirst();
+                }
+            }
+            queue.clear();
+            last = matrix[i];
+        }
+        return min;
+    }
+
+    public int minFallingPathSum2(int[][] matrix) {
         int n = matrix.length;
         if (n == 1) {
             return matrix[0][0];
