@@ -27,25 +27,32 @@ import org.junit.Test;
 public class MyPowTest {
 
     public double myPow(double x, int n) {
-        return Pow(x, n);
-    }
-
-    public double Pow(double x, long n) {
-        if (n == 0) {
+        if (x == 0) {
+            return 0;
+        } else if (n == 0) {
             return 1;
-        }
-        if (n == 1) {
-            return x;
+        } else if (x == 1) {
+            return 1;
+        } else if (x == -1) {
+            return (n & 1) == 0 ? 1 : -1;
         }
         if (n < 0) {
-            return 1 / Pow(x, -n);
-        }
-        double d = Pow(x, n / 2);
-        if (n % 2 == 1) {
-            return d * d * x;
+            return pow(1 / x, -((long)n));
         } else {
-            return d * d;
+            return pow(x, n);
         }
+    }
+
+    public double pow(double x, long n) {
+        double res = 1;
+        while (n > 0) {
+            if ((n & 1) == 1) {
+                res *= x;
+            }
+            x *= x;
+            n >>= 1;
+        }
+        return res;
     }
 
     public void test(double x, int n) {
