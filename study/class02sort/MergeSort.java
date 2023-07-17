@@ -46,10 +46,53 @@ public class MergeSort {
         return res;
     }
 
+    public static int[] mergeSort2(int[] nums) {
+        // 循环实现归并排序
+        // 利用步长伸缩，步长表示待合并的左右子数组长度，每次调整步长*2
+        // 当步长超过整个数组长度时停止
+        // 步长变化次数logN次，每个步长需要循环整个数组进行合并，所以总时间复杂度O(NlogN)
+        int N = nums.length;
+        int step = 1;
+        while (step < N) {
+            int l = 0;
+            while (l < N) {
+                int m = l + step;
+                if (m >= N) {
+                    break;
+                }
+                int r = Math.min(m + step, N);
+                merge(nums, l, m, r);
+                l = r;
+            }
+            if (step > (N >> 1)) {
+                break;
+            }
+            step <<= 1;
+        }
+        return process(nums, 0, nums.length - 1);
+    }
+
+    private static void merge(int[] nums, int l, int m, int r) {
+        int[] helper = new int[r - l];
+        int i = 0, p = l, q = m;
+        while (p < m && q < r) {
+            helper[i++] = nums[p] <= nums[q] ? nums[p++] : nums[q++];
+        }
+        while (p < m) {
+            helper[i++] = nums[p++];
+        }
+        while (q < r) {
+            helper[i++] = nums[q++];
+        }
+        for (int num : helper) {
+            nums[l++] = num;
+        }
+    }
+
     public static void main(String[] args) {
         for (int i = 0; i < 100000; i++) {
             int[] nums = RandomUtils.generateRandomLengthNoEmptyArray(1000, 10000);
-            int[] sort = mergeSort(nums);
+            int[] sort = mergeSort2(nums);
             Arrays.sort(nums);
             if (!Arrays.equals(nums, sort)) {
                 System.out.println("sort = " + Arrays.toString(sort));
