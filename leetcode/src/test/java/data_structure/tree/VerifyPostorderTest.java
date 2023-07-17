@@ -46,7 +46,25 @@ public class VerifyPostorderTest {
     // 所以后序遍历根节点在最后，对于任意位置，它左边的位置，
     // 必须满足一段大于它，一段小于它，且大于它的数在小于它的数的右边
     public boolean verifyPostorder(int[] postorder) {
-        // 因为如果是搜索数，任意节点左边肯定小于它，它右边一定大于它
+        // 因为如果是搜索树，任意节点左边肯定小于它，它右边一定大于它
+        // 后序遍历，在后面的数一定是根节点或者右数
+        // 自带的栈要1ms，重新定义一个，链表实现要比数组实现慢
+        MyStack minS = new MyStack(postorder.length);
+        int root = Integer.MAX_VALUE; // 不需要2个栈
+        for (int i = postorder.length - 1; i >= 0; i--) {
+            if (postorder[i] > root) {
+                return false;
+            }
+            while (!minS.isEmpty() && minS.peek() > postorder[i]) {
+                root = minS.pop();
+            }
+            minS.push(postorder[i]);
+        }
+        return true;
+    }
+
+    public boolean verifyPostorder1(int[] postorder) {
+        // 因为如果是搜索树，任意节点左边肯定小于它，它右边一定大于它
         // 后序遍历，在后面的数一定是根节点或者右数
         // 自带的栈要1ms，重新定义一个，链表实现要比数组实现慢
         MyStack minS = new MyStack(postorder.length);
