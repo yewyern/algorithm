@@ -33,6 +33,13 @@ public class ArrayUtils {
         randomFill(nums, 0, max);
     }
 
+    public static void fill(int[] nums, int start, int step) {
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = start;
+            start += step;
+        }
+    }
+
     public static <T> String toString(int[] objs) {
         if (objs == null) {
             return null;
@@ -83,5 +90,20 @@ public class ArrayUtils {
             sum += num;
         }
         return sum;
+    }
+
+    public static void reverse(int[] nums) {
+        int p = 0, q = nums.length - 1;
+        while (p < q) {
+            swap(nums, p, q);
+            p++;
+            q--;
+        }
+    }
+
+    private static void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }
