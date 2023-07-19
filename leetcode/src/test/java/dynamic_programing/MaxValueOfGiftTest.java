@@ -32,6 +32,7 @@ public class MaxValueOfGiftTest {
         if (grid == null || grid.length == 0 || grid[0] == null || grid[0].length == 0) {
             return 0;
         }
+
         int n = grid[0].length;
         int[] values = new int[n];
         for (int[] arr : grid) {
