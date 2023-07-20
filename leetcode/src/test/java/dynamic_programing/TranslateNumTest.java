@@ -47,8 +47,6 @@ public class TranslateNumTest {
             num /= 10;
             if (num % 100 > 9 && num % 100 < 26) {
                 res = a1 + a0;
-            } else {
-                res = a1;
             }
             a0 = a1;
             a1 = res;
