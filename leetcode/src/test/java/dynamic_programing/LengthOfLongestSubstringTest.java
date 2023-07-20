@@ -3,10 +3,7 @@ package dynamic_programing;
 import org.junit.Test;
 import utils.GenerateRandomString;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * <a href="https://leetcode.cn/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/?envType=study-plan-v2&envId=coding-interviews">剑指 Offer 48. 最长不含重复字符的子字符串</a>
@@ -63,24 +60,49 @@ public class LengthOfLongestSubstringTest {
         if (s == null || s.length() == 0) {
             return 0;
         }
-        if (s.length() == 1) {
-            return 1;
-        }
         int N = s.length();
         char[] cs = s.toCharArray();
-        int l = 0, r = 1, max = 1;
-        while (r < N) {
-            // todo
-            if (cs[r] == cs[l]) {
-                l++;
+        // 优化: map改成数组
+        int[] map = new int[128];
+        Arrays.fill(map, -1);
+        int max = 0, start = 0;
+        for (int i = 0; i < N; i++) {
+            int last = map[cs[i]];
+            // 优化1：不需要删除，直接判断start和last谁在前
+            if (last >= 0 && start <= last) {
+                max = Math.max(max, i - start);
+                start = last + 1;
+            } else {
+                max = Math.max(max, i - start + 1);
             }
-            r++;
+            map[cs[i]] = i;
         }
-
         return max;
     }
 
     public int lengthOfLongestSubstring1(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        int N = s.length();
+        char[] cs = s.toCharArray();
+        Map<Character, Integer> map = new HashMap<>();
+        int max = 0, start = 0;
+        for (int i = 0; i < N; i++) {
+            Integer last = map.getOrDefault(cs[i], -1);
+            // 优化：不需要删除，直接判断start和last谁在前
+            if (last >= 0 && start <= last) {
+                max = Math.max(max, i - start);
+                start = last + 1;
+            } else {
+                max = Math.max(max, i - start + 1);
+            }
+            map.put(cs[i], i);
+        }
+        return max;
+    }
+
+    public int lengthOfLongestSubstring2(String s) {
         if (s == null || s.length() == 0) {
             return 0;
         }
@@ -104,7 +126,7 @@ public class LengthOfLongestSubstringTest {
         return max;
     }
 
-    public int lengthOfLongestSubstring2(String s) {
+    public int lengthOfLongestSubstring3(String s) {
         if (s == null || s.length() == 0) {
             return 0;
         }
