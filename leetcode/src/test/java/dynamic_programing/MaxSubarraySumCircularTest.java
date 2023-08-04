@@ -49,13 +49,13 @@ public class MaxSubarraySumCircularTest {
     public void test() {
         for (int i = 0; i < 100000; i++) {
             int[] nums = RandomArray.generateRandomLengthArray(1, 10, -30000, 30000);
-            int res1 = maxSubarraySumCircular(nums);
+            int res1 = maxSubarraySumCircular1(nums);
             int res2 = maxSubarraySumCircular2(nums);
             if (res1 != res2) {
                 System.out.println("nums = " + Arrays.toString(nums));
                 System.out.println("res1 = " + res1);
                 System.out.println("res2 = " + res2);
-                maxSubarraySumCircular(nums);
+                maxSubarraySumCircular1(nums);
                 break;
             }
         }
@@ -66,9 +66,10 @@ public class MaxSubarraySumCircularTest {
         int N = nums.length, len = 2 * N - 1;
         int max = nums[0], pre = 0, start = 0;
         for (int i = 0; i < len; i++) {
-            if (start == i - N) {
-                pre -= nums[start];
+            while (start == i - N || (start < i && (pre <= 0 || nums[start < N ? start : start - N] < 0))) {
+                pre -= nums[start < N ? start : start - N];
                 start++;
+//                max = Math.max(max, pre);
             }
             if (pre > 0) {
                 pre += i < N ? nums[i] : nums[i - N];
@@ -85,16 +86,13 @@ public class MaxSubarraySumCircularTest {
     public int maxSubarraySumCircular1(int[] nums) {
         // 滑动窗口+单调队列
         int N = nums.length;
-        int len = 2 * N - 1;
-        int[] sum = new int[len];
-        sum[0] = nums[0];
-        for (int i = 1; i < len; i++) {
-            sum[i] = sum[i - 1] + (i >= N ? nums[i - N] : nums[i]);
-        }
+        int len = 2 * N;
         LinkedList<Integer> minQueue = new LinkedList<>();
         minQueue.addLast(0);
-        int max = sum[0];
+        int[] sum = new int[len];
+        int max = nums[0];
         for (int i = 1; i < len; i++) {
+            sum[i] = sum[i - 1] + (i < N ? nums[i] : nums[i - N]);
             max = Math.max(sum[i] - sum[minQueue.peekFirst()], max);
             while (!minQueue.isEmpty() && sum[minQueue.peekLast()] >= sum[i]) {
                 minQueue.pollLast();
