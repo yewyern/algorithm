@@ -2,6 +2,7 @@ package binary;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +33,28 @@ import java.util.Map;
 public class SingleNumber2Test {
 
     public int singleNumber(int[] nums) {
+        // 参考大佬的写法，有限状态机，使用2个数表示同一个数的状态，对于任意一位数的变化如：00->01->10->00，同样的数经过3次后变成0
+        int t0 = 0, t1 = 0;
+        for (int num : nums) {
+            t0 = (~t1) & (t0 ^ num);
+            // t1是t0的下一个状态
+            t1 = (~t0) & (t1 ^ num);
+        }
+        return t0;
+    }
+
+    public int singleNumberSort(int[] nums) {
+        int N = nums.length;
+        Arrays.sort(nums);
+        for (int i = 0; i < N - 1; i += 3) {
+            if (nums[i] != nums[i + 1]) {
+                return nums[i];
+            }
+        }
+        return nums[N - 1];
+    }
+
+    public int singleNumber02(int[] nums) {
         // 分组方法2：根据中值分组
         int N = nums.length;
         int mid = 0;
