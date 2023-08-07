@@ -61,10 +61,7 @@ public class CuttingRopeTest {
         }
         while (len <= n) {
             // 动态规划：第一段不需要考虑长度4以上，因为5的最大值是分成2*3，之后的都是大于分段长度的
-            int m = len >> 1;
-            for (int i = 2; i < 4; i++) {
-                ans[len] = Math.max(ans[len], i * ans[len - i]);
-            }
+            ans[len] = Math.max(ans[len - 2] << 1, 3 * ans[len - 3]);
             len++;
         }
         return ans[n];

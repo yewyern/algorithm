@@ -2,6 +2,8 @@ package math;
 
 import org.junit.Test;
 
+import java.math.BigInteger;
+
 /**
  * <a href="https://leetcode.cn/problems/jian-sheng-zi-ii-lcof">剑指 Offer 14- II. 剪绳子 II</a>
  * 给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n>1并且m>1），每段绳子的长度记为 k[0],k[1]...k[m - 1] 。请问 k[0]*k[1]*...*k[m - 1] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。
@@ -32,48 +34,80 @@ import org.junit.Test;
  */
 public class CuttingRope2Test {
 
+    private static final BigInteger mod = BigInteger.valueOf(1000000007);
+    private static final BigInteger powMod = BigInteger.valueOf(10).pow(21);
+    private static final BigInteger two = BigInteger.valueOf(2);
+    private static final BigInteger three = BigInteger.valueOf(3);
+    private static final BigInteger four = BigInteger.valueOf(4);
+
+    private static final long[] ans = new long[1001];
+
+    private static int len = 5;
+    static {
+        ans[1] = 1;
+        ans[2] = 2;
+        ans[3] = 3;
+        ans[4] = 4;
+    }
+
     public int cuttingRope(int n) {
         if (n <= 3) {
             return n - 1;
         }
-        // 推论1：从4以后，数字本身一定小于分段乘积
-        // 推论2：任何大于3的数字可以分成2或3开头的段，组成最大值
-        // 推论3：任何大于3的数字都可以分成只有2和3组成的段，并组成最大值
-        // 推论4：6的拆分方法中，2^3<3^2
-        // 结论：把n优先按3分解，结果值最大，证明看leetcode官方
-        // 本题比较特殊，1000/3=333
-        if (n % 3 == 0) {
-            return pow(3, n / 3);
+        if (n < len) {
+            return (int) ans[n];
         }
-        if (n % 3 == 2) {
-            return _double(pow(3, (n - 2) / 3), 1);
+        while (len <= n) {
+            // 公式：
+            // 若：x % m = n
+            // 则：a * x % m = a * n % m
+            // 因为结果值已经取模，大小不再具备传递性，不能使用比大小的方式决定第一段是2还是3，必须要确定是有多少个3，多少个2
+            if (len % 3 == 0) {
+                ans[len] = 3 * ans[len - 3] % 1000000007;
+            } else if (len % 3 == 2) {
+                ans[len] = (ans[len - 2] << 1) % 1000000007;
+            } else {
+                ans[len] = (ans[len - 4] << 2) % 1000000007;
+            }
+            len++;
         }
-        return _double(pow(3, (n - 4) / 3), 2);
+        return (int) ans[n];
     }
 
-    public int pow(int a, int b) {
-        int ans = 1;
+    public int cuttingRope2(int n) {
+        if (n <= 3) {
+            return n - 1;
+        }
+        if (n % 3 == 0) {
+            return three.modPow(BigInteger.valueOf(n / 3), powMod).mod(mod).intValue();
+        }
+        if (n % 3 == 2) {
+            return three.modPow(BigInteger.valueOf((n - 2) / 3), powMod).multiply(two).mod(mod).intValue();
+        }
+        return three.modPow(BigInteger.valueOf((n - 4) / 3), powMod).multiply(four).mod(mod).intValue();
+    }
+
+    public long pow(int a, int b) {
+        long ans = 1;
         for (int i = 0; i < b; i++) {
-            ans = ans * a % 1000000007;
+            ans = ans * a % 10000000000L;
         }
         return ans;
     }
 
-    public int _double(int a, int b) {
-        for (int i = 0; i < b; i++) {
-            a = a << 1 % 1000000007;
-        }
-        return a;
+    public long _double(long a, int b) {
+        return a << b;
     }
 
 
     @Test
     public void test() {
-        int a = (int) Math.pow(3, 19);//3的20次方会溢出
+        long a = (long) Math.pow(3, 21);//3的20次方会溢出
         System.out.println("a = " + a);
         System.out.println("a % 1000000007 = " + a % 1000000007);
         int b = (int) Math.pow(a % 1000000007, 2);
         System.out.println("b = " + b);
         System.out.println(pow(3, 332));
+        System.out.println(cuttingRope(63));
     }
 }
