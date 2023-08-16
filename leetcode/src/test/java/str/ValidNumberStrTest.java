@@ -48,6 +48,7 @@ public class ValidNumberStrTest {
         check("1.2.3", false);
         check("+-5", false);
         check("12e+5.4", false);
+        check("32.e-80123", true);
     }
 
     private void check(String s, boolean expected) {
@@ -58,6 +59,67 @@ public class ValidNumberStrTest {
     }
 
     public boolean isNumber(String s) {
+        char[] cs = s.toCharArray();
+        int start = 0, end = cs.length - 1;
+        // 去除尾部空格
+        while (end >= 0 && cs[end] == ' ') {
+            end--;
+        }
+        if (end < 0) {
+            return false;
+        }
+        end++;
+        // 去除首部空格
+        while (start < end && cs[start] == ' ') {
+            start++;
+        }
+        boolean afterE = false;
+        int digitCount = 0;
+        int digitStart = Integer.MAX_VALUE;
+        int dotCount = 0;
+        int dotStart = Integer.MAX_VALUE;
+        int signCount = 0;
+        // 先判断e前面的部分
+        while (start < end) {
+            char c = cs[start];
+            if (c >= '0' && c <= '9') {
+                digitCount++;
+                digitStart = Math.min(digitStart, start);
+            } else if (c == '.') {
+                if (afterE) {
+                    return false;
+                }
+                dotCount++;
+                if (dotCount > 1) {
+                    return false;
+                }
+                dotStart = Math.min(dotStart, start);
+            } else if (c == 'e' || c == 'E') {
+                if (digitCount == 0 || afterE) {
+                    return false;
+                }
+                afterE = true;
+                digitCount = 0;
+                digitStart = Integer.MAX_VALUE;
+                dotStart = Integer.MAX_VALUE;
+                signCount = 0;
+            } else if (c == '+' || c == '-') {
+                signCount++;
+                if (signCount > 1) {
+                    return false;
+                }
+                if (start > digitStart || start > dotStart) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+            start++;
+        }
+        return digitCount > 0;
+    }
+
+    public boolean isNumber2(String s) {
         char[] cs = s.toCharArray();
         int start = 0, end = cs.length - 1;
         // 去除尾部空格
