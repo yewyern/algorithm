@@ -1,7 +1,9 @@
 package data_structure.stack;
 
+import java.util.Stack;
+
 /**
- * <a href="https://leetcode.cn/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/?envType=study-plan-v2&envId=coding-interviews">剑指 Offer 31. 栈的压入、弹出序列</a>
+ * <a href="https://leetcode.cn/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/">剑指 Offer 31. 栈的压入、弹出序列</a>
  * 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如，序列 {1,2,3,4,5} 是某栈的压栈序列，序列 {4,5,3,2,1} 是该压栈序列对应的一个弹出序列，但 {4,3,5,1,2} 就不可能是该压栈序列的弹出序列。
  * <p>
  * <p>
@@ -33,6 +35,76 @@ package data_structure.stack;
 public class ValidateStackSequencesTest {
 
     public boolean validateStackSequences(int[] pushed, int[] popped) {
-        return false;
+        if (pushed == null || pushed.length == 0) {
+            return true;
+        }
+        int N = pushed.length;
+        int[] stack = new int[N];
+        int size = 0;
+        int popIndex = 0;
+        for (int a : pushed) {
+            if (a == popped[popIndex]) {
+                popIndex++;
+            } else {
+                stack[size++] = a;
+                continue;
+            }
+            while (size > 0 && stack[size - 1] == popped[popIndex]) {
+                size--;
+                popIndex++;
+            }
+        }
+        return size == 0;
+    }
+
+    public boolean validateStackSequences1(int[] pushed, int[] popped) {
+        if (pushed == null || pushed.length == 0) {
+            return true;
+        }
+        int N = pushed.length;
+        int[] stack = new int[N];
+        int size = 0;
+        int pushIndex = 0, popIndex = 0;
+        while (pushIndex < N && popIndex < N) {
+            if (pushed[pushIndex] == popped[popIndex]) {
+                pushIndex++;
+                popIndex++;
+            } else if (size > 0 && stack[size - 1] == popped[popIndex]){
+                size--;
+                popIndex++;
+            } else {
+                stack[size++] = pushed[pushIndex++];
+            }
+        }
+        while (size > 0 && stack[size - 1] == popped[popIndex]) {
+            size--;
+            popIndex++;
+        }
+        return size == 0;
+    }
+
+    public boolean validateStackSequences2(int[] pushed, int[] popped) {
+        if (pushed == null || pushed.length == 0) {
+            return true;
+        }
+        int N = pushed.length;
+        Stack<Integer> stack = new Stack<>();
+        int pushIndex = 0, popIndex = 0;
+        while (pushIndex < N && popIndex < N) {
+            if (pushed[pushIndex] == popped[popIndex]) {
+                pushIndex++;
+                popIndex++;
+            } else if (!stack.isEmpty() && stack.peek() == popped[popIndex]){
+                stack.pop();
+                popIndex++;
+            } else {
+                stack.push(pushed[pushIndex++]);
+            }
+        }
+        while (!stack.isEmpty() && stack.peek() == popped[popIndex]) {
+            stack.pop();
+            popIndex++;
+        }
+        return stack.isEmpty();
     }
 }
