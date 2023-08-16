@@ -3,7 +3,7 @@ package str;
 import org.junit.Test;
 
 /**
- * <a href="https://leetcode.cn/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof/?envType=study-plan-v2&envId=coding-interviews">剑指 Offer 20. 表示数值的字符串</a>
+ * <a href="https://leetcode.cn/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof">剑指 Offer 20. 表示数值的字符串</a>
  * 请实现一个函数用来判断字符串是否表示数值（包括整数和小数）。
  * <p>
  * 数值（按顺序）可以分成以下几个部分：
@@ -58,42 +58,85 @@ public class ValidNumberStrTest {
     }
 
     public boolean isNumber(String s) {
-        // "   +12.44e-123   "
-        // "   +" 0
-        // "12" 1
-        // ".44" 2
-        // "e" 3
-        // "-123" 4
         char[] cs = s.toCharArray();
-        int phrase = 0;
-        for (char c : cs) {
-            if (c == ' ') {
-                if (phrase != 0) {
-                    return false;
-                }
-            } else if (c == '+' || c == '-') {
-                if (phrase != 0 && phrase != 3) {
-                    return false;
-                }
-                phrase++;
+        int start = 0, end = cs.length - 1;
+        // 去除尾部空格
+        while (end >= 0 && cs[end] == ' ') {
+            end--;
+        }
+        if (end < 0) {
+            return false;
+        }
+        end++;
+        // 去除首部空格
+        while (start < end && cs[start] == ' ') {
+            start++;
+        }
+        int digitCount = 0;
+        int digitStart = Integer.MAX_VALUE;
+        int dotCount = 0;
+        int dotStart = Integer.MAX_VALUE;
+        int signCount = 0;
+        // 先判断e前面的部分
+        while (start < end && cs[start] != 'e' && cs[start] != 'E') {
+            char c = cs[start];
+            if (c >= '0' && c <= '9') {
+                digitCount++;
+                digitStart = Math.min(digitStart, start);
             } else if (c == '.') {
-                if (phrase != 0 && phrase != 1) {
+                dotCount++;
+                if (dotCount > 1) {
                     return false;
                 }
-                phrase = 2;
-            } else if (c == 'e' || c == 'E') {
-                if (phrase != 1 && phrase != 2) {
+                dotStart = Math.min(dotStart, start);
+            } else if (c == '+' || c == '-') {
+                signCount++;
+                if (signCount > 1) {
                     return false;
                 }
-                phrase = 3;
-            } else if (c >= '0' && c <= '9') {
-                if (phrase == 0 || phrase == 3) {
-                    phrase++;
+                if (start > digitStart || start > dotStart) {
+                    return false;
                 }
             } else {
                 return false;
             }
+            start++;
         }
-        return phrase != 0 && phrase != 3 && phrase != 4;
+        if (digitCount == 0) {
+            return false;
+        }
+        if (start == end) {
+            return true;
+        }
+        start++;
+        digitCount = 0;
+        digitStart = Integer.MAX_VALUE;
+        signCount = 0;
+        while (start < end) {
+            char c = cs[start];
+            if (c >= '0' && c <= '9') {
+                digitCount++;
+                digitStart = Math.min(digitStart, start);
+            } else if (c == '+' || c == '-') {
+                signCount++;
+                if (signCount > 1) {
+                    return false;
+                }
+                if (start > digitStart) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+            start++;
+        }
+        return digitCount > 0;
+    }
+
+    private boolean isValid(char c) {
+        return c >= '0' && c <= '9'
+                || c == 'e' || c == 'E'
+                || c == '.'
+                || c == '+' || c == '-';
     }
 }
