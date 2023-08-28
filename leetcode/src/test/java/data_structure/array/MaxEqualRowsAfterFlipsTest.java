@@ -1,5 +1,7 @@
 package data_structure.array;
 
+import org.junit.Test;
+
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -42,8 +44,12 @@ import java.util.stream.IntStream;
  */
 public class MaxEqualRowsAfterFlipsTest {
 
+    @Test
+    public void test() {
+        System.out.println(maxEqualRowsAfterFlips(new int[][]{{0, 0, 0}, {0, 0, 1}, {1, 1, 0}}));
+    }
+
     public int maxEqualRowsAfterFlips(int[][] matrix) {
-        // todo
         int n = matrix.length;
         int m = matrix[0].length;
         if (n == 1) {
@@ -55,27 +61,28 @@ public class MaxEqualRowsAfterFlipsTest {
         // 先给第一列分组
         int[] rows = IntStream.range(0, n).toArray();
         int[][] partition = partition(matrix, 0, rows);
-        Queue<int[][]> queue = new LinkedList<>();
-        queue.offer(partition);
+        int max = 1;
+        List<int[][]> list = new ArrayList<>(n);
+        list.add(partition);
         for (int i = 1; i < m; i++) {
-            Queue<int[][]> next = new LinkedList<>();
-            while (!queue.isEmpty()) {
-                int[][] poll = queue.poll();
-                if (poll[0].length == 0 && poll[1].length == 0) {
+            List<int[][]> next = new ArrayList<>();
+            for (int[][] parts : list) {
+                if (parts[0].length == 0 && parts[1].length == 0 || parts[0].length == 0 && parts[1].length == 1 || parts[0].length == 1 && parts[1].length == 0) {
                     continue;
                 }
-                int[][] zeroPart = partition(matrix, i, poll[0]);
-                int[][] onePart = partition(matrix, i, poll[1]);
+                int[][] zeroPart = partition(matrix, i, parts[0]);
+                int[][] onePart = partition(matrix, i, parts[1]);
                 if (i < m - 1) {
-                    queue.add(new int[][]{zeroPart[0], onePart[1]});
-                    queue.add(new int[][]{onePart[0], zeroPart[1]});
+                    next.add(new int[][]{zeroPart[0], onePart[1]});
+                    next.add(new int[][]{onePart[0], zeroPart[1]});
                 } else {
-
+                    max = Math.max(max, zeroPart[0].length + onePart[1].length);
+                    max = Math.max(max, onePart[0].length + zeroPart[1].length);
                 }
             }
-            queue = next;
+            list = next;
         }
-        return 1;
+        return max;
     }
 
     private int[][] partition(int[][] matrix, int col, int[] rows) {
@@ -92,10 +99,20 @@ public class MaxEqualRowsAfterFlipsTest {
                 res[--one] = row;
             }
         }
-        return new int[][] {Arrays.copyOf(res, zero), Arrays.copyOfRange(res, one, n)};
+        return new int[][]{Arrays.copyOf(res, zero), Arrays.copyOfRange(res, one, n)};
     }
 
-    private void reverse(int[] arr) {
+    private int[] reverse(int[] arr) {
+        int start = 0, end = arr.length - 1;
+        while (start < end) {
+            swap(arr, start++, end--);
+        }
+        return arr;
+    }
 
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
