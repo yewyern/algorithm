@@ -46,10 +46,42 @@ public class MaxEqualRowsAfterFlipsTest {
 
     @Test
     public void test() {
-        System.out.println(maxEqualRowsAfterFlips(new int[][]{{0, 0, 0}, {0, 0, 1}, {1, 1, 0}}));
+        System.out.println(maxEqualRowsAfterFlips(new int[][]{{1,0,0,0,1,1,1,0,1,1,1}, {1,0,0,0,1,0,0,0,1,0,0}, {1,0,0,0,1,1,1,0,1,1,1},{1,0,0,0,1,0,0,0,1,0,0},{1,1,1,0,1,1,1,0,1,1,1}}));
     }
 
     public int maxEqualRowsAfterFlips(int[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        if (n == 1) {
+            return 1;
+        }
+        if (m == 1) {
+            return n;
+        }
+        int[] rows = IntStream.range(0, n).toArray();
+        return process(matrix, rows, 1, 0, n);
+    }
+
+    private int process(int[][] matrix, int[] rows, int i, int l, int r) {
+        int n = r - l;
+        if (n < 2 || i == matrix[0].length) {
+            return n;
+        }
+        int[] res = new int[n];
+        // 只看变没变，不看0和1
+        int notChange = 0, change = n;
+        for (int j = l; j < r; j++) {
+            int row = rows[j];
+            if (matrix[row][i] == matrix[row][i - 1]) {
+                res[notChange++] = row;
+            } else {
+                res[--change] = row;
+            }
+        }
+        return Math.max(process(matrix, res, i + 1, 0, change), process(matrix, res, i + 1, change, n));
+    }
+
+    public int maxEqualRowsAfterFlips2(int[][] matrix) {
         int n = matrix.length;
         int m = matrix[0].length;
         if (n == 1) {
