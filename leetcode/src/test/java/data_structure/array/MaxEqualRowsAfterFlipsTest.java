@@ -59,6 +59,41 @@ public class MaxEqualRowsAfterFlipsTest {
             return n;
         }
         int[] rows = IntStream.range(0, n).toArray();
+        return process1(matrix, rows, 1, 0, n - 1);
+    }
+
+    private int process1(int[][] matrix, int[] rows, int i, int l, int r) {
+        int n = r - l + 1;
+        if (n < 2 || i == matrix[0].length) {
+            return n;
+        }
+        // 只看变没变，不看0和1
+        int notChange = l, change = r;
+        while (notChange <= change) {
+            while (notChange <= change && matrix[rows[notChange]][i] == matrix[rows[notChange]][i - 1]) {
+                notChange++;
+            }
+            while (notChange <= change && matrix[rows[change]][i] == matrix[rows[change]][i - 1]) {
+                notChange--;
+            }
+            if (notChange > change) {
+                break;
+            }
+            swap(rows, notChange, change);
+        }
+        return Math.max(process1(matrix, rows, i + 1, l, notChange), process1(matrix, rows, i + 1, change, r));
+    }
+
+    public int maxEqualRowsAfterFlips1(int[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        if (n == 1) {
+            return 1;
+        }
+        if (m == 1) {
+            return n;
+        }
+        int[] rows = IntStream.range(0, n).toArray();
         return process(matrix, rows, 1, 0, n);
     }
 
