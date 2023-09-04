@@ -1,6 +1,7 @@
 package math;
 
-import java.util.Arrays;
+import org.junit.Test;
+
 
 /**
  * <a href="https://leetcode.cn/problems/sum-of-k-mirror-numbers/">2081. k 镜像数字的和</a>
@@ -58,58 +59,100 @@ import java.util.Arrays;
  */
 public class SumOfKMirrorNumbersTest {
 
-    private final long[][] kMirrors = new long[10][];
+    private static final KMirrors[] kMirrors = new KMirrors[10];
+    static {
+        for (int k = 2; k < 10; k++) {
+            kMirrors[k] = new KMirrors(k, 31);
+            kMirrors[k].kMirror(30);
+        }
+    }
 
     public long kMirror(int k, int n) {
         if (kMirrors[k] == null) {
-            kMirrors[k] = new long[31];
+            kMirrors[k] = new KMirrors(k, 31);
         }
-        if (kMirrors[k][n] != 0) {
-            return sum(kMirrors[k], n);
-        }
-        // todo
-        return 0;
+        return kMirrors[k].kMirror(n);
     }
 
-    private long sum(long[] kMirrors, int n) {
-        long ans = 0;
-        for (int i = 0; i < n; i++) {
-            ans += kMirrors[i];
-        }
-        return ans;
-    }
+    private static class KMirrors {
+        int k;
+        int len;// 当前数字总长度
+        int base;// 基数：取10或者k
+        long half; // 左半部分，奇数长度时包括中间数字
+        long halfStart; // 当前长度时左半部分初始值
+        long halfEnd; // 当前长度时左半部分结束值
+        long level; // 当前长度时左半部分需要乘的值
+        long[] kMirrorSum; // 已计算的结果
+        int size;
 
-    public long toNumber(int[] a, int size) {
-        long ans = 0;
-        long level = 1;
-        for (int i = 0; i < size; i++) {
-            ans += level * a[i];
-            level *= 10;
+        public KMirrors(int k, int maxSize) {
+            this.k = k;
+            len = 1;
+            base = k;
+            half = 1;
+            halfStart = 1;
+            halfEnd = k;
+            level = 1;
+            size = 0;
+            kMirrorSum = new long[maxSize];
         }
-        return ans;
-    }
 
-    public boolean isKMirror(long a, int k) {
-        if (a < k) {
-            return true;
+        public long kMirror(int n) {
+            while (size < n) {
+                long next;
+                do {
+                    next = next();
+                } while (!isKMirror(next, 10));
+                kMirrorSum[size] = next + (size > 0 ? kMirrorSum[size - 1] : 0);
+                size++;
+            }
+            return kMirrorSum[n - 1];
         }
-        int[] kthNumber = toKthNumber(a, k);
-        int l = 0, r = kthNumber.length - 1;
-        while (l < r) {
-            if (kthNumber[l++] != kthNumber[r--]) {
-                return false;
+
+        private long next() {
+            if ((len & 1) == 1) {
+                // 奇数长度
+                long ans = half * level + reverse(half / base, base);
+                half++;
+                if (half == halfEnd) {
+                    half = halfStart;
+                    len++;
+                    level *= base;
+                }
+                return ans;
+            } else {
+                // 偶数长度
+                long ans = half * level + reverse(half, base);
+                half++;
+                if (half == halfEnd) {
+                    halfStart *= base;
+                    halfEnd *= base;
+                    half = halfStart;
+                    len++;
+                }
+                return ans;
             }
         }
-        return true;
+
+        public boolean isKMirror(long a, int k) {
+            return a < k || reverse(a, k) == a;
+        }
+
+        public long reverse(long a, int k) {
+            long ans = 0;
+            while (a > 0) {
+                ans = ans * k + a % k;
+                a /= k;
+            }
+            return ans;
+        }
+
     }
 
-    private int[] toKthNumber(long a, int k) {
-        int[] ans = new int[64];
-        int size = 0;
-        while (a > 0) {
-            ans[size++] = (int) (a % k);
-            a /= k;
-        }
-        return Arrays.copyOfRange(ans, 0, size);
+    @Test
+    public void test() {
+        System.out.println(kMirror(2, 5));
+        System.out.println(kMirror(3, 7));
+        System.out.println(kMirror(7, 17));
     }
 }
