@@ -70,6 +70,9 @@ public class ValidateBinaryTreeTest {
     }
 
     private boolean process(int cur) {
+        if (cur < 0) {
+            return true;
+        }
         if (visited[cur]) {
             if (parents[cur]) {
                 parents[cur] = false; // 非根节点移出
@@ -81,16 +84,7 @@ public class ValidateBinaryTreeTest {
             }
         }
         visited[cur] = true;
-        if (leftChild[cur] >= 0) {
-            boolean valid = process(leftChild[cur]);
-            if (!valid) {
-                return false;
-            }
-        }
-        if (rightChild[cur] >= 0) {
-            return process(rightChild[cur]);
-        }
-        return true;
+        return process(leftChild[cur]) && process(rightChild[cur]);
     }
 
 
