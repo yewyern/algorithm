@@ -51,6 +51,36 @@ public class RemoveCommentsTest {
         return new String(target, 0, len);
     }
 
+    private String removeComments0(String s) {
+        int n = s.length();
+        char[] source = s.toCharArray();
+        StringBuilder target = new StringBuilder();
+        int currentIndex = 0; // 源字符串当前索引
+        int fromIndex = 0; // 源字符串当前索引
+        while (fromIndex < n) {
+            int slashStart = s.indexOf("/", fromIndex);
+            if (slashStart < 0 || slashStart >= n - 1) {
+                target.append(s, currentIndex, n);
+                break;
+            } else if (source[slashStart + 1] == '/') {
+                // 行注释
+                int commentEnd = s.indexOf("\n", slashStart + 2);
+                target.append(s, currentIndex, slashStart);
+                currentIndex = commentEnd;
+                fromIndex = currentIndex;
+            } else if (source[slashStart + 1] == '*') {
+                // 块注释
+                int commentEnd = s.indexOf("*/", slashStart + 2);
+                target.append(s, currentIndex, slashStart);
+                currentIndex = commentEnd + 2;
+                fromIndex = currentIndex;
+            } else {
+                fromIndex = slashStart + 1;
+            }
+        }
+        return target.toString();
+    }
+
     private String join(String[] source) {
         StringBuilder sb = new StringBuilder();
         for (String s : source) {
