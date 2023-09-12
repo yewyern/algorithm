@@ -4,6 +4,7 @@ import utils.TreeNode;
 
 /**
  * <a href="https://leetcode.cn/problems/lowest-common-ancestor-of-deepest-leaves">1123. 最深叶节点的最近公共祖先</a>
+ * <a href="https://leetcode.cn/problems/smallest-subtree-with-all-the-deepest-nodes/">865. 具有所有最深节点的最小子树</a>
  *
  * @author xuzhou
  * @since 2023/9/11 18:14
