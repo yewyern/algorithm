@@ -1,6 +1,7 @@
 package sliding_window;
 
 
+import utils.RandomArray;
 import utils.RandomUtils;
 
 import java.util.Arrays;
@@ -19,7 +20,7 @@ public class CountSubArray {
 
     public static void main(String[] args) {
         for (int i = 0; i < 100000; i++) {
-            int[] nums = RandomUtils.generateRandomLengthNoEmptyArray(100, 200);
+            int[] nums = RandomArray.generateRandomLengthNoEmptyArray(100, 200);
             int maxDiff = RandomUtils.nextInt(200);
             long l = countSubArrays(nums, maxDiff);
             long l2 = countSubArraysComparison(nums, maxDiff);

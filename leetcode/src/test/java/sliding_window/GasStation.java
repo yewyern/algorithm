@@ -1,5 +1,6 @@
 package sliding_window;
 
+import utils.RandomArray;
 import utils.RandomUtils;
 
 import java.util.Arrays;
@@ -84,8 +85,8 @@ public class GasStation {
     public static void main(String[] args) {
         for (int i = 0; i < 10000; i++) {
             int len = RandomUtils.nextInt(100) + 1;
-            int[] gas = RandomUtils.generate(len, 1, 100);
-            int[] cost = RandomUtils.generate(len, 1, 100);
+            int[] gas = RandomArray.generate(len, 1, 100);
+            int[] cost = RandomArray.generate(len, 1, 100);
             boolean[] res = availableGasStation(gas, cost);
             boolean[] res2 = availableGasStationComparison(gas, cost);
             if (!Arrays.equals(res, res2)) {

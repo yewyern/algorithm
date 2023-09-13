@@ -1,6 +1,6 @@
 package sort;
 
-import utils.RandomUtils;
+import utils.RandomArray;
 
 import java.util.Arrays;
 
@@ -12,7 +12,7 @@ public class InsertionSort {
 
     public static void main(String[] args) {
         for (int i = 0; i < 100000; i++) {
-            int[] nums = RandomUtils.generateRandomLengthNoEmptyArray(100, 1000);
+            int[] nums = RandomArray.generateRandomLengthNoEmptyArray(100, 1000);
             int[] copied = Arrays.copyOf(nums, nums.length);
             insertionSort(nums);
             Arrays.sort(copied);
