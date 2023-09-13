@@ -1,4 +1,4 @@
-package class24sliding_window;
+package sliding_window;
 
 /**
  * arr是货币数组，其中的值都是正数。再给定一个正数aim。

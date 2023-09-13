@@ -38,4 +38,25 @@ public class CountSort {
             }
         }
     }
+
+    public static int[] countSort(int[] nums) {
+        int N = nums.length;
+        int[] res = new int[N];
+        int min = nums[0], max = nums[0];
+        for (int x : nums) {
+            min = Math.min(min, x);
+            max = Math.max(max, x);
+        }
+        int[] count = new int[max - min + 1];
+        for (int x : nums) {
+            count[x - min]++;
+        }
+        int i = 0;
+        for (int j = 0; j < count.length; j++) {
+            for (int k = 0; k < count[j]; k++) {
+                res[i++] = j + min;
+            }
+        }
+        return res;
+    }
 }

@@ -1,5 +1,6 @@
-package class02sort;
+package sort;
 
+import utils.RandomArray;
 import utils.RandomUtils;
 
 import java.util.Arrays;
@@ -16,7 +17,7 @@ public class BubbleSort {
         int test = 10000;
         long start = System.nanoTime();
         for (int i = 0; i < test; i++) {
-            int[] array = RandomUtils.generateRandomLengthNoEmptyArray(40, 100);
+            int[] array = RandomArray.generateRandomLengthNoEmptyArray(40, 100);
             int[] copied = Arrays.copyOf(array, array.length);
             bubbleSort(array);
             Arrays.sort(copied);
@@ -29,7 +30,7 @@ public class BubbleSort {
         System.out.println("bubbleSort  = " + (System.nanoTime() - start));
         start = System.nanoTime();
         for (int i = 0; i < test; i++) {
-            int[] array = RandomUtils.generateRandomLengthNoEmptyArray(40, 100);
+            int[] array = RandomArray.generateRandomLengthNoEmptyArray(40, 100);
             int[] copied = Arrays.copyOf(array, array.length);
             bubbleSort2(array);
             Arrays.sort(copied);
@@ -42,7 +43,7 @@ public class BubbleSort {
         System.out.println("bubbleSort2 = " + (System.nanoTime() - start));
         start = System.nanoTime();
         for (int i = 0; i < test; i++) {
-            int[] array = RandomUtils.generateRandomLengthNoEmptyArray(40, 100);
+            int[] array = RandomArray.generateRandomLengthNoEmptyArray(40, 100);
             int[] copied = Arrays.copyOf(array, array.length);
             bubbleSort3(array);
             Arrays.sort(copied);

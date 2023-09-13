@@ -2,6 +2,9 @@ package dynamic_programing;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+
 /**
  * <a href="https://leetcode.cn/problems/partition-array-for-maximum-sum/">1043. 分隔数组以得到最大和</a>
  * 给你一个整数数组 arr，请你将该数组分隔为长度 最多 为 k 的一些（连续）子数组。分隔完成后，每个子数组的中的所有值都会变为该子数组中的最大值。
@@ -42,6 +45,26 @@ public class MaxSumAfterPartitioningTest {
     }
 
     public int maxSumAfterPartitioning(int[] arr, int k) {
+        if (k == 1) {
+            return sum(arr);
+        }
+        int n = arr.length;
+        LinkedList<Integer> maxQueue = new LinkedList<>();
+        int[] pre = new int[n];
+        for (int i = 0; i < n; i++) {
+            while (!maxQueue.isEmpty() && arr[maxQueue.peekLast()] < arr[i]) {
+                maxQueue.pollLast();
+            }
+            maxQueue.addLast(i);
+            int max = arr[maxQueue.peekFirst()];
+            pre[i] = (i > 0 ? pre[i - 1] : 0) + arr[i];
+            pre[i] = Math.max(pre[i], (i >= k ? pre[i - k] + k * max : (i + 1) * max));
+        }
+        System.out.println(Arrays.toString(pre));
+        return pre[n - 1];
+    }
+
+    public int maxSumAfterPartitioning2(int[] arr, int k) {
         if (k == 1) {
             return sum(arr);
         }

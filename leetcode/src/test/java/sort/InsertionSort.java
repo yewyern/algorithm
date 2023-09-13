@@ -1,4 +1,4 @@
-package class02sort;
+package sort;
 
 import utils.RandomUtils;
 

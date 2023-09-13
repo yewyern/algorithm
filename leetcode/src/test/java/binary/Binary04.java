@@ -1,4 +1,4 @@
-package class01binary;
+package binary;
 
 import utils.RandomUtils;
 

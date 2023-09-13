@@ -1,4 +1,4 @@
-package class24sliding_window;
+package sliding_window;
 
 import utils.RandomUtils;
 
