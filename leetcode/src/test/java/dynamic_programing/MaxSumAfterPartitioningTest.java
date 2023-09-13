@@ -51,6 +51,7 @@ public class MaxSumAfterPartitioningTest {
         int n = arr.length;
         LinkedList<Integer> maxQueue = new LinkedList<>();
         int[] pre = new int[n];
+        // todo 最大值更新逻辑有误
         for (int i = 0; i < n; i++) {
             while (!maxQueue.isEmpty() && arr[maxQueue.peekLast()] < arr[i]) {
                 maxQueue.pollLast();
