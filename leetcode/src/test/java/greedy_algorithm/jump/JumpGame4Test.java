@@ -4,18 +4,12 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.google.common.base.Splitter;
 import com.google.common.base.Stopwatch;
+
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+
 import org.junit.Test;
 import utils.RandomArray;
 
@@ -64,126 +58,60 @@ public class JumpGame4Test {
 
     public int minJumps(int[] arr) {
         int N = arr.length;
-        if (N == 1) {
-            return 0;
+        if (N < 3) {
+            return N - 1;
         }
-        int count = 1;
-        int nextCount = 0;
-        int step = 0;
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(0);
-        boolean[] visited = new boolean[N];
-        Set<Integer> added = new HashSet<>(); // 已经入队列的数字，遇到重复的时候，不用再添加了
-        int last = 1; // 上次遍历重复数字的时候，左侧已经全部入队列的最大index
-        while (!queue.isEmpty()) {
-            Integer i = queue.poll();
-            if (i == N - 1) {
-                return step;
-            }
-            if (visited[i]) {
-                continue;
-            }
-            visited[i] = true;
-            if (!added.contains(arr[i])) {
-                // 这个数字没有入队列，遍历查找，并入队列
-                added.add(arr[i]);
-                boolean jumped = false;
-                for (int j = last; j < N; j++) {
-                    if (!jumped) {
-                        last = j;
-                    }
-                    if (!visited[j]) {
-                        if (arr[j] == arr[i]) {
-                            queue.add(j);
-                            nextCount++;
-                        } else if (j == i + 1 && !added.contains(arr[j])) {
-                            queue.add(j);
-                            nextCount++;
-                        } else {
-                            jumped = true;
-                        }
-                    } else {
-                        jumped = true;
-                    }
-                }
-            } else {
-                if (!visited[i + 1] && arr[i + 1] != arr[i] && !added.contains(arr[i + 1])) {
-                    queue.add(i + 1);
-                    nextCount++;
-                }
-                if (!visited[i - 1] && arr[i - 1] != arr[i] && !added.contains(arr[i - 1])) {
-                    queue.add(i - 1);
-                    nextCount++;
-                }
-            }
-            count--;
-            if (count == 0) {
-                count = nextCount;
-                nextCount = 0;
-                step++;
-            }
-
-        }
-        return step;
-    }
-
-    public int minJumpsComparison(int[] arr) {
-        int N = arr.length;
-        if (N == 1) {
-            return 0;
-        }
-        boolean[] visited = new boolean[N];
-        Map<Integer, Set<Integer>> map = new HashMap<>(N);
+        // 根据数值对索引分组
+        Map<Integer/*数值*/, Set<Integer/*索引*/>> map = new HashMap<>();
+        int maxSize = 1;
         for (int i = 0; i < N; i++) {
-            while (i > 0 && i < N - 1 && arr[i] == arr[i - 1] && arr[i] == arr[i + 1]) {
-                visited[i] = true;
-                i++;
-            }
-            if (map.containsKey(arr[i])) {
-                map.get(arr[i]).add(i);
-            } else {
-                Set<Integer> set = new HashSet<>();
-                set.add(i);
-                map.put(arr[i], set);
-            }
+            Set<Integer> set = map.getOrDefault(arr[i], new HashSet<>());
+            set.add(i);
+            map.put(arr[i], set);
+            maxSize = Math.max(maxSize, set.size());
         }
-        int count = 1;
-        int nextCount = 0;
-        int step = 0;
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(0);
-        while (!queue.isEmpty()) {
-            Integer i = queue.poll();
-            if (i == N - 1) {
+        if (maxSize == 1) {
+            return N - 1;
+        }
+        int step = 1;
+        boolean[] visited = new boolean[N];
+        visited[0] = true;
+        Set<Integer> curr = new HashSet<>();
+        curr.add(0);
+        while (!curr.isEmpty()) {
+            Set<Integer> next = new HashSet<>();
+            for (Integer i : curr) {
+                visited[i] = true;
+            }
+            for (Integer i : curr) {
+                if (map.containsKey(arr[i])) {
+                    // 相同值位置跳转
+                    Set<Integer> set = map.get(arr[i]);
+                    if (set.contains(N - 1)) {
+                        return step;
+                    }
+                    for (Integer j : set) {
+                        if (!visited[j]) {
+                            next.add(j);
+                        }
+                    }
+                    map.remove(arr[i]);
+                }
+                // 相邻位置跳转
+                if (i > 0 && !visited[i - 1]) {
+                    next.add(i - 1);
+                }
+                if (i < N - 2 && !visited[i + 1]) {
+                    next.add(i + 1);
+                }
+            }
+            curr = next;
+            step++;
+            if (curr.contains(N - 2)) {
                 return step;
             }
-            Set<Integer> set = map.get(arr[i]);
-            if (set.contains(N - 1)) {
-                return step + 1;
-            }
-            set.remove(i);
-            queue.addAll(set);
-            nextCount += set.size();
-            if (i > 0 && !visited[i - 1]) {
-                queue.add(i - 1);
-                nextCount++;
-            }
-            if (i < N - 1 && !visited[i + 1]) {
-                if (i + 1 == N - 1) {
-                    return step + 1;
-                }
-                queue.add(i + 1);
-                nextCount++;
-            }
-            visited[i] = true;
-            count--;
-            if (count == 0) {
-                step++;
-                count = nextCount;
-                nextCount = 0;
-            }
         }
-        return step;
+        return 0;
     }
 
     @Test
