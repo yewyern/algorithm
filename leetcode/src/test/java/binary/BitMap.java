@@ -48,6 +48,10 @@ public class BitMap implements Iterable<Integer> {
         return ans;
     }
 
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
     @Override
     public Iterator<Integer> iterator() {
         return new Iterator<Integer>() {

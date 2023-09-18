@@ -1,5 +1,6 @@
 package greedy_algorithm.jump;
 
+import binary.BitMap;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.google.common.base.Splitter;
@@ -61,6 +62,76 @@ public class JumpGame4Test {
         if (N < 3) {
             return N - 1;
         }
+        if (arr[0] == arr[N - 1]) {
+            return 1;
+        }
+        if (N ==3 || arr[0] == arr[N - 2] || arr[1] == arr[N - 1]) {
+            return 2;
+        }
+        if (arr[1] == arr[N - 2]) {
+            return 3;
+        }
+        // 根据数值对索引分组
+        Map<Integer/*数值*/, List<Integer/*索引*/>> map = new HashMap<>();
+        int maxSize = 1;
+        for (int i = 0; i < N; i++) {
+            List<Integer> list = map.getOrDefault(arr[i], new LinkedList<>());
+            list.add(i);
+            map.put(arr[i], list);
+            maxSize = Math.max(maxSize, list.size());
+        }
+        if (maxSize == 1) {
+            return N - 1;
+        }
+        int step = 1;
+        boolean[] visited = new boolean[N];
+        visited[0] = true;
+        Queue<Integer> curr = new LinkedList<>();
+        curr.add(0);
+        while (!curr.isEmpty()) {
+            Queue<Integer> next = new LinkedList<>();
+            for (Integer i : curr) {
+                if (i == N - 2) {
+                    return step;
+                }
+                visited[i] = true;
+            }
+            for (Integer i : curr) {
+                // 相邻位置跳转
+                if (i > 0 && !visited[i - 1]) {
+                    next.add(i - 1);
+                }
+                if (i < N - 2 && !visited[i + 1]) {
+                    next.add(i + 1);
+                }
+                // 相同值位置跳转
+                List<Integer> list = map.remove(arr[i]);
+                if (list == null) {
+                    continue;
+                }
+                for (Integer j : list) {
+                    if (j == N - 1) {
+                        return step;
+                    }
+                    if (!visited[j]) {
+                        next.add(j);
+                    }
+                }
+            }
+            curr = next;
+            step++;
+        }
+        return step;
+    }
+
+    public int minJumps2(int[] arr) {
+        int N = arr.length;
+        if (N < 3) {
+            return N - 1;
+        }
+        if (arr[0] == arr[N - 1]) {
+            return 1;
+        }
         // 根据数值对索引分组
         Map<Integer/*数值*/, Set<Integer/*索引*/>> map = new HashMap<>();
         int maxSize = 1;
@@ -111,7 +182,7 @@ public class JumpGame4Test {
                 return step;
             }
         }
-        return 0;
+        return step;
     }
 
     @Test
