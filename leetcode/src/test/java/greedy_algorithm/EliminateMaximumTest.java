@@ -81,8 +81,8 @@ public class EliminateMaximumTest {
     }
 
     private static class Heap {
-        int[] dist;
-        int[] speed;
+        final int[] dist;
+        final int[] speed;
         int size;
 
         public Heap(int[] dist, int[] speed) {

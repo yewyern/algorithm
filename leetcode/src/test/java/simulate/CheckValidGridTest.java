@@ -34,8 +34,8 @@ public class CheckValidGridTest {
     }
 
     public static class Pos {
-        int x;
-        int y;
+        final int x;
+        final int y;
 
         public Pos(int x, int y) {
             this.x = x;

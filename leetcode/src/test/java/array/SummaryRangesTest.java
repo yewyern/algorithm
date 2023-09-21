@@ -70,11 +70,10 @@ public class SummaryRangesTest {
             res.add(Integer.toString(start));
         } else {
             // builder比+快
-            StringBuilder builder = new StringBuilder();
-            builder.append(start);
-            builder.append("->");
-            builder.append(end);
-            res.add(builder.toString());
+            String builder = start +
+                    "->" +
+                    end;
+            res.add(builder);
         }
     }
 

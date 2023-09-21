@@ -48,9 +48,9 @@ public class MaxWidthOfBinaryTreeTest {
     }
 
     private static class Node {
-        int level;
-        int index;
-        TreeNode treeNode;
+        final int level;
+        final int index;
+        final TreeNode treeNode;
 
         public Node(int level, int index, TreeNode treeNode) {
             this.level = level;

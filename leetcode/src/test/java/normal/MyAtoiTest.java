@@ -9,7 +9,7 @@ import org.junit.Test;
  */
 public class MyAtoiTest {
 
-    private MyAtoi instance = new MyAtoi();
+    private final MyAtoi instance = new MyAtoi();
 
     @Test
     public void testMyAtoi() {

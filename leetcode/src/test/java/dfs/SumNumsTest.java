@@ -62,7 +62,7 @@ public class SumNumsTest {
         try {
             sum[n] = sum[n - 1] + n;
             process(sum, n + 1);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 }

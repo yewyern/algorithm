@@ -81,7 +81,7 @@ public class CopyRandomListTest {
 }
 
 class Node {
-    int val;
+    final int val;
     Node next;
     Node random;
 

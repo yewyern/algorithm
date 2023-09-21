@@ -8,9 +8,9 @@ import java.util.LinkedList;
  */
 public class MyBlockingQueue<T> {
 
-    private LinkedList<T> list = new LinkedList<T>();
+    private final LinkedList<T> list = new LinkedList<T>();
     private int len = 0;
-    private int max;
+    private final int max;
 
     public MyBlockingQueue(int max) {
         this.max = max;

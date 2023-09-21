@@ -58,8 +58,8 @@ public class DagTest {
 
 class DagNode {
 
-    String value;
-    boolean isOperator;
+    final String value;
+    final boolean isOperator;
     DagNode left;
     DagNode right;
 

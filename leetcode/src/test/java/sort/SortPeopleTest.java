@@ -35,8 +35,8 @@ public class SortPeopleTest {
     }
 
     private static class People implements Comparable<People> {
-        String name;
-        int height;
+        final String name;
+        final int height;
 
         public People(String name, int height) {
             this.name = name;

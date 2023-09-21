@@ -46,9 +46,9 @@ public class MaxAncestorDiffTest {
     }
 
     private static class Diff {
-        int diff;
-        int max;
-        int min;
+        final int diff;
+        final int max;
+        final int min;
 
         public Diff(int diff, int max, int min) {
             this.diff = diff;

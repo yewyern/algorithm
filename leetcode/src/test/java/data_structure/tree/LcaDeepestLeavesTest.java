@@ -31,8 +31,8 @@ public class LcaDeepestLeavesTest {
     }
 
     private static class TreeNodeLevel {
-        TreeNode node;
-        int level;
+        final TreeNode node;
+        final int level;
 
         public TreeNodeLevel(TreeNode node, int level) {
             this.node = node;

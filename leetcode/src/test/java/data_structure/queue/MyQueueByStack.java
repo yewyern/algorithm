@@ -35,11 +35,11 @@ public class MyQueueByStack {
     /**
      * 存放正序
      */
-    private Stack<Integer> s1;
+    private final Stack<Integer> s1;
     /**
      * 存放逆序
      */
-    private Stack<Integer> s2;
+    private final Stack<Integer> s2;
     private int front;
 
     /**

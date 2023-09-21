@@ -12,7 +12,7 @@ import org.junit.Test;
 public class FastCancelTasks {
 
     volatile boolean isError = false;
-    Random random = new Random();
+    final Random random = new Random();
 
     public void func() {
         while (!isError) {

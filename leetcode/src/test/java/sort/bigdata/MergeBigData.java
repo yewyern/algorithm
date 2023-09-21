@@ -105,7 +105,7 @@ public class MergeBigData {
 
     private static class Node implements Comparable<Node> {
 
-        BufferedReader reader;
+        final BufferedReader reader;
         int num;
 
         public Node(BufferedReader reader, int num) {

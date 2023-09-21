@@ -114,7 +114,7 @@ public class MaxSizeSlicesTest {
     }
 
     private static class Heap {
-        Node[] nodes;
+        final Node[] nodes;
         int size;
 
         public Heap(Node[] nodes) {

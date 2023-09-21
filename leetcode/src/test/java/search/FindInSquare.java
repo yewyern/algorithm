@@ -39,7 +39,7 @@ public class FindInSquare {
     private static void print(int[][] square) {
         System.out.println("square = [");
         for (int[] nums : square) {
-            System.out.println("" + Arrays.toString(nums) + ",");
+            System.out.println(Arrays.toString(nums) + ",");
         }
         System.out.println("]");
     }

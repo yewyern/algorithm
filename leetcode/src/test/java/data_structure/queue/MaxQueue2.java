@@ -64,7 +64,7 @@ public class MaxQueue2 {
     }
 
     private static class Node {
-        int val;
+        final int val;
         Node next;
 
         public Node(int val) {

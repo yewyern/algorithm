@@ -82,8 +82,8 @@ public class QueensAttacktheKingTest {
     }
 
     private static class Queen {
-        int[] pos;// queen的位置
-        int dist;// 和king的距离
+        final int[] pos;// queen的位置
+        final int dist;// 和king的距离
 
         public Queen(int[] pos, int dist) {
             this.pos = pos;

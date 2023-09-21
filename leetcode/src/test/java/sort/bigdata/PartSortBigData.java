@@ -82,9 +82,9 @@ public class PartSortBigData {
 
     private static class DataNode {
 
-        int[] A;
-        int size;
-        String filename;
+        final int[] A;
+        final int size;
+        final String filename;
 
         public DataNode(int[] a, int size, String filename) {
             A = a;

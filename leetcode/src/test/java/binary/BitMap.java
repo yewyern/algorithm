@@ -9,7 +9,7 @@ import java.util.Iterator;
  * @since 2023/9/15 15:21
  */
 public class BitMap implements Iterable<Integer> {
-    long[] bits;
+    final long[] bits;
     int start = -1;
     int size = 0;
 

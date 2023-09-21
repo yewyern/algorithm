@@ -18,7 +18,7 @@ public class CheckIfTwoStringArraysAreEquivalentTest {
         for(String ss : word2) {
             sb2.append(ss);
         }
-        return sb1.toString().equals(sb2.toString());
+        return sb1.toString().contentEquals(sb2);
     }
 
     public boolean arrayStringsAreEqualComparison(String[] word1, String[] word2) {

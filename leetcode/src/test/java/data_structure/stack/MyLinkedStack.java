@@ -30,8 +30,8 @@ public class MyLinkedStack {
     }
 
     static class Node {
-        int val;
-        Node next;
+        final int val;
+        final Node next;
 
         public Node(int val, Node next) {
             this.val = val;

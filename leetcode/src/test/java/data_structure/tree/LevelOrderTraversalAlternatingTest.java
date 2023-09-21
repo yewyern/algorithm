@@ -63,8 +63,8 @@ public class LevelOrderTraversalAlternatingTest {
     }
 
     private static class Node {
-        TreeNode val;
-        int level;
+        final TreeNode val;
+        final int level;
 
         public Node(TreeNode val, int level) {
             this.val = val;

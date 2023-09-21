@@ -2,7 +2,7 @@ package utils;
 
 public class ListNode {
 
-    public int val;
+    public final int val;
     public ListNode next;
 
     public ListNode(int x) {
@@ -21,6 +21,6 @@ public class ListNode {
 
     @Override
     public String toString() {
-        return "" + val + (next != null ? " -> " + next : "");
+        return val + (next != null ? " -> " + next : "");
     }
 }

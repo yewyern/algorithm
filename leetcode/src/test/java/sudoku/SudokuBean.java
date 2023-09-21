@@ -20,7 +20,7 @@ public class SudokuBean extends JPanel {
     public static final int ERROR = 4;
     public static final Color[] colors = {Color.BLACK, Color.BLACK, Color.BLUE, Color.YELLOW, Color.RED};
     public static final int fontSize = 28;
-    private JLabel label = new JLabel();
+    private final JLabel label = new JLabel();
 
     public SudokuBean() {
         setSize(50, 50);

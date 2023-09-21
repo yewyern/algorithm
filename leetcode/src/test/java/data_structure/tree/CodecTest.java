@@ -8,7 +8,7 @@ import utils.TreeNode;
  * @since 2023/7/13 14:36
  */
 public class CodecTest {
-    Codec codec = new Codec();
+    final Codec codec = new Codec();
 
     @Test
     public void test() {

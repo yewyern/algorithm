@@ -46,9 +46,9 @@ public class MaxNumber {
 
     static class Node implements Comparable<Node> {
 
-        int value;
-        int array;
-        int index;
+        final int value;
+        final int array;
+        final int index;
 
         public Node(int value, int array, int index) {
             this.value = value;

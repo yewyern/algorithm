@@ -10,12 +10,12 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class MyBlockingQueue2<T> {
 
-    private LinkedList<T> list = new LinkedList<T>();
+    private final LinkedList<T> list = new LinkedList<T>();
     private int len = 0;
-    private int max;
-    private ReentrantLock lock = new ReentrantLock();
-    private Condition consumer = lock.newCondition();
-    private Condition producer = lock.newCondition();
+    private final int max;
+    private final ReentrantLock lock = new ReentrantLock();
+    private final Condition consumer = lock.newCondition();
+    private final Condition producer = lock.newCondition();
 
     public MyBlockingQueue2(int max) {
         this.max = max;

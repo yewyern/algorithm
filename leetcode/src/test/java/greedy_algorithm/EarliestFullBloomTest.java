@@ -183,8 +183,8 @@ public class EarliestFullBloomTest {
     }
 
     private static class Flower implements Comparable<Flower> {
-        int plantTime;
-        int growTime;
+        final int plantTime;
+        final int growTime;
 
         public Flower(int plantTime, int growTime) {
             this.plantTime = plantTime;

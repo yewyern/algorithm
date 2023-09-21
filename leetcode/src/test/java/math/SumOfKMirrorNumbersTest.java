@@ -75,14 +75,14 @@ public class SumOfKMirrorNumbersTest {
     }
 
     private static class KMirrors {
-        int k;
+        final int k;
         int len;// 当前数字总长度
-        int base;// 基数：取10或者k
+        final int base;// 基数：取10或者k
         long half; // 左半部分，奇数长度时包括中间数字
         long halfStart; // 当前长度时左半部分初始值
         long halfEnd; // 当前长度时左半部分结束值
         long level; // 当前长度时左半部分需要乘的值
-        long[] kMirrorSum; // 已计算的结果
+        final long[] kMirrorSum; // 已计算的结果
         int size;
 
         public KMirrors(int k, int maxSize) {

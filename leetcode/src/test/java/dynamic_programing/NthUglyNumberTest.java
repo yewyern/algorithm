@@ -31,7 +31,7 @@ import java.util.TreeSet;
  */
 public class NthUglyNumberTest {
 
-    private static int[] arr = new int[1691];
+    private static final int[] arr = new int[1691];
     static {
         arr[1] = 1;
     }

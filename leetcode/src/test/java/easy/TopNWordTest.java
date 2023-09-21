@@ -79,7 +79,7 @@ public class TopNWordTest {
 
     private static class StringCount implements Comparable<StringCount> {
 
-        String key;
+        final String key;
         int count;
 
         public StringCount(String key, int count) {
@@ -197,7 +197,7 @@ public class TopNWordTest {
 
     private static class StringCount2 implements Comparable<StringCount2> {
 
-        String key;
+        final String key;
         int count;
 
         public StringCount2(String key, int count) {

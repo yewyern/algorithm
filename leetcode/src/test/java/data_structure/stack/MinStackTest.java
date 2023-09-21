@@ -74,9 +74,9 @@ class MinStack {
 
     private static class Node {
 
-        int val;
-        int min;
-        Node next;
+        final int val;
+        final int min;
+        final Node next;
 
         public Node(int val, int min, Node next) {
             this.val = val;
