@@ -1,6 +1,7 @@
 package array;
 
 import java.util.Arrays;
+
 import org.junit.Test;
 
 /**
@@ -35,35 +36,55 @@ import org.junit.Test;
  * @author zhou.xu
  * @since 2020/11/17 10:43
  */
-public class AllCellsDistOrder {
+public class AllCellsDistOrderTest {
 
     int[] dr = {1, 1, -1, -1};
     int[] dc = {1, -1, 1, -1};
 
-    public int[][] allCellsDistOrder(int R, int C, int r0, int c0) {
-        int N = R * C;
-        int maxDist = Math.max(r0, R - r0 - 1) + Math.max(c0, C - c0 - 1);
-        int[][] orders = new int[N][];
-        orders[0] = new int[]{r0, c0};
-        int p = 1, x = r0, y = c0;
-        for (int dist = 1; dist < maxDist; dist++) {
+    public int[][] allCellsDistOrder(int rows, int cols, int rCenter, int cCenter) {
+        int n = rows * cols;
+        int[][] orders = new int[n][];
+        orders[0] = new int[]{rCenter, cCenter};
+        int p = 1;
+        int[][] startPoints = new int[][]{{rCenter, cCenter}, {rCenter, cCenter}, {rCenter, cCenter}, {rCenter, cCenter}};
+        int[][] directions = new int[][]{{1, 1}, {1, -1}, {-1, -1}, {-1, 1}};
+        int[][] moves = new int[][]{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+        while (p < n) {
             for (int i = 0; i < 4; i++) {
-                
+                int[] startPoint = startPoints[i];
+                int[] move = moves[i];
+                startPoint[0] += move[0];
+                startPoint[1] += move[1];
+            }
+            for (int i = 0; i < 4; i++) {
+                int[] startPoint = startPoints[i];
+                int[] endPoint = startPoints[i == 3 ? 0 : i + 1];
+                int[] direction = directions[i];
+                int[] current = new int[] {startPoint[0], startPoint[1]};
+                while (current[0] != endPoint[0] && current[1] != endPoint[1]) {
+                    if (current[0] >= 0 && current[0] < rows && current[1] >= 0 && current[1] < cols) {
+                        orders[p++] = current;
+                    }
+                    current = new int[] {current[0] + direction[0], current[1] + direction[1]};
+                    if (p >= n) {
+                        return orders;
+                    }
+                }
             }
         }
-        return allCellsDistOrderViolent(R, C, r0, c0);
+        return orders;
     }
 
-    private int[][] allCellsDistOrderViolent(int R, int C, int r0, int c0) {
-        int[][] orders = new int[R * C][];
+    private int[][] allCellsDistOrder2(int rows, int cols, int rCenter, int cCenter) {
+        // 先生成所有的位置，然后排序
+        int[][] orders = new int[rows * cols][];
         int p = 0;
-        for (int i = 0; i < R; i++) {
-            for (int j = 0; j < C; j++, p++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++, p++) {
                 orders[p] = new int[]{i, j};
             }
         }
-        Arrays.sort(orders,
-            (a, b) -> Math.abs(a[0] - r0) + Math.abs(a[1] - c0) - Math.abs(b[0] - r0) - Math.abs(b[1] - c0));
+        Arrays.sort(orders, (a, b) -> Math.abs(a[0] - rCenter) + Math.abs(a[1] - cCenter) - Math.abs(b[0] - rCenter) - Math.abs(b[1] - cCenter));
         return orders;
     }
 
