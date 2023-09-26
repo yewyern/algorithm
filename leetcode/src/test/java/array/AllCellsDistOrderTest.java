@@ -38,9 +38,6 @@ import org.junit.Test;
  */
 public class AllCellsDistOrderTest {
 
-    int[] dr = {1, 1, -1, -1};
-    int[] dc = {1, -1, 1, -1};
-
     public int[][] allCellsDistOrder(int rows, int cols, int rCenter, int cCenter) {
         int n = rows * cols;
         int[][] orders = new int[n][];
@@ -60,15 +57,27 @@ public class AllCellsDistOrderTest {
                 int[] startPoint = startPoints[i];
                 int[] endPoint = startPoints[i == 3 ? 0 : i + 1];
                 int[] direction = directions[i];
-                int[] current = new int[] {startPoint[0], startPoint[1]};
-                while (current[0] != endPoint[0] && current[1] != endPoint[1]) {
-                    if (current[0] >= 0 && current[0] < rows && current[1] >= 0 && current[1] < cols) {
-                        orders[p++] = current;
-                    }
-                    current = new int[] {current[0] + direction[0], current[1] + direction[1]};
+                int r = startPoint[0], c = startPoint[1];
+                if (r < 0) {
+                    c -= r;
+                    r = 0;
+                } else if (r >= rows) {
+                    c -= r - rows + 1;
+                    r = rows - 1;
+                } else if (c < 0) {
+                    r -= c;
+                    c = 0;
+                } else if (c >= cols) {
+                    r += c - cols + 1;
+                    c = cols - 1;
+                }
+                while (r != endPoint[0] && c != endPoint[1] && r >= 0 && r < rows && c >= 0 && c < cols) {
+                    orders[p++] = new int[] {r, c};
                     if (p >= n) {
                         return orders;
                     }
+                    r += direction[0];
+                    c += direction[1];
                 }
             }
         }
