@@ -58,18 +58,9 @@ public class AllCellsDistOrderTest {
                 int[] endPoint = startPoints[i == 3 ? 0 : i + 1];
                 int[] direction = directions[i];
                 int r = startPoint[0], c = startPoint[1];
-                if (r < 0) {
-                    c -= r;
-                    r = 0;
-                } else if (r >= rows) {
-                    c -= r - rows + 1;
-                    r = rows - 1;
-                } else if (c < 0) {
-                    r -= c;
-                    c = 0;
-                } else if (c >= cols) {
-                    r += c - cols + 1;
-                    c = cols - 1;
+                while (r != endPoint[0] && c != endPoint[1] && !(r >= 0 && r < rows && c >= 0 && c < cols)) {
+                    r += direction[0];
+                    c += direction[1];
                 }
                 while (r != endPoint[0] && c != endPoint[1] && r >= 0 && r < rows && c >= 0 && c < cols) {
                     orders[p++] = new int[] {r, c};
