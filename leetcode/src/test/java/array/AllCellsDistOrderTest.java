@@ -1,6 +1,9 @@
 package array;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -39,6 +42,44 @@ import org.junit.Test;
 public class AllCellsDistOrderTest {
 
     public int[][] allCellsDistOrder(int rows, int cols, int rCenter, int cCenter) {
+        // 桶排序
+        int max = max(dist(0, 0, rCenter, cCenter), dist(rows, 0, rCenter, cCenter), dist(0, cols, rCenter, cCenter), dist(rows, cols, rCenter, cCenter));
+        List<int[]>[] buckets = new ArrayList[max + 1];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                int dist = dist(i, j, rCenter, cCenter);
+                if (buckets[dist] == null) {
+                    buckets[dist] = new ArrayList<>();
+                }
+                buckets[dist].add(new int[] {i, j});
+            }
+        }
+        int[][] ans = new int[rows * cols][];
+        int p = 0;
+        for (List<int[]> bucket : buckets) {
+            if (bucket == null) {
+                continue;
+            }
+            for (int[] pos : bucket) {
+                ans[p++] = pos;
+            }
+        }
+        return ans;
+    }
+
+    private int max(int... arr) {
+        int max = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            max = Math.max(max, arr[i]);
+        }
+        return max;
+    }
+
+    private int dist(int r, int c, int rCenter, int cCenter) {
+        return Math.abs(r - rCenter) + Math.abs(c - cCenter);
+    }
+
+    public int[][] allCellsDistOrder1(int rows, int cols, int rCenter, int cCenter) {
         int n = rows * cols;
         int[][] orders = new int[n][];
         orders[0] = new int[]{rCenter, cCenter};
@@ -75,7 +116,7 @@ public class AllCellsDistOrderTest {
         return orders;
     }
 
-    private int[][] allCellsDistOrder2(int rows, int cols, int rCenter, int cCenter) {
+    public int[][] allCellsDistOrder2(int rows, int cols, int rCenter, int cCenter) {
         // 先生成所有的位置，然后排序
         int[][] orders = new int[rows * cols][];
         int p = 0;
