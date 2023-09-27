@@ -44,4 +44,9 @@ public class CountItemsMatchingARule {
         }
         return count;
     }
+
+    public int countMatches2(List<List<String>> items, String ruleKey, String ruleValue) {
+        int index = "type".equals(ruleKey) ? 0 : ("color".equals(ruleKey) ? 1 : 2);
+        return (int) items.stream().filter(item -> item.get(index).equals(ruleValue)).count();
+    }
 }
