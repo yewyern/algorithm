@@ -13,6 +13,19 @@ import org.junit.Test;
 public class PrisonAfterNDaysTest {
 
     public int[] prisonAfterNDays(int[] cells, int n) {
+        // 循环步长是14，未证明
+        n %= 14;
+        if (n == 0) {
+            n = 14;
+        }
+        int[] next = cells;
+        for (int i = 1; i <= n; i++) {
+            next = next(next);
+        }
+        return next;
+    }
+
+    public int[] prisonAfterNDays2(int[] cells, int n) {
         int[] map = new int[128]; // 保存牢房不同状态出现的天数
         int[][] queue = new int[128][]; // 按顺序保存牢房状态
         int size = 1;
