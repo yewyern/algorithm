@@ -7,6 +7,7 @@ import utils.RandomArray;
 import utils.RandomUtils;
 
 /**
+ * <a href="https://leetcode.cn/problems/continuous-subarray-sum">523. 连续的子数组和</a>
  * 给你一个整数数组 nums 和一个整数 k ，编写一个函数来判断该数组是否含有同时满足下述条件的连续子数组：
  *
  * 子数组大小 至少为 2 ，且
@@ -40,7 +41,7 @@ import utils.RandomUtils;
  * 0 <= sum(nums[i]) <= 2^31 - 1
  * 1 <= k <= 2^31 - 1
  */
-public class CheckSubArraySum {
+public class CheckSubArraySumTest {
 
     public boolean checkSubarraySum(int[] nums, int k) {
         int m = nums.length;
@@ -66,6 +67,9 @@ public class CheckSubArraySum {
     }
 
     public static boolean checkSubarraySum2(int[] nums, int k) {
+        if (nums.length < 2) {
+            return false;
+        }
         for (int i = 0; i < nums.length - 1; i++) {
             if (nums[i] == 0 && nums[i + 1] == 0) {
                 return true;
@@ -79,8 +83,6 @@ public class CheckSubArraySum {
                     return true;
                 }
             }
-
-            // TODO leetcode通过且时间复杂度第一的代码，不能通过对数器
             if (sum < k) {
                 break;
             }
