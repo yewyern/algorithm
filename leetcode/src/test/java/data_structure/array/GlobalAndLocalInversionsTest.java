@@ -1,9 +1,10 @@
 package data_structure.array;
 
-import java.util.Arrays;
 import org.junit.Test;
 import utils.RandomArray;
 import utils.RandomUtils;
+
+import java.util.Arrays;
 
 /**
  * <a href="https://leetcode.cn/problems/global-and-local-inversions/">775. 全局倒置与局部倒置</a>
@@ -47,24 +48,118 @@ import utils.RandomUtils;
 public class GlobalAndLocalInversionsTest {
 
     public boolean isIdealPermutation(int[] nums) {
-        int N = nums.length;
-        int global = 0, local = 0;
-        int max = nums[0];
-        for (int i = 1; i < N; i++) {
-            if (nums[i] < max) {
-                global++;
-                if (nums[i] < nums[i - 1]) {
-                    local++;
-                }
-            } else {
-                max = nums[i];
+        int n = nums.length;
+        for (int i = n - 1; i >= 0; i--) {
+            if (Math.abs(nums[i] - i) > 1) {
+                return false;
             }
         }
-        System.out.println("global = " + global + ", local = " + local);
-        return global == local;
+        return true;
     }
 
-    public boolean isIdealPermutationComparison(int[] nums) {
+    public boolean isIdealPermutation1(int[] nums) {
+        // 插入排序
+        int local = localInversion(nums);
+        return local == globalInversion(nums, local);
+    }
+
+    private int globalInversion(int[] nums, int local) {
+        return partition(nums, 0, nums.length, local);
+    }
+
+    private int partition(int[] nums, int l, int r, int local) {
+        if (r - l < 2) {
+            return 0;
+        }
+        int m = (l + r) >> 1;
+        int partition = partition(nums, l, m, local);
+        if (partition > local) {
+            return partition;
+        }
+        partition += partition(nums, m, r, local);
+        if (partition > local) {
+            return partition;
+        }
+        return partition + merge(nums, l, r, m, local);
+    }
+
+    private int merge(int[] nums, int l, int r, int m, int local) {
+        int count = 0;
+        int[] temp = new int[r - l];
+        int i = l, j = m, p = 0;
+        while (i < m && j < r) {
+            if (nums[i] > nums[j]) {
+                temp[p++] = nums[i++];
+                count += r - j;
+                if (count > local) {
+                    return count;
+                }
+            } else {
+                temp[p++] = nums[j++];
+            }
+        }
+        while (i < m) {
+            temp[p++] = nums[i++];
+        }
+        while (j < r) {
+            temp[p++] = nums[j++];
+        }
+        System.arraycopy(temp, 0, nums, l, r - l);
+        return count;
+    }
+
+    public boolean isIdealPermutation2(int[] nums) {
+        // 归并求逆序对：O（nlogn)
+        return localInversion(nums) == globalInversion(nums);
+    }
+
+    private int localInversion(int[] nums) {
+        int count = 0;
+        int n = nums.length;
+        for (int i = 1; i < n; i++) {
+            if (nums[i] < nums[i - 1]) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private int globalInversion(int[] nums) {
+        return partition(nums, 0, nums.length);
+    }
+
+    private int partition(int[] nums, int l, int r) {
+        if (r - l < 2) {
+            return 0;
+        }
+        int m = (l + r) >> 1;
+        return partition(nums, l, m) + partition(nums, m, r) + merge(nums, l, r, m);
+    }
+
+    private int merge(int[] nums, int l, int r, int m) {
+        int count = 0;
+        int[] temp = new int[r - l];
+        int i = l, j = m, p = 0;
+        while (i < m && j < r) {
+            if (nums[i] > nums[j]) {
+                temp[p++] = nums[i++];
+                count += r - j;
+            } else {
+                temp[p++] = nums[j++];
+            }
+        }
+        while (i < m) {
+            temp[p++] = nums[i++];
+        }
+        while (j < r) {
+            temp[p++] = nums[j++];
+        }
+        System.arraycopy(temp, 0, nums, l, r - l);
+        return count;
+    }
+
+    public boolean isIdealPermutation3(int[] nums) {
+        // 暴力解法：双重循环，O（n^2)
         int N = nums.length;
         int global = 0, local = 0;
         for (int i = 0; i < N - 1; i++) {
@@ -77,7 +172,6 @@ public class GlobalAndLocalInversionsTest {
                 }
             }
         }
-//        System.out.println("comparison global = " + global + ", local = " + local);
         return global == local;
     }
 
@@ -93,7 +187,7 @@ public class GlobalAndLocalInversionsTest {
             int len = RandomUtils.nextInt(1, 100000);
             int[] nums = RandomArray.generateNoRepeatSortedArray(len, 0, len);
             boolean idealPermutation = isIdealPermutation(nums);
-            boolean idealPermutationComparison = isIdealPermutationComparison(nums);
+            boolean idealPermutationComparison = isIdealPermutation2(nums);
             if (idealPermutation != idealPermutationComparison) {
                 System.out.println("nums = " + Arrays.toString(nums) + ", idealPermutation = " + idealPermutation + ", idealPermutationComparison = " + idealPermutationComparison);
             }
