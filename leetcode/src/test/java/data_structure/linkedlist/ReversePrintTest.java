@@ -5,7 +5,7 @@ import utils.ListNode;
 import java.util.Stack;
 
 /**
- * <a href="https://leetcode.cn/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/?envType=study-plan-v2&envId=coding-interviews">剑指 Offer 06. 从尾到头打印链表</a>
+ * <a href="https://leetcode.cn/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof">剑指 Offer 06. 从尾到头打印链表</a>
  * <p>
  * 输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
  * <p>

@@ -3,6 +3,7 @@ package data_structure.queue;
 import java.util.StringJoiner;
 
 /**
+ * <a href="https://leetcode.cn/problems/dui-lie-de-zui-da-zhi-lcof/?envType=study-plan-v2&envId=coding-interviews">剑指 Offer 59 - II. 队列的最大值</a>
  * @author zhou.xu
  * @since 2023/6/17 13:25
  */

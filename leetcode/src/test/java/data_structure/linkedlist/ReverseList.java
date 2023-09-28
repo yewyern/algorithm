@@ -5,6 +5,8 @@ import utils.ListNode;
 import utils.ListUtils;
 
 /**
+ * <a href="https://leetcode-cn.com/problems/reverse-linked-list/">206. 反转链表</a>
+ * <a href="https://leetcode.cn/problems/UHnkqh/">LCR 024. 反转链表</a>
  * @author zhou.xu
  * @since 2020/10/9 14:08
  */

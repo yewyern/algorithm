@@ -3,6 +3,7 @@ package data_structure.queue;
 import java.util.Stack;
 
 /**
+ * <a href="https://leetcode.cn/problems/implement-queue-using-stacks">232. 用栈实现队列</a>
  * <p>使用栈实现队列的下列操作：
  * <p>
  * <p>push(x) -- 将一个元素放入队列的尾部。

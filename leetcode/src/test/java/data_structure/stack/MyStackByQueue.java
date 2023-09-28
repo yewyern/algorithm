@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Queue;
 
 /**
+ * <a href="https://leetcode.cn/problems/implement-stack-using-queues">225. 用队列实现栈</a>
  * <p>使用队列实现栈的下列操作：
  * <p>
  * <p>push(x) -- 元素 x 入栈

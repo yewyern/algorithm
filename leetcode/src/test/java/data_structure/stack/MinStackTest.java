@@ -1,6 +1,8 @@
 package data_structure.stack;
 
 /**
+ * <a href="https://leetcode.cn/problems/min-stack">155. 最小栈</a>
+ * <a href="https://leetcode.cn/problems/bao-han-minhan-shu-de-zhan-lcof">LCR 147. 最小栈</a>
  * <p>设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。
  * <p>
  * <p>push(x) —— 将元素 x 推入栈中。
