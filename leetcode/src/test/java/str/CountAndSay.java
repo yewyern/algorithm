@@ -1,4 +1,4 @@
-package easy;
+package str;
 
 import org.junit.Test;
 

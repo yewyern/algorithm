@@ -1,4 +1,4 @@
-package easy;
+package math;
 
 import java.util.Set;
 import java.util.TreeSet;

@@ -1,4 +1,4 @@
-package easy;
+package str;
 
 /**
  * <a href="https://leetcode.cn/problems/excel-sheet-column-title/">168. Excel表列名称</a>

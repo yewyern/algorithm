@@ -1,4 +1,4 @@
-package easy;
+package str;
 
 import java.util.ArrayList;
 import java.util.Collections;
