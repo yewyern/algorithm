@@ -1,6 +1,9 @@
 package easy;
 
-class ConvertToExcelTitle {
+/**
+ * <a href="https://leetcode.cn/problems/excel-sheet-column-title/">168. Excel表列名称</a>
+ */
+public class ConvertToExcelTitle {
 
     public static String convertToTitle(int n) {
         char[] cs = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();

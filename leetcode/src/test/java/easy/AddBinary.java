@@ -6,6 +6,7 @@ import utils.RandomUtils;
 public class AddBinary {
 
     /**
+     * <a href="https://leetcode.cn/problems/add-binary/">67. 二进制求和</a>
      * <p>给定两个二进制字符串，返回他们的和（用二进制表示）。
      * <p>输入为非空字符串且只包含数字 1 和 0。
      *
@@ -24,6 +25,41 @@ public class AddBinary {
      * @return
      */
     public String addBinary(String a, String b) {
+        return add(a.toCharArray(), b.toCharArray());
+    }
+
+    private String add(char[] a, char[] b) {
+        if (a.length < b.length) {
+            return add(b, a);
+        }
+        int m = a.length;
+        int n = b.length;
+        char[] res = new char[m + 1];
+        int i = m - 1, j = n - 1, p = m;
+        int add = 0;
+        while (i >= 0 && j >= 0) {
+            int t = a[i] - '0' + b[j] - '0' + add;
+            res[p] = (char) ('0' + t % 2);
+            add = t / 2;
+            p--;
+            i--;
+            j--;
+        }
+        while (i >= 0) {
+            int t = a[i] - '0' + add;
+            res[p] = (char) ('0' + t % 2);
+            add = t / 2;
+            p--;
+            i--;
+        }
+        if (add > 0) {
+            res[p] = '1';
+            p--;
+        }
+        return new String(res, p + 1, p == 0 ? m : m + 1);
+    }
+
+    public String addBinary2(String a, String b) {
         // 保持a.length >= b.length
         if (a.length() < b.length()) {
             return addBinary(b, a);
