@@ -12,6 +12,7 @@ import java.util.Map;
 public class LongestArithSeqLengthTest {
 
     public int longestArithSeqLength(int[] nums) {
+        // todo 时间复杂度待优化
         int n = nums.length;
         int[][] map = new int[500][]; // map[差值+250][上一个索引] = 当前长度
         int max = 2;

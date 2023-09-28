@@ -44,6 +44,7 @@ import org.junit.Test;
 public class ChampagneTowerTest {
 
     public double champagneTower(int poured, int query_row, int query_glass) {
+        // todo
         if (poured == 0) {
             return 0;
         }
