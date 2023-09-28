@@ -31,6 +31,28 @@ import utils.ListUtils;
 public class LinkedListComponentsTest {
 
     public int numComponents(ListNode head, int[] nums) {
+        boolean[] map = new boolean[10000];
+        for (int num : nums) {
+            map[num] = true;
+        }
+        int count = 0;
+        boolean inSet = false;
+        ListNode cur = head;
+        while (cur != null) {
+            if (map[cur.val]) {
+                if (!inSet) {
+                    count++;
+                    inSet = true;
+                }
+            } else {
+                inSet = false;
+            }
+            cur = cur.next;
+        }
+        return count;
+    }
+
+    public int numComponents2(ListNode head, int[] nums) {
         Set<Integer> set = new HashSet<>();
         for (int num : nums) {
             set.add(num);

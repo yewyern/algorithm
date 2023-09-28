@@ -7,7 +7,7 @@ import utils.RandomUtils;
 import java.util.Arrays;
 
 /**
- * <a href="https://leetcode.cn/contest/weekly-contest-352/problems/longest-even-odd-subarray-with-threshold/">2760. 最长奇偶子数组</a>
+ * <a href="https://leetcode.cn/problems/longest-even-odd-subarray-with-threshold/">2760. 最长奇偶子数组</a>
  * <p>
  * 给你一个下标从 0 开始的整数数组 nums 和一个整数 threshold 。
  * <p>

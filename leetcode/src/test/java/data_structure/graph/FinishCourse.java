@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 /**
+ * <a href="https://leetcode.cn/problems/course-schedule/">207. 课程表</a>
  * <p>你这个学期必须选修 numCourse 门课程，记为 0 到 numCourse-1 。
  * <p>
  * <p>在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们：[0,1]
@@ -41,6 +42,7 @@ public class FinishCourse {
     int[] visited;
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
+        // todo
         visited = new int[numCourses];
         map = Arrays.stream(prerequisites).parallel()
             .collect(Collectors.groupingBy(nums -> nums[0], Collectors.mapping(nums -> nums[1], Collectors.toSet())));

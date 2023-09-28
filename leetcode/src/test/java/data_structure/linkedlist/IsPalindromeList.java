@@ -7,6 +7,8 @@ import utils.ListNode;
 import utils.ListUtils;
 
 /**
+ * <a href="https://leetcode.cn/problems/palindrome-linked-list">234. 回文链表</a>
+ * <a href="https://leetcode.cn/problems/aMhZSa">LCR 027. 回文链表</a>
  * <p>请判断一个链表是否为回文链表。
  * <p>
  * <p>示例 1:

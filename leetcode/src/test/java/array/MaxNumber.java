@@ -1,21 +1,20 @@
 package array;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 /**
+ * <a href="https://leetcode.cn/problems/create-maximum-number">321. 拼接最大数</a>
  * 给定长度分别为 m 和 n 的两个数组，其元素由 0-9 构成，表示两个自然数各位上的数字。
  * 现在从这两个数组中选出 k (k <= m + n) 个数字拼接成一个新的数，要求从同一个数组中取出的数字保持其在原数组中的相对顺序。
- *
+ * <p>
  * 求满足该条件的最大数。结果返回一个表示该最大数的长度为 k 的数组。
- *
+ * <p>
  * 说明: 请尽可能地优化你算法的时间和空间复杂度。
- *
+ * <p>
  * 示例 1:
- *
+ * <p>
  * 输入:
  * nums1 = [3, 4, 6, 5]
  * nums2 = [9, 1, 2, 5, 8, 3]
@@ -23,7 +22,7 @@ import org.junit.Test;
  * 输出:
  * [9, 8, 6, 5, 3]
  * 示例 2:
- *
+ * <p>
  * 输入:
  * nums1 = [6, 7]
  * nums2 = [6, 0, 4]
@@ -31,7 +30,7 @@ import org.junit.Test;
  * 输出:
  * [6, 7, 6, 0, 4]
  * 示例 3:
- *
+ * <p>
  * 输入:
  * nums1 = [3, 9]
  * nums2 = [8, 9]
@@ -62,34 +61,36 @@ public class MaxNumber {
 
         @Override
         public int compareTo(Node o) {
-            if (o.value == this.value) {
-                
+            if (array == o.array) {
+                return index - o.index;
             }
             return o.value - this.value;
         }
 
         @Override
         public String toString() {
-            return "Node{" +
-                "value=" + value +
-                ", array=" + array +
-                ", index=" + index +
-                '}';
+            return "Node{" + "value=" + value + ", array=" + array + ", index=" + index + '}';
         }
     }
 
     public int[] maxNumber(int[] nums1, int[] nums2, int k) {
-        int[] ans = new int[k];
-        List<Node> list = new ArrayList<>();
+        int m = nums1.length;
+        int n = nums2.length;
+        Node[] nodes = new Node[m + n];
+        int p = 0;
         for (int i = 0; i < nums1.length; i++) {
-            list.add(new Node(nums1[i], 0, i));
+            nodes[p++] = new Node(nums1[i], 0, i);
         }
         for (int i = 0; i < nums2.length; i++) {
-            list.add(new Node(nums2[i], 1, i));
+            nodes[p++] = new Node(nums2[i], 1, i);
         }
-        List<Node> collect = list.stream().sorted().collect(Collectors.toList());
-        System.out.println("collect = " + collect);
-        return null;
+        Arrays.sort(nodes);
+        System.out.println("nodes = " + Arrays.toString(nodes));
+        int[] ans = new int[k];
+        for (int i = 0; i < k; i++) {
+            ans[i] = nodes[i].value;
+        }
+        return ans;
     }
 
     public void test(int[] nums1, int[] nums2, int k, int[] expected) {
