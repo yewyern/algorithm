@@ -1,9 +1,8 @@
-package data_structure.tree;
+package data_structure.tree.serializeanddeserialize;
 
 import utils.TreeNode;
 
 import java.util.LinkedList;
-import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 /**
@@ -39,7 +38,7 @@ import java.util.stream.Collectors;
  * 树中结点数在范围 [0, 10^4] 内
  * -1000 <= Node.val <= 1000
  */
-public class Codec {
+public class Codec1 {
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
@@ -65,11 +64,7 @@ public class Codec {
         while (!list.isEmpty() && list.peekLast() == null) {
             list.pollLast();
         }
-        StringJoiner joiner = new StringJoiner(",", "[", "]");
-        for (TreeNode node : list) {
-            joiner.add(toString(node));
-        }
-        return joiner.toString();
+        return list.stream().map(this::toString).collect(Collectors.joining(",", "[", "]"));
     }
 
     // Decodes your encoded data to tree.

@@ -1,4 +1,4 @@
-package data_structure.tree;
+package data_structure.tree.serializeanddeserialize;
 
 import org.junit.Test;
 import utils.TreeNode;

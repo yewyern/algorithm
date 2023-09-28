@@ -3,7 +3,7 @@ package data_structure.tree;
 import utils.TreeNode;
 
 /**
- * <a href="https://leetcode.cn/problems/shu-de-zi-jie-gou-lcof/description/?envType=study-plan-v2&envId=coding-interviews">剑指 Offer 26. 树的子结构</a>
+ * <a href="https://leetcode.cn/problems/shu-de-zi-jie-gou-lcof/description/">剑指 Offer 26. 树的子结构</a>
  * 输入两棵二叉树A和B，判断B是不是A的子结构。(约定空树不是任意一个树的子结构)
  * <p>
  * B是A的子结构， 即 A中有出现和B相同的结构和节点值。
