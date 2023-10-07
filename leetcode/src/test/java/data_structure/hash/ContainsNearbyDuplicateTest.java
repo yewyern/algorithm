@@ -1,6 +1,7 @@
-package easy;
+package data_structure.hash;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.Test;
@@ -29,6 +30,17 @@ import utils.RandomUtils;
 public class ContainsNearbyDuplicateTest {
 
     public boolean containsNearbyDuplicate(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(nums[i]) && k >= i - map.get(nums[i])) {
+                return true;
+            }
+            map.put(nums[i], i);
+        }
+        return false;
+    }
+
+    public boolean containsNearbyDuplicate2(int[] nums, int k) {
         Set<Integer> set = new HashSet<>(k);
         for (int i = 0; i < nums.length; i++) {
             if (set.contains(nums[i])) {
