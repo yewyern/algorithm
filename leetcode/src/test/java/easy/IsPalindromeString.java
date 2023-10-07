@@ -1,6 +1,7 @@
 package easy;
 
 /**
+ * <a href="https://leetcode.cn/problems/valid-palindrome">125. 验证回文串</a>
  * <P>给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
  * <p>
  * <P>说明：本题中，我们将空字符串定义为有效的回文串。
@@ -21,6 +22,44 @@ package easy;
 public class IsPalindromeString {
 
     public boolean isPalindrome(String s) {
+        if (s == null || s.length() == 0) {
+            return true;
+        }
+        char[] cs = s.toCharArray();
+        int i = 0, j = s.length() - 1;
+        while (i < j) {
+            while (i < j && !isValidChar(cs[i])) {
+                i++;
+            }
+            while (j > i && !isValidChar(cs[j])) {
+                j--;
+            }
+            if (i == j) {
+                return true;
+            }
+            if (isDigit(cs[i]) && cs[i] != cs[j]) {
+                return false;
+            }
+            if (cs[i] != cs[j] && Math.abs(cs[i] - cs[j]) != 0x20) {
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+    private boolean isValidChar(char c) {
+        return isDigit(c)
+                || (c >= 'a' && c <= 'z')
+                || (c >= 'A' && c <= 'Z');
+    }
+
+    private static boolean isDigit(char c) {
+        return c >= '0' && c <= '9';
+    }
+
+    public boolean isPalindrome2(String s) {
         if (s == null || s.length() == 0) {
             return true;
         }
