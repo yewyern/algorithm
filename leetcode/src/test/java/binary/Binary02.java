@@ -30,7 +30,7 @@ public class Binary02 {
 
     /**
      * 位运算实现减法
-     * a - b = a + (-b) = a + (~a + 1)
+     * a - b = a + (-b) = a + (~b + 1)
      */
     public static int minus(int a, int b) {
         return add(a, neg(b));
