@@ -10,7 +10,7 @@ public class StockSpanner {
 
 //    private final Stack<Node> stack = new Stack<>();
 //    private static final Node[] stack = new Node[10000];
-    private static final int LOWER = (1 << 14) - 1;
+    private static final int LOWER = 16383;//低14位为1
     private static final int[] stack = new int[10000];
     private int i;
     public StockSpanner() {
