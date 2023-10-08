@@ -3,6 +3,7 @@ package binary;
 import static utils.BinaryUtils.printBits;
 
 /**
+ * <a href="https://leetcode.cn/problems/power-of-two/">231. 2 的幂</a>
  * @author zhou.xu
  * @since 2023/6/24 10:56
  */
