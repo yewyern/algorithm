@@ -14,7 +14,7 @@ public class RemoveDuplicates2Test {
         }
         int size = 2;
         for (int i = 2; i < n; i++) {
-            if (nums[i] != nums[size - 1] || nums[i] != nums[size - 2]) {
+            if (nums[i] != nums[size - 2]) {
                 nums[size++] = nums[i];
             }
         }
