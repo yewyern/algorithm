@@ -1,6 +1,5 @@
 package math;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -41,6 +40,15 @@ public class GrayCodeTest {
         List<Integer> ans = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             ans.add(CACHE[i]);
+        }
+        return ans;
+    }
+
+
+    public List<Integer> grayCode2(int n) {
+        List<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < 1 << n; i++) {
+            ans.add(i ^ (i >> 1));
         }
         return ans;
     }
