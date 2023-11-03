@@ -37,16 +37,27 @@ public class SmallestMissingValueSubtreeTest {
         if (node.child.isEmpty()) {
             res[node.index] = node.val == 1 ? 2 : 1;
         }
+        int max = 1;
         for (Node child : node.child) {
             dfs(child, unionFind, res);
+            // todo
+            if (max == 1 || res[child.index] == 1) {
+                max = Math.max(max, res[child.index]);
+            } else {
+                max = Math.min(max, res[child.index]);
+            }
         }
         for (Node child : node.child) {
             unionFind.union(child.val, node.val);
         }
-        for (int i = 1; i <= res.length + 1; i++) {
-            if (!unionFind.isSameSet(node.val, i)) {
-                res[node.index] = i;
-                break;
+        if (max == 1 && node.val != 1) {
+            res[node.index] = 1;
+        } else {
+            for (int i = max + 1; i <= res.length + 1; i++) {
+                if (!unionFind.isSameSet(node.val, i)) {
+                    res[node.index] = i;
+                    break;
+                }
             }
         }
     }
