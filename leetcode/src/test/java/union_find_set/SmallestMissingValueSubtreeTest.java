@@ -64,8 +64,12 @@ public class SmallestMissingValueSubtreeTest {
     }
 
     private void initUnionFind(int[] nums) {
-        parents = new int[100002];
-        size = new int[100002];
+        int max = 1;
+        for (int num : nums) {
+            max = Math.max(num, max);
+        }
+        parents = new int[max + 2];
+        size = new int[max + 2];
         for (int num : nums) {
             parents[num] = num;
             size[num] = 1;
