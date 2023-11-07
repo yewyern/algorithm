@@ -2,8 +2,6 @@ package data_structure.array;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-
 /**
  * <a href="https://leetcode.cn/problems/maximum-xor-of-two-numbers-in-an-array">421. 数组中两个数的最大异或值</a>
  *
@@ -24,36 +22,53 @@ public class FindMaximumXORTest {
         if (n == 1) {
             return 0;
         }
-        int max = 0;
-        int[][] buckets = new int[31][];
-        int[] size = new int[31];
-        // 按最高位进行分桶
+        Node root = new Node(31);
         for (int num : nums) {
+            Node cur = root;
             for (int i = 30; i >= 0; i--) {
-                if ((ONE_BITS[i] & num) != 0) {
-                    if (buckets[i] == null) {
-                        buckets[i] = new int[n];
-                    }
-                    buckets[i][size[i]++] = num;
-                    break;
+                if ((num & ONE_BITS[i]) != 0) {
+                    cur.one = cur.one == null ? new Node(i, num) : cur.one;
+                    cur = cur.one;
+                } else {
+                    cur.zero = cur.zero == null ? new Node(i, num) : cur.zero;
+                    cur = cur.zero;
                 }
             }
         }
-        // 找到最大值
-        int[] maxBucket = null;
-        for (int i = 30; i >= 0; i--) {
-            if (size[i] > 0) {
-                maxBucket = Arrays.copyOfRange(buckets[i], 0, size[i]);
-                break;
-            }
+        while (root.zero == null || root.one == null) {
+            root = root.zero != null ? root.zero : root.one;
         }
-        if (maxBucket != null) {
-            Arrays.sort(maxBucket);
-            for (int num : maxBucket) {
+        return dfs(root.zero, root.one);
+    }
 
-            }
+    private int dfs(Node a, Node b) {
+        if (a == null || b == null) {
+            return 0;
         }
-        return max;
+        if (a.pos == 0) {
+            return a.val ^ b.val;
+        }
+        if ((a.zero != null && b.one != null) || (a.one != null && b.zero != null)) {
+            return Math.max(dfs(a.zero, b.one), dfs(a.one, b.zero));
+        } else {
+            return Math.max(dfs(a.zero, b.zero), dfs(a.one, b.one));
+        }
+    }
+
+    private static class Node {
+        int pos;
+        int val;
+        Node zero;
+        Node one;
+
+        public Node(int pos) {
+            this.pos = pos;
+        }
+
+        public Node(int pos, int val) {
+            this.pos = pos;
+            this.val = val;
+        }
     }
 
     public int findMaximumXOR2(int[] nums) {
