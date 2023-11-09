@@ -18,6 +18,7 @@ public class MaximumInvitations2 {
         // 2、一个点可以有多个入度，但只有一个出度
         // 3、如果2个点成环，每个点可以额外邀请一个跟环联通的链
         // 4、如果是3个点及以上成环，不能再加额外的链
+        // 5、3个点以上的环只能有一个，2个点的环可以有多个
         max = 0;
         int n = favorite.length;
         Node[] nodes = new Node[n];
@@ -37,8 +38,7 @@ public class MaximumInvitations2 {
             Circle circle = circles[i];
             twoNodeCount += circle.count + circle.leftLinkCount + circle.rightLinkCount;
         }
-        max = Math.max(max, twoNodeCount);
-        return max;
+        return Math.max(max, twoNodeCount);
     }
 
     private void populate(Node node) {
