@@ -1,6 +1,5 @@
 package data_structure.graph;
 
-import org.junit.Test;
 
 /**
  * <a href="https://leetcode.cn/problems/maximum-employees-to-be-invited-to-a-meeting">2127. 参加会议的最多员工数</a>
@@ -8,11 +7,6 @@ import org.junit.Test;
  * @since 2023/11/10 15:19
  */
 public class MaximumInvitations3 {
-
-    @Test
-    public void test() {
-        System.out.println(maximumInvitations(new int[]{6,4,4,5,0,3,3}));
-    }
 
     public int maximumInvitations(int[] favorite) {
         int n = favorite.length;
