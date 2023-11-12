@@ -62,28 +62,6 @@ public class MaxSubarraySumCircularTest {
     }
 
     public int maxSubarraySumCircular(int[] nums) {
-        // 动态规划 todo
-        int N = nums.length, len = 2 * N - 1;
-        int max = nums[0], pre = 0, start = 0;
-        for (int i = 0; i < len; i++) {
-            while (start == i - N || (start < i && (pre <= 0 || nums[start < N ? start : start - N] < 0))) {
-                pre -= nums[start < N ? start : start - N];
-                start++;
-//                max = Math.max(max, pre);
-            }
-            if (pre > 0) {
-                pre += i < N ? nums[i] : nums[i - N];
-            } else {
-                pre = i < N ? nums[i] : nums[i - N];
-                start = i;
-            }
-            max = Math.max(max, pre);
-        }
-        return max;
-    }
-
-
-    public int maxSubarraySumCircular1(int[] nums) {
         // 滑动窗口+单调队列
         int N = nums.length;
         int len = 2 * N;
@@ -100,6 +78,27 @@ public class MaxSubarraySumCircularTest {
             minQueue.addLast(i);
             if (minQueue.peekFirst() == i - N) {
                 minQueue.pollFirst();
+            }
+        }
+        return max;
+    }
+
+    public int maxSubarraySumCircular1(int[] nums) {
+        // 暴力方法，取每个起点，每个终点的最大值
+        int n = nums.length;
+        int max = nums[0];
+        int total = 0;
+        for (int num : nums) {
+            total += num;
+            max = Math.max(max, num);
+        }
+        max = Math.max(max, total);
+        for (int i = 0; i < n - 1; i++) {
+            int sum = nums[i];
+            max = Math.max(max, total - sum);
+            for (int j = i + 1; j < n - 1; j++) {
+                sum += nums[j];
+                max = Math.max(max, Math.max(total - sum, sum));
             }
         }
         return max;
