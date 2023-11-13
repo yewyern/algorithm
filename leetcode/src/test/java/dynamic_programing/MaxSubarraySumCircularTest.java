@@ -47,6 +47,7 @@ public class MaxSubarraySumCircularTest {
 
     @Test
     public void test() {
+        System.out.println(maxSubarraySumCircular(new int[]{5,-3,5}));
         for (int i = 0; i < 100000; i++) {
             int[] nums = RandomArray.generateRandomLengthArray(1, 10, -30000, 30000);
             int res1 = maxSubarraySumCircular1(nums);
@@ -62,6 +63,23 @@ public class MaxSubarraySumCircularTest {
     }
 
     public int maxSubarraySumCircular(int[] nums) {
+        // 最大子数组，要么是连续的，要么是抠掉中间一块的
+        int max = nums[0]; // 连续子数组的最大值
+        int min = nums[0]; // 连续子数组的最小值
+        int preMin = 0;
+        int preMax = 0;
+        int total = 0;
+        for (int num : nums) {
+            total += num;
+            preMin = preMin < 0 ? preMin + num : num;
+            preMax = preMax > 0 ? preMax + num : num;
+            min = Math.min(min, preMin);
+            max = Math.max(max, preMax);
+        }
+        return total == min ? max : Math.max(total - min, max);
+    }
+
+    public int maxSubarraySumCircular0(int[] nums) {
         // 滑动窗口+单调队列
         int N = nums.length;
         int len = 2 * N;
