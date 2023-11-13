@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <a href="https://leetcode.cn/problems/nge-tou-zi-de-dian-shu-lcof/?envType=study-plan-v2&envId=coding-interviews">剑指 Offer 60. n个骰子的点数</a>
+ * <a href="https://leetcode.cn/problems/nge-tou-zi-de-dian-shu-lcof/">剑指 Offer 60. n个骰子的点数</a>
  * 把n个骰子扔在地上，所有骰子朝上一面的点数之和为s。输入n，打印出s的所有可能的值出现的概率。
  * <p>
  * <p>

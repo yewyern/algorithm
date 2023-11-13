@@ -1,4 +1,4 @@
-package hard;
+package dynamic_programing;
 
 import org.junit.Test;
 
@@ -24,13 +24,13 @@ public class ChessHorseWays {
                     // y坐标
                     int t = i - 1;
                     dp[j][k][i] = getValue(dp, j + 2, k + 1, t)
-                        + getValue(dp, j + 2, k - 1, t)
-                        + getValue(dp, j + 1, k + 2, t)
-                        + getValue(dp, j + 1, k - 2, t)
-                        + getValue(dp, j - 1, k + 2, t)
-                        + getValue(dp, j - 1, k - 2, t)
-                        + getValue(dp, j - 2, k + 1, t)
-                        + getValue(dp, j - 2, k - 1, t);
+                            + getValue(dp, j + 2, k - 1, t)
+                            + getValue(dp, j + 1, k + 2, t)
+                            + getValue(dp, j + 1, k - 2, t)
+                            + getValue(dp, j - 1, k + 2, t)
+                            + getValue(dp, j - 1, k - 2, t)
+                            + getValue(dp, j - 2, k + 1, t)
+                            + getValue(dp, j - 2, k - 1, t);
                 }
 
             }
@@ -56,13 +56,13 @@ public class ChessHorseWays {
         }
         n--;
         return waysRecur(x + 2, y + 1, n)
-            + waysRecur(x + 2, y - 1, n)
-            + waysRecur(x + 1, y + 2, n)
-            + waysRecur(x + 1, y - 2, n)
-            + waysRecur(x - 1, y + 2, n)
-            + waysRecur(x - 1, y - 2, n)
-            + waysRecur(x - 2, y + 1, n)
-            + waysRecur(x - 2, y - 1, n);
+                + waysRecur(x + 2, y - 1, n)
+                + waysRecur(x + 1, y + 2, n)
+                + waysRecur(x + 1, y - 2, n)
+                + waysRecur(x - 1, y + 2, n)
+                + waysRecur(x - 1, y - 2, n)
+                + waysRecur(x - 2, y + 1, n)
+                + waysRecur(x - 2, y - 1, n);
     }
 
     public void test(int x, int y, int n) {
