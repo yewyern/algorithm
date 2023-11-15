@@ -40,13 +40,12 @@ public class JumpGameTest {
             return true;
         }
         int max = 0;
-        for (int i = 0; i <= max; i++) {
-            max = Math.max(max, nums[i] + i);
-            if (max >= N - 1) {
-                return true;
-            }
+        int cur = 0;
+        while (cur <= max && max < N) {
+            max = Math.max(max, nums[cur] + cur);
+            cur++;
         }
-        return false;
+        return max >= N;
     }
 
     @Test
