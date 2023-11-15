@@ -16,10 +16,10 @@ public class MinSwapsCouplesTest {
         int count = 0;
         for (int i = 0; i < n; i += 2) {
             if (row[i] >> 1 != row[i + 1] >> 1) {
-                int couple = couple(row[i]);
-                int j = map[couple];
-                swap(map, row[i + 1], couple);
-                swap(row, i + 1, j);
+                int couple = couple(row[i]);// i+1位置应该坐的是哪个
+                int j = map[couple]; // 情侣现在坐在哪个位置
+                swap(map, row[i + 1], couple); // 交换情侣位置索引map
+                swap(row, i + 1, j); // 交换情侣实际的位置
                 count++;
             }
         }
