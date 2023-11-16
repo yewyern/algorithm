@@ -46,6 +46,7 @@ public class GraphUtils {
         }
     }
 
+    // 拓扑排序
     public static List<Node> topologySort(Graph graph) {
         List<Node> res = new ArrayList<>();
         Map<Node, Integer> inMap = new HashMap<>(); // 入度表
