@@ -6,7 +6,7 @@ import utils.RandomArray;
 import java.util.Arrays;
 
 /**
- * <a href="https://leetcode.cn/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/?envType=study-plan-v2&envId=coding-interviews">剑指 Offer 42. 连续子数组的最大和</a>
+ * <a href="https://leetcode.cn/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof">剑指 Offer 42. 连续子数组的最大和</a>
  * <p>
  * 输入一个整型数组，数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。
  * <p>
