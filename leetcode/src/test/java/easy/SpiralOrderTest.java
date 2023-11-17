@@ -1,15 +1,54 @@
 package easy;
 
-import java.util.Arrays;
+
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
+ * <a href="https://leetcode.cn/problems/spiral-matrix">54. 螺旋矩阵</a>
  * @author zhou.xu
  * @since 2020/9/14 16:13
  */
 public class SpiralOrderTest {
 
-    public int[] spiralOrder(int[][] matrix) {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        List<Integer> ans = new ArrayList<>(m * n);
+        int r1 = 0, c1 = 0, r2 = m - 1, c2 = n - 1;
+        while (r1 < r2 && c1 < c2) {
+            for (int i = c1; i < c2; i++) {
+                ans.add(matrix[r1][i]);
+            }
+            for (int i = r1; i < r2; i++) {
+                ans.add(matrix[i][c2]);
+            }
+            for (int i = c2; i > c1; i--) {
+                ans.add(matrix[r2][i]);
+            }
+            for (int i = r2; i > r1; i--) {
+                ans.add(matrix[i][c1]);
+            }
+            r1++;
+            c1++;
+            r2--;
+            c2--;
+        }
+        if (r1 == r2) {
+            for (int i = c1; i <= c2; i++) {
+                ans.add(matrix[r1][i]);
+            }
+        } else if (c1 == c2) {
+            for (int i = r1; i <= r2; i++) {
+                ans.add(matrix[i][c1]);
+            }
+        }
+        return ans;
+    }
+
+    public int[] spiralOrder2(int[][] matrix) {
         if (matrix == null || matrix.length == 0) {
             return new int[0];
         }
@@ -52,14 +91,12 @@ public class SpiralOrderTest {
 
     @Test
     public void test() {
-        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        int[][] matrix = {{3}, {2}};
         test(matrix);
-        int[][] matrix2 = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
-        test(matrix2);
     }
 
     public void test(int[][] matrix) {
-        int[] order = spiralOrder(matrix);
-        System.out.println("order = " + Arrays.toString(order));
+        List<Integer> list = spiralOrder(matrix);
+        System.out.println("order = " + list);
     }
 }

@@ -3,7 +3,7 @@ package str;
 import org.junit.Test;
 
 /**
- * <a href="https://leetcode.cn/problems/fan-zhuan-dan-ci-shun-xu-lcof/?envType=study-plan-v2&envId=coding-interviews">剑指 Offer 58 - I. 翻转单词顺序</a>
+ * <a href="https://leetcode.cn/problems/fan-zhuan-dan-ci-shun-xu-lcof">剑指 Offer 58 - I. 翻转单词顺序</a>
  * 输入一个英文句子，翻转句子中单词的顺序，但单词内字符的顺序不变。为简单起见，标点符号和普通字母一样处理。例如输入字符串"I am a student. "，则输出"student. a am I"。
  * <p>
  * <p>
@@ -52,7 +52,7 @@ public class ReverseWordsTest {
     }
 
     public String reverseWords(String s) {
-        if (s == null || s.length() == 0) {
+        if (s == null || s.isEmpty()) {
             return "";
         }
         StringBuilder sb = new StringBuilder();
