@@ -4,13 +4,13 @@ import org.junit.Test;
 
 /**
  * <a href="https://leetcode.cn/problems/candy">135. 分发糖果</a>
+ *
  * @author xuzhou
  * @since 2023/11/17 17:40
  */
 public class GiveCandyTest {
 
     public int candy(int[] ratings) {
-        // todo
         int n = ratings.length;
         int ans = 0;
         int max = 1, maxIndex = 0;
@@ -33,7 +33,7 @@ public class GiveCandyTest {
                 // 比左边小
                 cur = 1;
                 ans++;
-                if (i - maxIndex >= max - 1) {
+                if (i - maxIndex > max - 1) {
                     // 到最大值都要加1
                     ans += i - maxIndex;
                 } else {
@@ -41,12 +41,13 @@ public class GiveCandyTest {
                     ans += i - maxIndex - 1;
                 }
             }
+            pre = ratings[i];
         }
         return ans;
     }
 
     @Test
     public void test() {
-        System.out.println(candy(new int[]{1,2,2}));
+        System.out.println(candy(new int[]{1, 3, 2, 2, 1}));
     }
 }
