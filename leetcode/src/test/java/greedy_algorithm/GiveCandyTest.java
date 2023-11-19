@@ -12,6 +12,32 @@ public class GiveCandyTest {
 
     public int candy(int[] ratings) {
         int n = ratings.length;
+        int[] candies = new int[n];
+        candies[0] = 1;
+        // 1、从左往右发（往右升序的处理）
+        for (int i = 1; i < n; i++) {
+            if (ratings[i] > ratings[i - 1]) {
+                candies[i] = candies[i - 1] + 1;
+            } else {
+                candies[i] = 1;
+            }
+        }
+        // 2、从右往左发（往右是降序的处理）
+        for (int i = n - 2; i >= 0; i--) {
+            if (ratings[i] > ratings[i + 1] && candies[i] <= candies[i + 1]) {
+                candies[i] = candies[i + 1] + 1;
+            }
+        }
+        // 3、统计结果
+        int ans = 0;
+        for (int candy : candies) {
+            ans += candy;
+        }
+        return ans;
+    }
+
+    public int candy2(int[] ratings) {
+        int n = ratings.length;
         int ans = 0;
         int max = 1, maxIndex = 0;
         int cur = 1;
