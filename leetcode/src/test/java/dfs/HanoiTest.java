@@ -20,7 +20,7 @@ public class HanoiTest {
             return;
         }
         moveCurrToTarget(curr, other, target, n - 1);
-        moveCurrToTarget(curr, target, other, 1);
+        target.add(curr.remove(curr.size() - 1));
         moveCurrToTarget(other, target, curr, n - 1);
     }
 }
