@@ -1,4 +1,4 @@
-package data_structure.tree;
+package data_structure.tree.binarysearch;
 
 import utils.TreeNode;
 
