@@ -1,4 +1,4 @@
-package data_structure.tree;
+package data_structure.tree.binarysearch;
 
 import java.util.HashSet;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Set;
 import org.junit.Test;
 import utils.TreeNode;
 
-public class GenerateTree {
+public class GenerateTreesTest {
 
     /**
      * <a href="https://leetcode.cn/problems/unique-binary-search-trees">96. 不同的二叉搜索树</a>

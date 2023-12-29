@@ -1,4 +1,4 @@
-package normal;
+package data_structure.tree.binarysearch;
 
 import java.util.Arrays;
 import org.junit.Test;
