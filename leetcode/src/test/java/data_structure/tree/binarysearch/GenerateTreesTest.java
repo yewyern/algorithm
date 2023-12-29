@@ -1,12 +1,15 @@
 package data_structure.tree.binarysearch;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import org.junit.Test;
 import utils.TreeNode;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 public class GenerateTreesTest {
+
+    private static final List<TreeNode> NULL_NODES = Arrays.asList(new TreeNode[]{null});
 
     /**
      * <a href="https://leetcode.cn/problems/unique-binary-search-trees">96. 不同的二叉搜索树</a>
@@ -17,24 +20,41 @@ public class GenerateTreesTest {
      * @return
      */
     public List<TreeNode> generateTrees(int n) {
-        // 全排列问题
-        Set<Integer> set = new HashSet<>(8);
-        for (int i = 1; i <= n; i++) {
-            set.add(i);
-        }
-        return generateTrees(set);
+        return generateTrees(1, n);
     }
 
-    private List<TreeNode> generateTrees(Set<Integer> set) {
-        // todo
+    private List<TreeNode> generateTrees(int l, int r) {
+        if (l > r) {
+            return NULL_NODES;
+        }
+        List<TreeNode> treeNodes = process(l, NULL_NODES, generateTrees(l + 1, r));
+        for (int i = l + 1; i < r; i++) {
+            treeNodes.addAll(process(i, generateTrees(l, i - 1), generateTrees(i + 1, r)));
+        }
+        if (l < r) {
+            treeNodes.addAll(process(r, generateTrees(l, r - 1), NULL_NODES));
+        }
+        return treeNodes;
+    }
 
-        return null;
+    private List<TreeNode> process(int parentVal, List<TreeNode> leftNodes, List<TreeNode> rightNodes) {
+        List<TreeNode> ans = new LinkedList<>();
+        for (TreeNode left : leftNodes) {
+            for (TreeNode right : rightNodes) {
+                TreeNode parent = new TreeNode(parentVal);
+                parent.left = left;
+                parent.right = right;
+                ans.add(parent);
+            }
+        }
+        return ans;
     }
 
     @Test
     public void test() {
-        for (int i = 1; i < 9; i++) {
-            generateTrees(i);
+        List<TreeNode> treeNodes = generateTrees(8);
+        for (TreeNode treeNode : treeNodes) {
+            System.out.println(treeNode);
         }
     }
 }
