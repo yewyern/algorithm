@@ -8,8 +8,12 @@ import java.util.StringJoiner;
 
 /**
  * <a href="https://leetcode.cn/problems/snakes-and-ladders/">909. 蛇梯棋</a>
+ *
+ * @author xuzhou
+ * @since 2024/1/2 15:58
  */
 public class SnakesAndLadders {
+
     @Test
     public void test() {
         System.out.println(snakesAndLadders(new int[][]{{-1,-1,-1,-1,48,5,-1},{12,29,13,9,-1,2,32},{-1,-1,21,7,-1,12,49},{42,37,21,40,-1,22,12},{42,-1,2,-1,-1,-1,6},{39,-1,35,-1,-1,39,-1},{-1,36,-1,-1,-1,-1,5}}));
