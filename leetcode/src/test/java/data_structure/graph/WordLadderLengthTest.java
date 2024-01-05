@@ -35,6 +35,9 @@ public class WordLadderLengthTest {
         if (!hasEnd) {
             return 0;
         }
+        if (onlyOneDiff(beginWord, endWord)) {
+            return 2;
+        }
 
         String[] beginWords = new String[size];
         beginWords[0] = beginWord;
@@ -45,12 +48,12 @@ public class WordLadderLengthTest {
             int k = n;
             while (i < k) {
                 String begin = beginWords[i++];
+                if (onlyOneDiff(begin, endWord)) {
+                    return step + 1;
+                }
                 for (int j = 0; j < size;) {
                     String end = words[j];
                     if (onlyOneDiff(begin, end)) {
-                        if (end.equals(endWord)) {
-                            return step + 1;
-                        }
                         beginWords[n++] = end;
                         words[j] = words[--size];
                         continue;
@@ -67,6 +70,9 @@ public class WordLadderLengthTest {
         if (!wordList.contains(endWord)) {
             return 0;
         }
+        if (onlyOneDiff(beginWord, endWord)) {
+            return 2;
+        }
         wordList.remove(beginWord);
         List<String> curr = new LinkedList<>();
         curr.add(beginWord);
@@ -74,13 +80,13 @@ public class WordLadderLengthTest {
         while (!curr.isEmpty()) {
             List<String> next = new LinkedList<>();
             for (String start : curr) {
+                if (onlyOneDiff(start, endWord)) {
+                    return step + 1;
+                }
                 Iterator<String> iterator = wordList.iterator();
                 while (iterator.hasNext()) {
                     String s = iterator.next();
                     if (onlyOneDiff(s, start)) {
-                        if (s.equals(endWord)) {
-                            return step + 1;
-                        }
                         next.add(s);
                         iterator.remove();
                     }
