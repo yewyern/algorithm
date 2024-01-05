@@ -1,6 +1,5 @@
 package data_structure.graph;
 
-import org.junit.Test;
 
 import java.util.*;
 
@@ -10,11 +9,6 @@ import java.util.*;
  * @since 2024/1/5 14:32
  */
 public class MinMutation {
-
-    @Test
-    public void test() {
-        System.out.println(minMutation("AAAAAAAA", "CCCCCCCC", new String[]{"AAAAAAAA","AAAAAAAC","AAAAAACC","AAAAACCC","AAAACCCC","AACACCCC","ACCACCCC","ACCCCCCC","CCCCCCCA","CCCCCCCC"}));
-    }
 
     public int minMutation(String startGene, String endGene, String[] bank) {
         if (endGene.equals(startGene)) {
