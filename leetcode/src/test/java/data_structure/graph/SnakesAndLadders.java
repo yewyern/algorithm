@@ -1,10 +1,7 @@
 package data_structure.graph;
 
-import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.StringJoiner;
+import java.util.*;
 
 /**
  * <a href="https://leetcode.cn/problems/snakes-and-ladders/">909. 蛇梯棋</a>
@@ -14,44 +11,36 @@ import java.util.StringJoiner;
  */
 public class SnakesAndLadders {
 
-    @Test
-    public void test() {
-        System.out.println(snakesAndLadders(new int[][]{{-1,-1,-1,-1,48,5,-1},{12,29,13,9,-1,2,32},{-1,-1,21,7,-1,12,49},{42,37,21,40,-1,22,12},{42,-1,2,-1,-1,-1,6},{39,-1,35,-1,-1,39,-1},{-1,36,-1,-1,-1,-1,5}}));
-    }
-
     public int snakesAndLadders(int[][] board) {
         int n = board.length;
-        int size = n * n;
+        int m = n * n;
         int[] resolvedBoard = resolve(board);
-        boolean[] visited = new boolean[size + 1];
-        UniqueList currPositions = new UniqueList(size + 1);
-        currPositions.put(1);
-        int step = 0;
-        while (!currPositions.isEmpty()) {
-            for (Integer curr : currPositions) {
-                visited[curr] = true;
-            }
-            if (visited[size]) {
-                break;
-            }
-            UniqueList nextPositions = new UniqueList(size + 1);
-            for (Integer curr : currPositions) {
-                for (int i = 1; i < 7; i++) {
-                    int next = curr + i;
-                    if (next > size) {
-                        break;
-                    }
-                    if (resolvedBoard[next] == -1 && !visited[next]) {
-                        nextPositions.put(next);
-                    } else if (resolvedBoard[next] != -1 && !visited[resolvedBoard[next]]) {
-                        nextPositions.put(resolvedBoard[next]);
-                    }
+        int[] steps = new int[m + 1];
+        int[] queue = new int[m];
+        queue[0] = 1;
+        int size = 1;
+        for (int i = 0; i < size; i++) {
+            int curr = queue[i];
+            int nextStep = steps[curr] + 1;
+            for (int j = 1; j < 7; j++) {
+                int next = curr + j;
+                if (next > m) {
+                    break;
                 }
+                if (resolvedBoard[next] > 0) {
+                    next = resolvedBoard[next];
+                }
+                if (steps[next] > 0) {
+                    continue;
+                }
+                queue[size++] = next;
+                steps[next] = nextStep;
             }
-            currPositions = nextPositions;
-            step++;
+            if (steps[m] > 0) {
+                return steps[m];
+            }
         }
-        return visited[size] ? step : -1;
+        return -1;
     }
 
     private int[] resolve(int[][] board) {
@@ -74,6 +63,104 @@ public class SnakesAndLadders {
         return resolvedBoard;
     }
 
+    public int snakesAndLadders1(int[][] board) {
+        int n = board.length;
+        int size = n * n;
+        int[] resolvedBoard = resolve(board);
+        int[] steps = new int[size + 1];
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(1);
+        while (!queue.isEmpty()) {
+            Integer curr = queue.poll();
+            int nextStep = steps[curr] + 1;
+            for (int i = 1; i < 7; i++) {
+                int next = curr + i;
+                if (next > size) {
+                    break;
+                }
+                if (resolvedBoard[next] > 0) {
+                    next = resolvedBoard[next];
+                }
+                if (steps[next] > 0) {
+                    continue;
+                }
+                queue.offer(next);
+                steps[next] = nextStep;
+            }
+            if (steps[size] > 0) {
+                return steps[size];
+            }
+        }
+        return -1;
+    }
+
+    public int snakesAndLadders2(int[][] board) {
+        int n = board.length;
+        int size = n * n;
+        int[] resolvedBoard = resolve(board);
+        UniqueList positions = new UniqueList(size + 1);
+        positions.add(1);
+        int step = 0;
+        int count = 1;
+        int index = 0;
+        for (Integer curr : positions) {
+            for (int i = 1; i < 7; i++) {
+                int next = curr + i;
+                if (next > size) {
+                    break;
+                }
+                if (resolvedBoard[next] > 0) {
+                    next = resolvedBoard[next];
+                }
+                positions.add(next);
+            }
+            index++;
+            if (index == count) {
+                count = positions.size;
+                step++;
+                if (positions.contains(size)) {
+                    return step;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public int snakesAndLadders3(int[][] board) {
+        int n = board.length;
+        int size = n * n;
+        int[] resolvedBoard = resolve(board);
+        boolean[] visited = new boolean[size + 1];
+        UniqueList currPositions = new UniqueList(size + 1);
+        currPositions.add(1);
+        int step = 0;
+        while (!currPositions.isEmpty()) {
+            for (Integer curr : currPositions) {
+                visited[curr] = true;
+            }
+            if (visited[size]) {
+                break;
+            }
+            UniqueList nextPositions = new UniqueList(size + 1);
+            for (Integer curr : currPositions) {
+                for (int i = 1; i < 7; i++) {
+                    int next = curr + i;
+                    if (next > size) {
+                        break;
+                    }
+                    if (resolvedBoard[next] == -1 && !visited[next]) {
+                        nextPositions.add(next);
+                    } else if (resolvedBoard[next] != -1 && !visited[resolvedBoard[next]]) {
+                        nextPositions.add(resolvedBoard[next]);
+                    }
+                }
+            }
+            currPositions = nextPositions;
+            step++;
+        }
+        return visited[size] ? step : -1;
+    }
+
     private static class UniqueList implements Iterable<Integer> {
 
         boolean[] set;
@@ -86,11 +173,15 @@ public class SnakesAndLadders {
             size = 0;
         }
 
-        public void put(int a) {
+        public void add(int a) {
             if (!set[a]) {
                 set[a] = true;
                 values[size++] = a;
             }
+        }
+
+        public boolean contains(int a) {
+            return set[a];
         }
 
         public boolean isEmpty() {
