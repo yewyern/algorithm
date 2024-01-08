@@ -36,7 +36,7 @@ import java.util.Arrays;
  * @author xuzhou
  * @since 2023/6/20 9:50
  */
-public class FindMinInRotatedSortedArrayTest {
+public class FindMinInRotatedSortedArray2Test {
 
     public int findMin(int[] nums) {
         // 二分法查找旋转点
