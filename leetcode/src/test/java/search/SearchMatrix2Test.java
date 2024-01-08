@@ -34,12 +34,12 @@ import java.util.concurrent.TimeUnit;
  * <p>每行的所有元素从左到右升序排列
  * <p>每列的所有元素从上到下升序排列
  * <p>-10^9 <= target <= 10^9
- * <a href="https://leetcode.cn/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/?envType=study-plan-v2&envId=coding-interviews">剑指 Offer 04. 二维数组中的查找</a>与本题相同
+ * <a href="https://leetcode.cn/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof">剑指 Offer 04. 二维数组中的查找</a>与本题相同
  *
  * @author xuzhou
  * @since 2023/6/21 10:25
  */
-public class SearchMatrixTest {
+public class SearchMatrix2Test {
 
     public boolean searchMatrix(int[][] matrix, int target) {
         // 因为该矩阵具有每行中的整数从左到右按升序排列。每列中的整数从上到下按升序排列的特点，所以我们从矩阵右上角节点开始判断。
