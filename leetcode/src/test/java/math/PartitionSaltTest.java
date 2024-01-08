@@ -44,6 +44,10 @@ public class PartitionSaltTest {
             if (next != null) {
                 process(next, step - 1);
             }
+            next = use0(salts, i);
+            if (next != null) {
+                process(next, step - 1);
+            }
         }
     }
 
@@ -92,6 +96,18 @@ public class PartitionSaltTest {
         next[n - 1] = (salts[i] + 2) >> 1;
         next[n] = salts[i] - next[n - 1];
         System.out.println(Arrays.toString(salts) + "对" + salts[i] + "一边使用2g砝码得到：" + Arrays.toString(next));
+        return next;
+    }
+
+    private int[] use0(int[] salts, int i) {
+        if ((salts[i] & 1) == 1) {
+            return null;
+        }
+        int n = salts.length;
+        int[] next = copyAndIgnore(salts, i);
+        next[n - 1] = salts[i] >> 1;
+        next[n] = next[n - 1];
+        System.out.println(Arrays.toString(salts) + "对" + salts[i] + "不使用砝码得到：" + Arrays.toString(next));
         return next;
     }
 
