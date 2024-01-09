@@ -78,21 +78,16 @@ public class PartitionSaltTest {
     }
 
     private boolean checkSalt(int[] salts) {
-        // n数之和等于50
-        int[] choose = new int[51];
+        // 1个数等于50 或者 2数之和等于50
+        boolean[] choose = new boolean[51];
         for (int salt : salts) {
             if (salt == 50) {
                 return true;
             } else if (salt < 50) {
-                if (choose[50 - salt] > 0) {
+                if (choose[50 - salt]) {
                     return true;
                 }
-                for (int i = 0; i < 50 - salt; i++) {
-                    if (choose[i] > 0) {
-                        choose[i + salt]++;
-                    }
-                }
-                choose[salt]++;
+                choose[salt] = true;
             }
         }
         return false;
