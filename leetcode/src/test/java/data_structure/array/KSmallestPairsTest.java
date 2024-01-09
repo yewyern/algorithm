@@ -22,17 +22,28 @@ public class KSmallestPairsTest {
     public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
         int m = nums1.length;
         int n = nums2.length;
+        boolean baseOnNums1 = m <= n;
         List<List<Integer>> ans = new LinkedList<>();
         PriorityQueue<Node> queue = new PriorityQueue<>();
-        for (int i = 0; i < m; i++) {
-            queue.offer(new Node(i, 0, nums1[i] + nums2[0]));
+        if (baseOnNums1) {
+            for (int i = 0; i < m; i++) {
+                queue.offer(new Node(i, 0, nums1[i] + nums2[0]));
+            }
+        } else {
+            for (int i = 0; i < n; i++) {
+                queue.offer(new Node(0, i, nums1[0] + nums2[i]));
+            }
         }
         while (k > 0 && !queue.isEmpty()) {
             k--;
             Node node = queue.poll();
             ans.add(Arrays.asList(nums1[node.i], nums2[node.j]));
-            if (node.j < n - 1) {
+            if (baseOnNums1 && node.j < n - 1) {
                 node.j++;
+                node.val = nums1[node.i] + nums2[node.j];
+                queue.offer(node);
+            } else if (!baseOnNums1 && node.i < m - 1) {
+                node.i++;
                 node.val = nums1[node.i] + nums2[node.j];
                 queue.offer(node);
             }
