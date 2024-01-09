@@ -14,9 +14,10 @@ import java.util.Map;
  */
 public class PartitionSaltTest {
 
-    private static final int[] ADDS = new int[] {2, 7, 9, 5, 0};
+    private static final int[] ADDS = new int[]{2, 7, 9, 5, 0};
 
     private static final Map<Integer, String> USAGE_MAP = new HashMap<>();
+
     static {
         USAGE_MAP.put(2, "一边使用2g砝码");
         USAGE_MAP.put(7, "一边使用7g砝码");
@@ -24,20 +25,24 @@ public class PartitionSaltTest {
         USAGE_MAP.put(5, "一边使用7g，一边使用2g砝码");
         USAGE_MAP.put(0, "不使用砝码");
     }
+
     private final String[] log = new String[3];
     private int logIndex = 0;
 
 
     @Test
     public void test() {
-        process(new int[]{140}, 3);
-        for (String s : log) {
-            System.out.println(s);
+        if (dfs(new int[]{140}, 3)) {
+            for (String s : log) {
+                System.out.println(s);
+            }
+            System.out.println("已分成90g和50g 2部分");
+        } else {
+            System.out.println("无法分成90g和50g 2部分");
         }
-        System.out.println("已分成90g和50g 2部分");
     }
 
-    private boolean process(int[] salts, int step) {
+    private boolean dfs(int[] salts, int step) {
         if (step == 0) {
             return checkSalt(salts);
         }
@@ -47,8 +52,8 @@ public class PartitionSaltTest {
                 if (((salts[i] + add) & 1) == 0) {
                     int[] next = use(salts, i, add);
                     log[logIndex++] = Arrays.toString(salts) + "对" + salts[i] + USAGE_MAP.get(add) + "得到：" + Arrays.toString(next);
-                    boolean process = process(next, step - 1);
-                    if (process) {
+                    boolean success = dfs(next, step - 1);
+                    if (success) {
                         return true;
                     }
                     logIndex--;
