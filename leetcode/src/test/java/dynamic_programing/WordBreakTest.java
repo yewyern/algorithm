@@ -20,6 +20,25 @@ public class WordBreakTest {
     }
 
     public boolean wordBreak(String s, List<String> wordDict) {
+        // 动态规划
+        int n = s.length();
+        boolean[] canBreak = new boolean[s.length() + 1];
+        canBreak[0] = true;
+        int pre = 0;
+        for (int i = 1; i <= n; i++) {
+            for (String word : wordDict) {
+                int length = word.length();
+                if (length <= i && canBreak[pre = i - length] && s.startsWith(word, pre)) {
+                    canBreak[i] = true;
+                    break;
+                }
+            }
+        }
+        return canBreak[n];
+    }
+
+    public boolean wordBreak1(String s, List<String> wordDict) {
+        // 记忆化搜索
         boolean[] processed = new boolean[s.length()];
         return process(s, wordDict, 0, processed);
     }
@@ -43,6 +62,7 @@ public class WordBreakTest {
     }
 
     public boolean wordBreak2(String s, List<String> wordDict) {
+        // 暴力方法
         return process2(s, new HashSet<>(wordDict), 0);
     }
 
