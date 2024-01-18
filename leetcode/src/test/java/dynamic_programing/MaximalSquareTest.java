@@ -33,10 +33,11 @@ public class MaximalSquareTest {
     public int maximalSquare(char[][] matrix) {
         int n = matrix[0].length;
         int[] height = new int[n];
-        LinkedList<Integer> min = new LinkedList<>();
+        int[] min = new int[n];
         int max = 0;
         for (char[] row : matrix) {
             int width = 1;
+            int l = 0, r = 0;
             for (int j = 0; j < n; j++) {
                 if (row[j] == '1') {
                     height[j]++;
@@ -44,12 +45,12 @@ public class MaximalSquareTest {
                     height[j] = 0;
                 }
                 // 最小队列
-                while (!min.isEmpty() && height[min.peekLast()] > height[j]) {
-                    min.pollLast();
+                while (r > l && height[min[r - 1]] > height[j]) {
+                    r--;
                 }
-                min.addLast(j);
-                if (height[min.peekFirst()] <= width) {
-                    Integer i = min.pollFirst();
+                min[r++] = j;
+                if (height[min[l]] <= width) {
+                    int i = min[l++];
                     max = Math.max(max, height[i]);
                     width = j - i;
                 } else {
@@ -57,7 +58,6 @@ public class MaximalSquareTest {
                 }
                 width++;
             }
-            min.clear();
         }
         return max * max;
     }
