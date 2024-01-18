@@ -9,10 +9,15 @@ public class MaxProfit3 {
 
     public int maxProfit(int[] prices) {
         int n = prices.length;
-        return sellOnceMax(prices, 0, n);
+        int max = 0;
+        for (int i = 0; i < n; i++) {
+            max = Math.max(max, sellOnceMax(prices, 0, i) + sellOnceMax(prices, i, n));
+        }
+        return max;
     }
 
     private int sellOnceMax(int[] prices, int l, int r) {
+        // todo
         if (r <= l + 1) {
             return 0;
         }
