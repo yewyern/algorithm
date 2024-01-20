@@ -1,7 +1,10 @@
-package easy;
+package search.binary;
 
-class SearchInsert {
+public class SearchInsert {
 
+    /**
+     * <a href="https://leetcode.cn/problems/search-insert-position">35. 搜索插入位置</a>
+     */
     //给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
     //你可以假设数组中无重复元素。
     //
@@ -20,8 +23,23 @@ class SearchInsert {
     //示例 4:
     //输入: [1,3,5,6], 0
     //输出: 0
-
     public int searchInsert(int[] nums, int target) {
+        int n = nums.length;
+        int l = 0, r = n - 1;
+        while (l <= r) {
+            int m = (l + r) >> 1;
+            if (nums[m] == target) {
+                return m;
+            } else if (nums[m] > target) {
+                r = m - 1;
+            } else {
+                l = m + 1;
+            }
+        }
+        return l;
+    }
+
+    public int searchInsert1(int[] nums, int target) {
         int i = 0;
         for (; i < nums.length && nums[i] < target; i++) {
         }
