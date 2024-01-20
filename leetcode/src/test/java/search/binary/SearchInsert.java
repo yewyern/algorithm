@@ -36,6 +36,7 @@ public class SearchInsert {
                 l = m + 1;
             }
         }
+        // 二分查找的结果，在不等于的情况下，l总是在刚好大于（升序）或刚好小于（降序）的位置
         return l;
     }
 
