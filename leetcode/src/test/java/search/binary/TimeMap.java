@@ -13,23 +13,22 @@ import java.util.Map;
  */
 public class TimeMap {
 
-    private final Map<String, List<Node>> NODES = new HashMap<>();
+    private final Map<String, List<Node>> NODE_MAP = new HashMap<>();
 
     public TimeMap() {
     }
 
     public void set(String key, String value, int timestamp) {
-        List<Node> list = NODES.computeIfAbsent(key, k -> new ArrayList<>());
+        List<Node> list = NODE_MAP.computeIfAbsent(key, k -> new ArrayList<>());
         list.add(new Node(timestamp, value));
     }
 
     public String get(String key, int timestamp) {
-        List<Node> nodes = NODES.get(key);
+        List<Node> nodes = NODE_MAP.get(key);
         if (nodes == null) {
             return "";
         }
-        int n = nodes.size();
-        int l = 0, r = n - 1;
+        int l = 0, r = nodes.size() - 1;
         while (l <= r) {
             int m = (l + r) >> 1;
             Node node = nodes.get(m);
