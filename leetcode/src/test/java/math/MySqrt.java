@@ -1,17 +1,10 @@
-package easy;
+package math;
 
-class MySqrt {
-
-    public static void main(String[] args) {
-        MySqrt mySqrt = new MySqrt();
-        for (int i = 0; i < 100; i++) {
-            System.out.println("mySqrt(" + i + ") = " + mySqrt.mySqrt3(i));
-        }
-        System.out.println("mySqrt(" + 2147395599 + ") = " + mySqrt.mySqrt3(2147395599));
-    }
+public class MySqrt {
 
     /**
-     * <p>计算并返回 x 的平方根，其中 x 是非负整数。
+     * <a href="https://leetcode.cn/problems/sqrtx">69. x 的平方根</a>
+     * <p>计算并返回 x 的平方根，其中 x 是非负整数。
      * <p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。
      *
      * <p>示例 1:
@@ -23,7 +16,7 @@ class MySqrt {
      * <p>输出: 2
      *
      * <p>说明: 8 的平方根是 2.82842...,
-     *      由于返回类型是整数，小数部分将被舍去。
+     * 由于返回类型是整数，小数部分将被舍去。
      * <p>
      *
      * @param x
@@ -90,5 +83,29 @@ class MySqrt {
             x1 = (x0 + x / x0) / 2;
         }
         return (int) x1;
+    }
+
+    public int mySqrt4(int x) {
+        long r = 1, s = 1;
+        while (s < x) {
+            r <<= 1;
+            s = r * r;
+        }
+        if (s == x) {
+            return (int) r;
+        }
+        long l = r >> 1;
+        while (l <= r) {
+            long m = (l + r) >> 1;
+            s = m * m;
+            if (s == x) {
+                return (int) m;
+            } else if (s > x) {
+                r = m - 1;
+            } else {
+                l = m + 1;
+            }
+        }
+        return (int) (l - 1);
     }
 }
