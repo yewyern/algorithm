@@ -14,7 +14,47 @@ public class BasicCalculatorTest {
 
     @Test
     public void test() {
-        System.out.println(calculate("- (3 + (4 + 5))"));
+        System.out.println(calculate(" 2-1 + 2 "));
+    }
+
+    char[] str;
+    int n;
+    int i;
+    public int calculate(String s) {
+        str = s.toCharArray();
+        n = str.length;
+        i = 0;
+        return calc();
+    }
+
+    private int calc() {
+        int res = 0;
+        boolean add = true;
+        while (i < n) {
+            if (str[i] >= '0' && str[i] <= '9') {
+                int d = str[i++] - '0';
+                while (i < n && str[i] >= '0' && str[i] <= '9') {
+                    d = d * 10 + str[i++] - '0';
+                }
+                res += add ? d : -d;
+            } else if (str[i] == '+') {
+                add = true;
+                i++;
+            } else if (str[i] == '-') {
+                add = false;
+                i++;
+            } else if (str[i] == '(') {
+                i++;
+                int calc = calc();
+                res += add ? calc : -calc;
+            } else if (str[i] == ')') {
+                i++;
+                break;
+            } else {
+                i++;
+            }
+        }
+        return res;
     }
 
     private static final long ADD = 1L << 33;
@@ -22,7 +62,7 @@ public class BasicCalculatorTest {
     private static final long LEFT = 1L << 35;
     private Long[] stack = new Long[100];
     private int size = 0;
-    public int calculate(String s) {
+    public int calculate3(String s) {
         size = 0;
         char[] str = s.toCharArray();
         int n = str.length;
@@ -34,7 +74,7 @@ public class BasicCalculatorTest {
                     d = d * 10 + str[i++] - '0';
                 }
                 stack[size++] = d;
-                calc(false);
+                calc3(false);
                 i--;
             } else if (str[i] == '+') {
                 stack[size++] = ADD;
@@ -43,15 +83,15 @@ public class BasicCalculatorTest {
             } else if (str[i] == '(') {
                 stack[size++] = LEFT;
             } else if (str[i] == ')') {
-                calc( true);
+                calc3( true);
             }
             i++;
         }
-        calc(false);
+        calc3(false);
         return Math.toIntExact(stack[0]);
     }
 
-    private void calc(boolean hasRight) {
+    private void calc3(boolean hasRight) {
         if (size == 0) {
             return;
         }
