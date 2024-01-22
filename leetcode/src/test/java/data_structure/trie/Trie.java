@@ -22,6 +22,7 @@ public class Trie {
             if (curr.children[i] == null) {
                 curr.children[i] = new Node();
             }
+            curr.children[i].count++;
             curr = curr.children[i];
         }
     }
@@ -52,6 +53,7 @@ public class Trie {
     }
 
     class Node {
+        int count = 0;
         Node[] children;
     }
 }
