@@ -25,10 +25,10 @@ public class Trie {
             curr.children[i].count++;
             curr = curr.children[i];
         }
+        curr.hasEnd = true;
     }
 
     public boolean search(String word) {
-        // todo
         Node curr = root;
         for (char c : word.toCharArray()) {
             int i = c - 'a';
@@ -37,7 +37,7 @@ public class Trie {
             }
             curr = curr.children[i];
         }
-        return true;
+        return curr.hasEnd;
     }
 
     public boolean startsWith(String prefix) {
@@ -55,5 +55,6 @@ public class Trie {
     class Node {
         int count = 0;
         Node[] children;
+        boolean hasEnd = false;
     }
 }
