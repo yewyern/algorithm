@@ -16,35 +16,31 @@ public class Trie {
         Node curr = root;
         for (char c : word.toCharArray()) {
             int i = c - 'a';
-            if (curr.children == null) {
-                curr.children = new Node[26];
-            }
             if (curr.children[i] == null) {
                 curr.children[i] = new Node();
             }
-            curr.children[i].count++;
             curr = curr.children[i];
         }
-        curr.hasEnd = true;
+        curr.isEnd = true;
     }
 
     public boolean search(String word) {
         Node curr = root;
         for (char c : word.toCharArray()) {
             int i = c - 'a';
-            if (curr.children == null || curr.children[i] == null) {
+            if (curr.children[i] == null) {
                 return false;
             }
             curr = curr.children[i];
         }
-        return curr.hasEnd;
+        return curr.isEnd;
     }
 
     public boolean startsWith(String prefix) {
         Node curr = root;
         for (char c : prefix.toCharArray()) {
             int i = c - 'a';
-            if (curr.children == null || curr.children[i] == null) {
+            if (curr.children[i] == null) {
                 return false;
             }
             curr = curr.children[i];
@@ -53,8 +49,7 @@ public class Trie {
     }
 
     class Node {
-        int count = 0;
-        Node[] children;
-        boolean hasEnd = false;
+        Node[] children = new Node[26];
+        boolean isEnd = false;
     }
 }
