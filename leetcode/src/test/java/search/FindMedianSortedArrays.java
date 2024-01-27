@@ -1,9 +1,11 @@
 package search;
 
-import java.util.Arrays;
 import utils.RandomArray;
 
+import java.util.Arrays;
+
 /**
+ * <a href="https://leetcode.cn/problems/median-of-two-sorted-arrays/">4. 寻找两个正序数组的中位数</a>
  * 有2个有序数组，取最中间的数
  * 如果是[1,2],[3]，总个数是奇数，返回2
  * 如果是[1,2],[3,4]，总个数是偶数，返回2.5
@@ -25,8 +27,8 @@ public class FindMedianSortedArrays {
     private static void test(int[] arr1, int[] arr2) {
 //        System.out.println("arr1 = " + Arrays.toString(arr1));
 //        System.out.println("arr2 = " + Arrays.toString(arr2));
-        double median = findMedian(arr1, arr2);
-        double median2 = findMedianLogarithm(arr1, arr2);
+        double median = findMedianSortedArrays(arr1, arr2);
+        double median2 = findMedianSortedArrays2(arr1, arr2);
         if (median != median2) {
             System.out.println("arr1 = " + Arrays.toString(arr1));
             System.out.println("arr2 = " + Arrays.toString(arr2));
@@ -39,7 +41,7 @@ public class FindMedianSortedArrays {
     // 第一种，两个数组长度相加
     // 2个指针，在2个array上走，找中间数的位置，如果数组长度和是偶数，找(m+n)/2，(m+n)/2-1
     // 如果数组长度和是奇数，找(m+n)/2
-    public static double findMedian(int[] nums1, int[] nums2) {
+    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int[] longs = nums1.length >= nums2.length ? nums1 : nums2;
         int[] shorts = nums1.length >= nums2.length ? nums2 : nums1;
         int len = longs.length + shorts.length;
@@ -140,7 +142,7 @@ public class FindMedianSortedArrays {
     }
 
     // 第二种，两个数组有序的，数一遍就找到中位数，时间复杂度，次数m+n/2，时间复杂度O(n)
-    public static double findMedianLogarithm(int[] nums1, int[] nums2) {
+    public static double findMedianSortedArrays2(int[] nums1, int[] nums2) {
         int len = nums1.length + nums2.length;
         if (len == 0) {
             return 0;
