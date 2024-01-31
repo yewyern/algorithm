@@ -3,9 +3,7 @@ package data_structure.trie;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * <a href="https://leetcode.cn/problems/word-search-ii">212. 单词搜索 II</a>
@@ -21,22 +19,21 @@ public class WordSearchInMatrix2Test {
     }
     String[] words;
     Trie trie;
-    Set<String> set;
+    List<String> list;
     int m;
     int n;
     public List<String> findWords(char[][] board, String[] words) {
         this.words = words;
-        set = new HashSet<>();
+        list = new ArrayList<>();
         trie = initTrie(words);
         m = board.length;
         n = board[0].length;
-        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                dfs(board, trie.root, i, j, sb);
+                dfs(board, trie.root, i, j);
             }
         }
-        return new ArrayList<>(set);
+        return list;
     }
 
     private Trie initTrie(String[] words) {
@@ -47,8 +44,8 @@ public class WordSearchInMatrix2Test {
         return trie;
     }
 
-    private void dfs(char[][] board, Node curr, int i, int j, StringBuilder sb) {
-        if (set.size() == words.length) {
+    private void dfs(char[][] board, Node curr, int i, int j) {
+        if (list.size() == words.length) {
             return;
         }
         if (i < 0 || i >= m || j < 0 || j >= n || board[i][j] == ' ') {
@@ -59,19 +56,17 @@ public class WordSearchInMatrix2Test {
         if (next == null) {
             return;
         }
-        sb.append(c);
         board[i][j] = ' ';
         if (next.isEnd) {
-            String word = sb.toString();
+            String word = next.word;
             trie.delete(word);
-            set.add(word);
+            list.add(word);
         }
-        dfs(board, next, i + 1, j, sb);
-        dfs(board, next, i - 1, j, sb);
-        dfs(board, next, i, j + 1, sb);
-        dfs(board, next, i, j - 1, sb);
+        dfs(board, next, i + 1, j);
+        dfs(board, next, i - 1, j);
+        dfs(board, next, i, j + 1);
+        dfs(board, next, i, j - 1);
         board[i][j] = c;
-        sb.deleteCharAt(sb.length() - 1);
     }
 
     private class Trie {
@@ -90,6 +85,7 @@ public class WordSearchInMatrix2Test {
             }
             curr.count++;
             curr.isEnd = true;
+            curr.word = word;
         }
 
         public Node next(Node node, char c) {
@@ -115,6 +111,7 @@ public class WordSearchInMatrix2Test {
         Node[] children = new Node[26];
         boolean isEnd;
         int count = 0;
+        String word;
     }
 
     public List<String> findWords2(char[][] board, String[] words) {
