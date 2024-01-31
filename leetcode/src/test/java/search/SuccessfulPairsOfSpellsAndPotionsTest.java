@@ -14,10 +14,34 @@ public class SuccessfulPairsOfSpellsAndPotionsTest {
 
     @Test
     public void test() {
-        System.out.println(Arrays.toString(successfulPairs(new int[]{5, 1, 3}, new int[]{1, 2, 3, 4, 5}, 7)));
+        System.out.println(Arrays.toString(successfulPairs(new int[]{3,1,2}, new int[]{8,5,8}, 16)));
     }
 
     public int[] successfulPairs(int[] spells, int[] potions, long success) {
+        int max = 0;
+        for (int spell : spells) {
+            max = Math.max(max, spell);
+        }
+        // 对药水计算需要的咒语强度，进行计数排序
+        int[] helper = new int[max + 1];
+        for (int potion : potions) {
+            long successfulSpell = (success + potion - 1) / potion;
+            if (successfulSpell <= max) {
+                helper[(int) successfulSpell]++;
+            }
+        }
+        for (int i = 1; i <= max; i++) {
+            helper[i] += helper[i - 1];
+        }
+        int n = spells.length;
+        int[] res = new int[n];
+        for (int i = 0; i < n; i++) {
+            res[i] = helper[spells[i]];
+        }
+        return res;
+    }
+
+    public int[] successfulPairs1(int[] spells, int[] potions, long success) {
         Arrays.sort(potions);
         int n = spells.length;
         int[] res = new int[n];
