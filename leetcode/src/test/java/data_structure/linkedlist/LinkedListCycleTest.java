@@ -30,19 +30,6 @@ import java.util.Set;
  */
 public class LinkedListCycleTest {
 
-    public boolean hasCycleWithSet(ListNode head) {
-        Set<ListNode> nodesSeen = new HashSet<>();
-        while (head != null) {
-            if (nodesSeen.contains(head)) {
-                return true;
-            } else {
-                nodesSeen.add(head);
-            }
-            head = head.next;
-        }
-        return false;
-    }
-
     public boolean hasCycle(ListNode head) {
         if (head == null || head.next == null) {
             return false;
@@ -57,6 +44,19 @@ public class LinkedListCycleTest {
             fast = fast.next.next;
         } while (fast != slow);
         return true;
+    }
+
+    public boolean hasCycleWithSet(ListNode head) {
+        Set<ListNode> nodesSeen = new HashSet<>();
+        while (head != null) {
+            if (nodesSeen.contains(head)) {
+                return true;
+            } else {
+                nodesSeen.add(head);
+            }
+            head = head.next;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
