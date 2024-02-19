@@ -1,8 +1,9 @@
 package data_structure.linkedlist;
 
+import utils.ListNode;
+
 import java.util.HashSet;
 import java.util.Set;
-import utils.ListNode;
 
 /**
  * <a href="https://leetcode.cn/problems/linked-list-cycle/">141. 环形链表</a>
@@ -47,14 +48,14 @@ public class LinkedListCycleTest {
             return false;
         }
         ListNode fast = head;
-        ListNode slow = head.next;
-        while (fast != slow) {
+        ListNode slow = head;
+        do {
             if (fast == null || fast.next == null) {
                 return false;
             }
             slow = slow.next;
             fast = fast.next.next;
-        }
+        } while (fast != slow);
         return true;
     }
 
