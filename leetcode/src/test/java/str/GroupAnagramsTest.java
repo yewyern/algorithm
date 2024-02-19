@@ -1,8 +1,6 @@
 package str;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
@@ -40,10 +38,37 @@ import org.junit.Test;
 public class GroupAnagramsTest {
 
     public List<List<String>> groupAnagrams(String[] strs) {
-        return new ArrayList<>(Arrays.stream(strs).collect(Collectors.groupingBy(this::calc)).values());
+        if (strs == null) {
+            return new ArrayList<>();
+        }
+        Map<Integer, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            int hash = calc(str);
+            map.computeIfAbsent(hash, k -> new ArrayList<>()).add(str);
+        }
+        return new ArrayList<>(map.values());
     }
 
-    private String calc(String s) {
+    private static int calc(String str) {
+        if (str == null || str.isEmpty()) {
+            return 0;
+        }
+        int[] count = new int[26]; // 假设只包含小写字母
+        for (char c : str.toCharArray()) {
+            count[c - 'a']++;
+        }
+        int hash = 0;
+        for (int i : count) {
+            hash = 31 * hash + i;
+        }
+        return hash;
+    }
+
+    public List<List<String>> groupAnagrams1(String[] strs) {
+        return new ArrayList<>(Arrays.stream(strs).collect(Collectors.groupingBy(this::calc1)).values());
+    }
+
+    private String calc1(String s) {
         char[] chars = s.toCharArray();
         Arrays.sort(chars);
         return new String(chars);
