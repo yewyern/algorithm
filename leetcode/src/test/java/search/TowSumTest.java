@@ -2,6 +2,7 @@ package search;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <a href="https://leetcode.cn/problems/two-sum">1. 两数之和</a>
@@ -15,15 +16,14 @@ import java.util.HashMap;
 public class TowSumTest {
 
     public static int[] twoSum(int[] nums, int target) {
-        HashMap<Integer, Integer> map = new HashMap<>(nums.length);
-        for (int i = 0; i < nums.length; i++) {
-            map.put(nums[i], i);
-        }
-        for (int i = 0; i < nums.length - 1; i++) {
+        int n = nums.length;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
             int diff = target - nums[i];
-            if (map.containsKey(diff) && map.get(diff) != i) {
+            if (map.containsKey(diff)) {
                 return new int[]{i, map.get(diff)};
             }
+            map.put(nums[i], i);
         }
         return null;
     }
