@@ -17,11 +17,11 @@ public class TotalNQueensTest {
 
     public int totalNQueens(int n) {
         int[] placed = new int[n];
-        long placedCols = 0;
+        int placedCols = 0;
         return dfs(placed, placedCols, n, 0);
     }
 
-    private int dfs(int[] placed, long placedCols, int n, int row) {
+    private int dfs(int[] placed, int placedCols, int n, int row) {
         if (row == n) {
             return 1;
         }
@@ -32,16 +32,16 @@ public class TotalNQueensTest {
                 continue;
             }
             placed[row] = i;
-            placedCols |= 1L << i;
+            placedCols |= 1 << i;
             count += dfs(placed, placedCols, n, row + 1);
-            placedCols ^= 1L << i;
+            placedCols ^= 1 << i;
         }
         return count;
     }
 
-    private boolean isValidPlace(int[] placed, long placedCols, int row, int col) {
+    private boolean isValidPlace(int[] placed, int placedCols, int row, int col) {
         // 判断列是否已经放置过
-        if ((placedCols | (1L << col)) == placedCols) {
+        if ((placedCols | (1 << col)) == placedCols) {
             return false;
         }
         // 判断斜线上是否放置过

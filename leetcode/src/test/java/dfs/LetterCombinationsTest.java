@@ -1,4 +1,4 @@
-package normal;
+package dfs;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Test;
 
 /**
+ * <a href="https://leetcode.cn/problems/letter-combinations-of-a-phone-number">17. 电话号码的字母组合</a>
  * @author zhou.xu
  * @since 2020/9/22 16:52
  */

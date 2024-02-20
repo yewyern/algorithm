@@ -52,46 +52,89 @@ import java.util.Arrays;
 public class InsertIntervalTest {
 
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        // todo 二分法查找，再插入
+        // 二分法查找，再插入
         int N = intervals.length;
         if (N == 0) {
             return new int[][]{newInterval};
         }
-        int n = N << 1;
-        int[] insertIndex0 = getInsertIndex(intervals, newInterval[0], 0, n);
-        int[] insertIndex1 = getInsertIndex(intervals, newInterval[1], insertIndex0[0], n);
-        System.out.println("insertIndex0 = " + Arrays.toString(insertIndex0));
-        System.out.println("insertIndex1 = " + Arrays.toString(insertIndex1));
-        int[][] res = new int[N + 1][];
-//        int size = (insertIndex0 & 1) == 0 ? insertIndex0 >> 1 : (insertIndex0 >> 1) + 1;
-//        System.arraycopy(intervals, 0, res, 0, size);
-
+        if (newInterval[0] > intervals[N - 1][1]) {
+            return insert(intervals, newInterval, N);
+        }
+        if (newInterval[1] < intervals[0][0]) {
+            return insert(intervals, newInterval, 0);
+        }
+        int insertStartIndex = getInsertIndex(intervals, newInterval[0], 0, N, 1);// 二分法查找开始插入位置（该位置如果和插入位置的区间重叠，则与该位置合并）
+        int insertEndIndex = getInsertIndex(intervals, newInterval[1], insertStartIndex, N, 0); // 二分法查找结束插入位置（该位置如果和插入位置的区间重叠，则与该位置合并）
+        if (insertStartIndex == insertEndIndex) {
+            // 区间重叠
+            if (intervals[insertEndIndex][0] == newInterval[1]) {
+                intervals[insertEndIndex][0] = newInterval[0];
+                return intervals;
+            }
+            return insert(intervals, newInterval, insertStartIndex);
+        }
+        if (insertEndIndex == N) {
+            int[][] res = new int[insertStartIndex + 1][2];
+            System.arraycopy(intervals, 0, res, 0, insertStartIndex);
+            res[insertStartIndex][0] = Math.min(intervals[insertStartIndex][0], newInterval[0]);
+            res[insertStartIndex][1] = Math.max(intervals[insertEndIndex - 1][1], newInterval[1]);
+            return res;
+        }
+        if (intervals[insertEndIndex][0] == newInterval[1]) {
+            int[][] res = new int[N - insertEndIndex + insertStartIndex][2];
+            System.arraycopy(intervals, 0, res, 0, insertStartIndex);
+            res[insertStartIndex][0] = Math.min(intervals[insertStartIndex][0], newInterval[0]);
+            res[insertStartIndex][1] = intervals[insertEndIndex][1];
+            System.arraycopy(intervals, insertEndIndex + 1, res, insertStartIndex + 1, N - insertEndIndex - 1);
+            return res;
+        }
+        int[][] res = new int[N - insertEndIndex + insertStartIndex + 1][2];
+        System.arraycopy(intervals, 0, res, 0, insertStartIndex + 1);
+        res[insertStartIndex][0] = Math.min(intervals[insertStartIndex][0], newInterval[0]);
+        res[insertStartIndex][1] = Math.max(intervals[insertEndIndex - 1][1], newInterval[1]);
+        System.arraycopy(intervals, insertEndIndex, res, insertStartIndex + 1, N - insertEndIndex);
         return res;
     }
 
-    private int[] merge(int[] a, int[] b) {
-        return new int[] {Math.min(a[0], b[0]), Math.max(a[1], b[1])};
+    private int[][] insert(int[][] intervals, int[] newInterval, int i) {
+        int N = intervals.length;
+        if (N == 0) {
+            return new int[][]{newInterval};
+        }
+        int[][] res = new int[N + 1][];
+        System.arraycopy(intervals, 0, res, 0, i);
+        res[i] = newInterval;
+        if (i < N) {
+            System.arraycopy(intervals, i, res, i + 1, N - i);
+        }
+        return res;
     }
 
-    public int[] getInsertIndex(int[][] intervals, int num, int start, int end) {
-        while (start < end) {
-            int mid = (start + end) >> 1;
-            int a = intervals[mid >> 1][mid & 1];
+    public int getInsertIndex(int[][] intervals, int num, int l, int r, int i) {
+        while (l < r) {
+            int m = (l + r) >> 1;
+            int a = intervals[m][i];
             if (a == num) {
-                return new int[] {mid, 1};
+                return m;
             } else if (a > num) {
-                end = mid - 1;
+                r = m;
             } else {
-                start = mid + 1;
+                l = m + 1;
             }
         }
-        return new int[] {start, 0};
+        return l;
     }
 
     public int[][] insert2(int[][] intervals, int[] newInterval) {
         int N = intervals.length;
         if (N == 0) {
             return new int[][]{newInterval};
+        }
+        if (newInterval[0] > intervals[N - 1][1]) {
+            return insert(intervals, newInterval, N);
+        }
+        if (newInterval[1] < intervals[0][0]) {
+            return insert(intervals, newInterval, 0);
         }
         int[][] res = new int[N + 1][];
         int size = 0, cur = 0;
@@ -128,10 +171,14 @@ public class InsertIntervalTest {
                 System.out.println("intervals = " + Arrays.deepToString(intervals) + ", newInterval = " + Arrays.toString(newInterval));
                 System.out.println("res1 = " + Arrays.deepToString(res1));
                 System.out.println("res2 = " + Arrays.deepToString(res2));
+                int[][] res3 = insert(intervals, newInterval);
+                int[][] res4 = insert2(intervals2, newInterval);
+                System.out.println("res3 = " + Arrays.deepToString(res3));
+                System.out.println("res4 = " + Arrays.deepToString(res4));
                 break;
             }
         }
-        int[][] insert = insert(new int[][]{{1, 2}, {6, 9}}, new int[]{3, 5});
+        int[][] insert = insert(new int[][]{{297, 510}}, new int[]{113, 510});
         System.out.println("insert = " + Arrays.deepToString(insert));
     }
 
