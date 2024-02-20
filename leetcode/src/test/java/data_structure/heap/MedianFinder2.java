@@ -42,6 +42,7 @@ public class MedianFinder2 {
 
 
     /**
+     * 120ms解法
      * initialize your data structure here.
      */
     public MedianFinder2() {

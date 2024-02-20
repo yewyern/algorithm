@@ -43,6 +43,7 @@ public class MedianFinder4 {
     private boolean even = true; // 是否是偶数长度
 
     /**
+     * 144ms解法
      * initialize your data structure here.
      */
     public MedianFinder4() {

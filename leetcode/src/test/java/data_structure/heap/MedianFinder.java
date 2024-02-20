@@ -41,6 +41,7 @@ public class MedianFinder {
     private int size;
 
     /**
+     * 300ms解法
      * initialize your data structure here.
      */
     public MedianFinder() {
