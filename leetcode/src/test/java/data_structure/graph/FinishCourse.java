@@ -1,9 +1,7 @@
 package data_structure.graph;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 import java.util.stream.Collectors;
 import org.junit.Test;
 
@@ -37,12 +35,61 @@ import org.junit.Test;
  */
 public class FinishCourse {
 
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        if (numCourses == 0 || prerequisites.length == 0) {
+            return true;
+        }
+        Node[] nodes = new Node[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            nodes[i] = new Node();
+        }
+        for (int[] prerequisite : prerequisites) {
+            Node from = nodes[prerequisite[1]];
+            Node to = nodes[prerequisite[0]];
+            from.edges.add(new Edge(from, to));
+            to.in++;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (nodes[i].in == 0) {
+                queue.add(nodes[i]);
+            }
+        }
+        int count = 0;
+        while (!queue.isEmpty()) {
+            Node node = queue.poll();
+            count++;
+            for (Edge edge : node.edges) {
+                Node to = edge.to;
+                to.in--;
+                if (to.in == 0) {
+                    queue.add(to);
+                }
+            }
+        }
+        return count == numCourses;
+    }
+
+    private class Node {
+        int in;
+        List<Edge> edges = new ArrayList<>();
+    }
+
+    private class Edge {
+        Node from;
+        Node to;
+
+        public Edge(Node from, Node to) {
+            this.from = from;
+            this.to = to;
+        }
+    }
+
     private Map<Integer, Set<Integer>> map;
 
     int[] visited;
 
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        // todo
+    public boolean canFinish1(int numCourses, int[][] prerequisites) {
         visited = new int[numCourses];
         map = Arrays.stream(prerequisites).parallel()
             .collect(Collectors.groupingBy(nums -> nums[0], Collectors.mapping(nums -> nums[1], Collectors.toSet())));
