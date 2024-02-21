@@ -31,10 +31,10 @@ class MergeTwoArray {
         System.out.println("nums1 = " + ArrayUtils.toString(nums1));
     }
 
-    public void merge(int[] nums1, int m, int[] nums2, int n) {
+    public void merge2(int[] nums1, int m, int[] nums2, int n) {
         int index = m + n - 1;
-        m = m - 1;
-        n = n - 1;
+        m--;
+        n--;
         while (m >= 0 && n >= 0) {
             if (nums1[m] > nums2[n]) {
                 nums1[index--] = nums1[m--];
@@ -45,5 +45,22 @@ class MergeTwoArray {
         while (n >= 0) {
             nums1[index--] = nums2[n--];
         }
+    }
+
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        if (n == 0) {
+            return;
+        }
+        if (m == 0) {
+            System.arraycopy(nums2, 0, nums1, 0, n);
+            return;
+        }
+        int i = m + n - 1;
+        if (nums1[m - 1] > nums2[n - 1]) {
+            nums1[i] = nums1[--m];
+        } else {
+            nums1[i] = nums2[--n];
+        }
+        merge(nums1, m, nums2, n);
     }
 }
