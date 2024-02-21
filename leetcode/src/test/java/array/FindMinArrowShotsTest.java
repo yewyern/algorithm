@@ -7,6 +7,7 @@ import java.util.Comparator;
 
 /**
  * <a href="https://leetcode.cn/problems/minimum-number-of-arrows-to-burst-balloons">452. 用最少数量的箭引爆气球</a>
+ *
  * @author xuzhou
  * @since 2024/2/21 9:54
  */
@@ -15,38 +16,62 @@ public class FindMinArrowShotsTest {
     @Test
     public void test() {
         // [[-2147483646,-2147483645],[2147483646,2147483647]]
-        int[][] points = new int[][]{{-2147483646,-2147483645},{2147483646,2147483647}};
+        int[][] points = new int[][]{{-2147483646, -2147483645}, {2147483646, 2147483647}};
         System.out.println(findMinArrowShots(points));
     }
 
     public int findMinArrowShots(int[][] points) {
+        if (points.length <= 1) {
+            return points.length;
+        }
+        quickSort(points, 0, points.length - 1);
+        int result = 1;
+        int preEnd = points[0][1];
+        for (int i = 1; i < points.length; i++) {
+            if (points[i][0] > preEnd) {
+                result++;
+                preEnd = points[i][1];
+            } else if (points[i][1] < preEnd) {
+                preEnd = points[i][1];
+            }
+        }
+        return result;
+    }
+
+    private static void quickSort(int[][] points, int left, int right) {
+        if (left < right) {
+            int l = left - 1, r = right + 1, base = points[left + right >> 1][0];
+            while (l < r) {
+                while (points[++l][0] < base) ;
+                while (points[--r][0] > base) ;
+                if (l < r) {
+                    int[] temp = points[l];
+                    points[l] = points[r];
+                    points[r] = temp;
+                }
+            }
+            quickSort(points, left, r);
+            quickSort(points, r + 1, right);
+        }
+    }
+
+    public int findMinArrowShots2(int[][] points) {
         int n = points.length;
         if (n < 2) {
             return n;
         }
-        Arrays.sort(points, this::compare);
-        int start = points[0][0], end = points[0][1];
+        Arrays.sort(points, Comparator.comparing(i -> i[0]));
+        int end = points[0][1];
         int count = 1;
         for (int[] point : points) {
-            int left = point[0];
-            int right = point[1];
-            if (left > end) {
-                start = left;
-                end = right;
+            if (point[0] > end) {
+                end = point[1];
                 count++;
             } else {
-                start = Math.max(start, left);
-                end = Math.min(end, right);
+                end = Math.min(end, point[1]);
             }
         }
         return count;
-    }
-
-    private int compare(int[] p1, int[] p2) {
-        if (p1[1] == p2[1]) {
-            return p1[0] <= p2[0] ? -1 : 1;
-        }
-        return p1[1] <= p2[1] ? -1 : 1;
     }
 
     public int findMinArrowShots1(int[][] points) {
