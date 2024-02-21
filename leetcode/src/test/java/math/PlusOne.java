@@ -1,4 +1,4 @@
-package easy;
+package math;
 
 import java.util.function.Supplier;
 import utils.TestUtils;
@@ -6,6 +6,7 @@ import utils.TestUtils;
 class PlusOne {
 
     /**
+     * <a href="https://leetcode.cn/problems/plus-one/">66. 加一</a>
      * <p>给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。
      * <p>最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。
      * <p>你可以假设除了整数 0 之外，这个整数不会以零开头。

@@ -1,4 +1,4 @@
-package normal;
+package math;
 
 import org.junit.Test;
 
