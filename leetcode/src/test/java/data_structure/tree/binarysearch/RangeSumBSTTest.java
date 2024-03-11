@@ -14,6 +14,7 @@ public class RangeSumBSTTest {
             return 0;
         }
         int ans = 0;
+        // 二叉搜索树是有序的，可以直接缩减范围
         if (root.val < low) {
             ans += rangeSumBST(root.right, low, high);
         } else if (root.val > high) {
