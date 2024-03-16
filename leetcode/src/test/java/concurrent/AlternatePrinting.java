@@ -7,7 +7,7 @@ import org.junit.Test;
  * 交替打印1A2B3C
  *
  * @author zhou.xu
- * @date 2020/9/25 9:41
+ * @since 2020/9/25 9:41
  */
 public class AlternatePrinting {
 

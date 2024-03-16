@@ -1,8 +1,8 @@
 package normal;
 
 import org.junit.Test;
-import utils.ArrayUtils;
 import utils.ListNode;
+import utils.ListUtils;
 
 /**
  * 两两交换链表中的节点
@@ -18,7 +18,7 @@ import utils.ListNode;
  * <p>
  *
  * @author zhou.xu
- * @date 2020/9/27 9:11
+ * @since 2020/9/27 9:11
  */
 public class SwapPairsTest {
 
@@ -39,7 +39,7 @@ public class SwapPairsTest {
     }
 
     public void test(int... nums) {
-        ListNode head = ArrayUtils.toListNodes(nums);
+        ListNode head = ListUtils.toListNodes(nums);
         ListNode node = swapPairs(head);
         System.out.println("node = " + node);
     }

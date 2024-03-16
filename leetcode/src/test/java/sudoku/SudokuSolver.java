@@ -7,7 +7,7 @@ import java.util.concurrent.locks.LockSupport;
 
 /**
  * @author zhou.xu
- * @date 2020/9/27 17:32
+ * @since 2020/9/27 17:32
  */
 public class SudokuSolver implements Runnable {
 
@@ -23,7 +23,7 @@ public class SudokuSolver implements Runnable {
     private final Stack<int[]> stack = new Stack<>();
     private boolean forward = true;
     private SudokuBean[][] ground;
-    private long sleepInterval = 1000;
+    private final long sleepInterval = 100;
 
     @Override
     public void run() {
@@ -59,8 +59,11 @@ public class SudokuSolver implements Runnable {
         this.stop = stop;
     }
 
-    public void setPause(boolean pause) {
-        this.pause = pause;
+    public synchronized void setPause(Thread t) {
+        this.pause = !pause;
+        if (!pause) {
+            LockSupport.unpark(t);
+        }
     }
 
     public void addSpace(int x, int y, int digit, int type, int mask) {

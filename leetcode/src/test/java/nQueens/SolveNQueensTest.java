@@ -1,72 +1,88 @@
 package nQueens;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
- * @author zhou.xu
- * @date 2020/11/12 17:33
+ * <a href="https://leetcode.cn/problems/n-queens/">51. N 皇后</a>
+ * <p>
+ * 按照国际象棋的规则，皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子。
+ * <p>
+ * n 皇后问题 研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。
+ * <p>
+ * 给你一个整数 n ，返回所有不同的 n 皇后问题 的解决方案。
+ * <p>
+ * 每一种解法包含一个不同的 n 皇后问题 的棋子放置方案，该方案中 'Q' 和 '.' 分别代表了皇后和空位。
+ *
+ * @author xuzhou
+ * @since 2023/6/1 16:52
  */
 public class SolveNQueensTest {
 
-    private char[][] board;
-    private List<List<String>> ans;
-    private long places;
-
     public List<List<String>> solveNQueens(int n) {
-        if (n < 1 || n == 2) {
-            return Collections.emptyList();
+        List<List<String>> res = new ArrayList<>();
+        // 回溯算法求N皇后问题
+        // 1、定义棋盘
+        char[][] board = new char[n][n];
+        for (char[] cs : board) {
+            Arrays.fill(cs, '.');
         }
-        if (n == 1) {
-            return Collections.singletonList(Collections.singletonList("Q"));
-        }
-        board = new char[n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                board[i][j] = '.';
-            }
-        }
-        ans = new ArrayList<>();
-        places = (1L << n) - 1;
-        dfs(n, 0);
-        return ans;
+        // 2、回溯求解
+        int[] placed = new int[n];
+        dfs(res, board, placed, n, 0);
+        return res;
     }
 
-    private void dfs(int n, int row) {
-        // 001000
-        // 001000
+    private void dfs(List<List<String>> res, char[][] board, int[] placed, int n, int row) {
+        if (row == n) {
+            // 达到第n行
+            res.add(toResult(board));
+            return;
+        }
         for (int i = 0; i < n; i++) {
-            if (((1L << i) & places) > 0) {
-                // 当前位置没放过
-                places ^= 1L << i;
-                board[row][i] = 'Q';
-                if (row == n - 1) {
-                    ans.add(Arrays.stream(board).map(String::valueOf).collect(Collectors.toList()));
-                } else {
-                    dfs(n, row + 1);
-                }
-                // 状态回溯
-                board[row][i] = '.';
-                places ^= 1L << i;
+            if (!isValidPlace(placed, row, i)) {
+                continue;
             }
+            // 放置皇后
+            placed[row] = i;
+            board[row][i] = 'Q';
+            dfs(res, board, placed, n, row + 1);
+            // 状态回滚
+            board[row][i] = '.';
         }
     }
 
-    public void test(int n) {
-        List<List<String>> res = solveNQueens(n);
-        res.forEach(a -> {
-            System.out.println("[");
-            a.forEach(System.out::println);
-            System.out.println("]");
-        });
+    private List<String> toResult(char[][] board) {
+        List<String> list = new ArrayList<>(board.length);
+        for (char[] chars : board) {
+            list.add(String.valueOf(chars));
+        }
+        return list;
+    }
+
+    private boolean isValidPlace(int[] placed, int row, int col) {
+        for (int i = 0; i < row; i++) {
+            // 1、判断是否在同一列
+            if (placed[i] == col) {
+                return false;
+            }
+            // 2、判断是否在斜线上是否存在重叠
+            // 1,1 2,2
+            // 2,2 1,3
+            if (row - i == Math.abs(col - placed[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Test
     public void test() {
-        test(4);
+        List<List<String>> lists = solveNQueens(4);
+        System.out.println("lists = " + lists);
     }
+
 }

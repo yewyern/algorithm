@@ -22,7 +22,7 @@ import org.junit.Test;
  * 输出: 299
  *
  * @author zhou.xu
- * @date 2020/12/2 16:11
+ * @since 2020/12/2 16:11
  */
 public class MonotoneIncreasingDigits {
 

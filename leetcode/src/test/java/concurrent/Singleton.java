@@ -7,12 +7,12 @@ import org.junit.Test;
 
 /**
  * @author zhou.xu
- * @date 2020/9/25 10:03
+ * @since 2020/9/25 10:03
  */
 public class Singleton {
 
     private static Singleton INSTANCE = null;
-    private Executor executor = Executors.newFixedThreadPool(100);
+    private final Executor executor = Executors.newFixedThreadPool(100);
 
     public static Singleton getInstance() {
         if (INSTANCE == null) {

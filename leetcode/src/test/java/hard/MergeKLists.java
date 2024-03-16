@@ -3,10 +3,11 @@ package hard;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import org.junit.Test;
-import utils.ArrayUtils;
 import utils.ListNode;
+import utils.ListUtils;
 
 /**
+ * <a href="https://leetcode.cn/problems/merge-k-sorted-lists">23. 合并 K 个升序链表</a>
  * <p>给你一个链表数组，每个链表都已经按升序排列。
  * <p>
  * <p>请你将所有链表合并到一个升序链表中，返回合并后的链表。
@@ -34,9 +35,53 @@ import utils.ListNode;
  * <p>
  *
  * @author zhou.xu
- * @date 2020/10/22 17:59
+ * @since 2020/10/22 17:59
  */
 public class MergeKLists {
+
+    /**
+     * 归并排序
+     *
+     * @param lists
+     * @return
+     */
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) {
+            return null;
+        }
+        return partition(lists, 0, lists.length - 1);
+    }
+
+    private ListNode partition(ListNode[] lists, int l, int r) {
+        if (r == l) {
+            return lists[l];
+        }
+        if (r == l + 1) {
+            return merge(lists[l], lists[r]);
+        }
+        int m = (l + r) >> 1;
+        return merge(partition(lists, l, m), partition(lists, m + 1, r));
+    }
+
+    /**
+     * 递归合并
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    public ListNode merge(ListNode a, ListNode b) {
+        if (a == null || b == null) {
+            return a != null ? a : b;
+        }
+        if (a.val < b.val) {
+            a.next = merge(a.next, b);
+            return a;
+        } else {
+            b.next = merge(a, b.next);
+            return b;
+        }
+    }
 
     /**
      * 优先队列，入队排序，
@@ -44,7 +89,7 @@ public class MergeKLists {
      * @param lists
      * @return
      */
-    public ListNode mergeKLists(ListNode[] lists) {
+    public ListNode mergeKLists0(ListNode[] lists) {
         if (lists == null || lists.length == 0) {
             return null;
         }
@@ -113,26 +158,6 @@ public class MergeKLists {
     }
 
     /**
-     * 递归合并
-     *
-     * @param a
-     * @param b
-     * @return
-     */
-    public ListNode mergeRecursive(ListNode a, ListNode b) {
-        if (a == null || b == null) {
-            return a != null ? a : b;
-        }
-        if (a.val < b.val) {
-            a.next = mergeRecursive(a.next, b);
-            return a;
-        } else {
-            b.next = mergeRecursive(a, b.next);
-            return b;
-        }
-    }
-
-    /**
      * <p> 对数组循环，查找最小的一个
      * <p> 时间复杂度为数组长度*最大链表长度，即m*n,O(n^2)
      *
@@ -181,7 +206,7 @@ public class MergeKLists {
         ListNode[] nodes = new ListNode[length];
         for (int i = 0; i < length; i++) {
             int[] num = nums[i];
-            ListNode node = ArrayUtils.toListNodes(num);
+            ListNode node = ListUtils.toListNodes(num);
             nodes[i] = node;
         }
         ListNode listNode = mergeKLists(nodes);

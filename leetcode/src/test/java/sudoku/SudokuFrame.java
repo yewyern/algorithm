@@ -4,15 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.util.concurrent.locks.LockSupport;
+import javax.swing.AbstractAction;
 import javax.swing.Box;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UnsupportedLookAndFeelException;
 import utils.Console;
 
 /**
  * @author zhou.xu
- * @date 2020/9/27 14:11
+ * @since 2020/9/27 14:11
  */
 public class SudokuFrame extends JFrame {
 
@@ -22,6 +26,14 @@ public class SudokuFrame extends JFrame {
     private Thread solverThread = null;
 
     public void init() {
+        JButton start = new JButton(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                solver.setPause(solverThread);
+            }
+        });
+        start.setText("start");
+
         Container cp = getContentPane();
         Box hb = Box.createHorizontalBox();
         // 横向的箱子，布局的一种形式，放到箱子中的每个组件以横向排列的方式组成
@@ -32,6 +44,8 @@ public class SudokuFrame extends JFrame {
 
         Box vb = Box.createVerticalBox();
         // 纵向的箱子，布局的一种形式，放到箱子中的每个组件以纵向排列的方式组成
+        vb.add(Box.createRigidArea(new Dimension(20, 10)));
+        vb.add(start);
         vb.add(Box.createRigidArea(new Dimension(20, 10)));
         vb.add(hb);
         vb.add(Box.createRigidArea(new Dimension(20, 10)));
@@ -66,13 +80,14 @@ public class SudokuFrame extends JFrame {
             }
         }
         LockSupport.unpark(solverThread);
-        solver.setPause(false);
+        solver.setPause(solverThread);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedLookAndFeelException {
         SudokuFrame sudoku = new SudokuFrame();
         sudoku.init();
-        sudoku.start("..9748...", "7........", ".2.1.9...", "..7...24.", ".64.1.59.", ".98...3..", "...8.3.2.",
+        sudoku.start("..9748...", "7........", ".2.1.9...", "..7...24.", ".64.1.59.", ".98...3..",
+            "...8.3.2.",
             "........6", "...2759..");
         Console.run(sudoku, 500, 500);
     }

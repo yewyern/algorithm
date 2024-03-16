@@ -5,11 +5,11 @@ import org.junit.Test;
 
 /**
  * @author zhou.xu
- * @date 2020/8/14 17:51
+ * @since 2020/8/14 17:51
  */
 public class MyAtoiTest {
 
-    private MyAtoi instance = new MyAtoi();
+    private final MyAtoi instance = new MyAtoi();
 
     @Test
     public void testMyAtoi() {

@@ -9,7 +9,7 @@ import org.junit.Test;
 
 /**
  * @author zhou.xu
- * @date 2020/10/22 10:11
+ * @since 2020/10/22 10:11
  */
 public class PartitionLabels {
 
